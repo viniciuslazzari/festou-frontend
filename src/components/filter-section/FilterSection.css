@@ -1,0 +1,16 @@
+.filter-content {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #323639;
+    width: 400px;
+    border-radius: 10px;
+    position: sticky;
+    top: 100px;
+    padding: 30px;
+}
+
+.filter-title {
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+}
