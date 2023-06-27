@@ -1,0 +1,23 @@
+.overlay {
+    opacity: 1;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+}
+
+.popup {
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    margin-top: -200px;
+    margin-left: -200px;
+    border-radius: 20px;
+    padding: 40px;
+    background-color: #1A1C1F;
+}

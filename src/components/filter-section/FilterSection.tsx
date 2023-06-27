@@ -6,7 +6,7 @@ const FilterSection = () => {
     <div className="filter">
       <div className="filter-content">      
         <p className="filter-title">Filters</p>
-        <Button text="Aplly filters" backgroundColor="white" color="black" width="100%"/>
+        <Button onClick={() => {}} text="Aplly filters" backgroundColor="white" color="black" width="100%"/>
       </div>
     </div>
   )

@@ -11,7 +11,6 @@
     background: rgba(26, 28, 31, 0.94);
     backdrop-filter: blur(5.7px);
     -webkit-backdrop-filter: blur(5.7px);
-    border: 1px solid rgba(26, 28, 31, 1);
 }
 
 .logo {

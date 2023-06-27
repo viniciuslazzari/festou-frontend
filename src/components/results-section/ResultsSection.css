@@ -51,16 +51,28 @@
     font-weight: 500;
 }
 
-.title {
+.first-info {
+    display: flex;
+    flex-direction: row;
     color: white;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    max-width: 100%;
     font-size: 15px;
     line-height: 22px;
     font-weight: 700;
     margin-top: 20px;
+}
+
+.title {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 70%;
+}
+
+.right-title-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    width: 30%;
+    color: #767676;
 }
 
 .location {

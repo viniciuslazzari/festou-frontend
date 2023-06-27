@@ -31,13 +31,13 @@
     color: #767676;
 }
 
-input {
+.search-input {
     width: 100%;
     background-color: transparent;
     color: #D2D2D2;
     font-weight: 700;
 }
 
-input::placeholder{
+.search-input::placeholder{
     color: #767676;
 }

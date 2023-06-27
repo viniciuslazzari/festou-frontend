@@ -1,0 +1,41 @@
+
+.input-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 300px;
+  border-radius: 10px;
+  padding: 15px;
+  border: 1px solid transparent;
+  background-color: #222528;
+  font-size: 16px;
+  margin-bottom: 20px;
+  height: 40px;
+
+  &:hover {
+    border: 1px solid #323639;
+  }
+
+  &:focus-within {
+    border: 1px solid #323639;
+    background-color: transparent;
+  }
+}
+
+.input {
+  width: 100%;
+  margin-left: 20px;
+  background-color: transparent;
+  color: #D2D2D2;
+}
+
+.input-icon {
+  color: #767676;
+  font-size: 13px;
+}
+
+.input-label {
+  color: white;
+  margin-bottom: 10px;
+  font-size: 14px;
+}

@@ -5,7 +5,7 @@ const Search = () => {
   return (
     <div className="search">
       <FaSearch className="icon" />
-      <input type="text" placeholder="Search by name..."/>
+      <input className="search-input" type="text" placeholder="Search by name..."/>
     </div>
   )
 }

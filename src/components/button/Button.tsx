@@ -1,4 +1,3 @@
-import { IconType } from "react-icons"
 import "./Button.css"
 import { ReactNode } from "react"
 
@@ -8,13 +7,16 @@ interface IButton {
     color: string
     width: string
     icon?: ReactNode
+    onClick: () => any
+    marginTop?: string
 }
 
 const Button = (props: IButton) => {
   return (
     <div 
       className="button" 
-      style={{ width: props.width, backgroundColor: props.backgroundColor, color: props.color }}
+      onClick={() => props.onClick()}
+      style={{ marginTop: props.marginTop, width: props.width, backgroundColor: props.backgroundColor, color: props.color }}
     >
       <div style={{ marginRight: "10px", marginTop: "4px" }}>{props.icon}</div>
       <p>{props.text}</p>
