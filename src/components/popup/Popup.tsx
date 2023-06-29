@@ -1,5 +1,6 @@
 import { ReactNode, useCallback, useEffect, useState } from "react"
 import "./Popup.css"
+import { createPortal } from "react-dom"
 
 interface IPopup {
   visibility: boolean
@@ -20,11 +21,14 @@ const Popup = (props: IPopup) => {
   }, [props])
 
   return (
-    <div onClick={() => closePopup()} className="overlay" style={{ visibility: show ? "visible" : "hidden" }}>
-      <div onClick={(event) => {event.stopPropagation()}} className="popup">
-        {props.children}
-      </div>
-    </div>
+    createPortal(
+      <div onClick={() => closePopup()} className="overlay" style={{ visibility: show ? "visible" : "hidden" }}>
+        <div onClick={(event) => {event.stopPropagation()}} className="popup">
+          {props.children}
+        </div>
+      </div>,
+      document.body
+    )
   )
 }
 

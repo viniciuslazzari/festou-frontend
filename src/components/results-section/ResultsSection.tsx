@@ -1,11 +1,18 @@
 import { FaBowlingBall, FaBroom, FaStar, FaVolumeUp } from "react-icons/fa"
+import { useNavigate } from "react-router-dom";
 import "./ResultsSection.css"
 
 const ResultsSection = () => {
+  let navigate = useNavigate();
+
+  function handleSpaceClick() {
+    navigate("/space", { state: { id: 1 } });
+  }
+
   return (
     <div className="results">
       <div className="result-row">
-        <div className="result-item">
+        <div onClick={() => handleSpaceClick()} className="result-item">
           <img className="result-image" src="assets/1.jpg" alt="Result 1"/>
           <div className="result-content">
             <div className="first-info">

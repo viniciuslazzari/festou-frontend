@@ -1,0 +1,8 @@
+.labels-sector {
+    display: flex;
+    flex-direction: row;
+}
+
+.label-item {
+    color: white;
+}
