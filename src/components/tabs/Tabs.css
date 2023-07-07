@@ -1,8 +1,42 @@
+.tabs-wrapper {
+    width: 100%;
+}
+
 .labels-sector {
     display: flex;
     flex-direction: row;
+    margin-top: 40px;
+    justify-content: flex-start;
+    width: 100%;
+    border-bottom: 1px solid #323639;
 }
 
 .label-item {
+    vertical-align: middle;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #767676;
+    padding: 15px 0px;
+    border-bottom: 2px solid transparent;
+    margin-right: 30px;
+    transition: 0.3s;
+    align-items: center;
+
+    &:hover {
+        color: white;
+    }
+}
+
+.selected-label {
     color: white;
+    border-bottom: 2px solid white;
+}
+
+.tab-icon {
+    margin-right: 10px;
+}
+
+.tab-content {
+    margin: 20px 0px;
 }

@@ -1,5 +1,4 @@
-
-.input-wrapper {
+.select {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -12,6 +11,9 @@
   margin-bottom: 20px;
   height: 40px;
   transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+  color: #D2D2D2;
+  font-size: 13px;
+  cursor: pointer;
 
   &:hover {
     border: 1px solid #323639;
@@ -23,23 +25,22 @@
   }
 }
 
-.input {
+.select-options {
+  border-radius: 10px;
+  position: absolute;
+  background-color: #222528;
+  max-height: 100px;
+  overflow: scroll;
+}
+
+.select-option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   width: 100%;
-  background-color: transparent;
+  height: 10px;
+  padding: 20px;
+  cursor: pointer;
   color: #D2D2D2;
-}
-
-.input-icon {
-  color: #767676;
   font-size: 13px;
-}
-
-.input-label {
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-
-.element-wrapper {
-  flex: 1 1 0;
 }

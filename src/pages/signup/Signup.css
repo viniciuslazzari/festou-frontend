@@ -1,0 +1,31 @@
+.signup {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100vh;
+}
+
+.form-wrapper-signup {
+  width: 50%;
+  padding: 100px;
+}
+
+.picture-wrapper-signup {
+  width: 50%;
+  padding: 20px;
+}
+
+.picture-signup {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.divisory {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  gap: 20px;
+}

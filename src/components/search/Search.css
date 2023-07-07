@@ -7,9 +7,9 @@
     display: flex;
     flex-direction: row;
     overflow: hidden;
+    line-height: 1.15;
     border: 1px solid transparent;
     transition: all 300ms ease-in-out;
-    font-size: 13px;
 
     &:hover {
         border: 1px solid #323639;
@@ -26,8 +26,8 @@
     align-items: center;
     flex-direction: row;
     justify-content: center;
-    width: 10%;
-    margin-top: 12px;
+    width: 15%;
+    margin-top: 11px;
     color: #767676;
 }
 
@@ -36,6 +36,7 @@
     background-color: transparent;
     color: #D2D2D2;
     font-weight: 700;
+    font-size: 14px;
 }
 
 .search-input::placeholder{
