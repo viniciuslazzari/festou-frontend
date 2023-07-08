@@ -8,7 +8,8 @@
     margin-top: 40px;
     justify-content: flex-start;
     width: 100%;
-    border-bottom: 1px solid #323639;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
 }
 
 .label-item {
@@ -16,7 +17,6 @@
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    color: #767676;
     padding: 15px 0px;
     border-bottom: 2px solid transparent;
     margin-right: 30px;

@@ -11,7 +11,6 @@
   margin-bottom: 20px;
   height: 40px;
   transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
-  color: #D2D2D2;
   font-size: 13px;
   cursor: pointer;
 
@@ -28,7 +27,6 @@
 .select-options {
   border-radius: 10px;
   position: absolute;
-  background-color: #222528;
   max-height: 100px;
   overflow: scroll;
 }
@@ -41,6 +39,5 @@
   height: 10px;
   padding: 20px;
   cursor: pointer;
-  color: #D2D2D2;
   font-size: 13px;
 }

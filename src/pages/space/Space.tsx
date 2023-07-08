@@ -3,6 +3,7 @@ import "./Space.css"
 import Menu from "../../components/menu/Menu";
 import Tabs from "../../components/tabs/Tabs";
 import { FaCamera, FaHeart, FaMap, FaStar } from "react-icons/fa";
+import { primaryGrey } from "../../utils/colors";
 
 const Space = () => {
   //const { state } = useLocation();
@@ -27,7 +28,7 @@ const Space = () => {
             ]} 
           />
         </div>
-        <div className="book-card"></div>
+        <div className="book-card" style={{ backgroundColor: primaryGrey }}></div>
       </div>
     </div>
   )

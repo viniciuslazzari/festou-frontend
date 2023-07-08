@@ -15,11 +15,13 @@
 .result-item {
     display: flex;
     flex-direction: column;
-    border: 1px solid #323639;
+    border-width: 1px;
+    border-style: solid;
     padding: 10px;
     border-radius: 10px;
     flex: 1;
     cursor: pointer;
+    border-color: #323639;
     transition: margin 0.3s ease-in-out;
 
     &:hover {
@@ -43,7 +45,6 @@
     grid-auto-columns: 1fr;
     gap: 12px;
     grid-auto-flow: column;
-    background-color: #222528;
     border-radius: 10px;
     margin-top: 10px;
     padding: 15px;
@@ -54,7 +55,6 @@
 .first-info {
     display: flex;
     flex-direction: row;
-    color: white;
     font-size: 15px;
     line-height: 22px;
     font-weight: 700;
@@ -72,21 +72,14 @@
     display: flex;
     justify-content: flex-end;
     width: 30%;
-    color: #767676;
 }
 
 .location {
-    color: #767676;
     font-size: 13px;
     margin-top: 8px;
     margin-bottom: 15px;
 }
 
 .title-info {
-    color: #767676;
     margin-bottom: 8px;
-}
-
-.info {
-    color: white;
 }

@@ -1,6 +1,7 @@
 import { FaBowlingBall, FaBroom, FaStar, FaVolumeUp } from "react-icons/fa"
 import { useNavigate } from "react-router-dom";
 import "./ResultsSection.css"
+import { borderColor, labelBackground, primaryGrey, white } from "../../utils/colors";
 
 const ResultsSection = () => {
   let navigate = useNavigate();
@@ -15,26 +16,26 @@ const ResultsSection = () => {
         <div onClick={() => handleSpaceClick()} className="result-item">
           <img className="result-image" src="assets/1.jpg" alt="Result 1"/>
           <div className="result-content">
-            <div className="first-info">
+            <div className="first-info" style={{ color: white }}>
               <p className="title">Tratoria Salão de Festas</p>
-              <div className="right-title-wrapper">
+              <div className="right-title-wrapper" style={{ color: labelBackground }}>
                 <FaStar style={{ marginTop: "2px" }} />
                 <label> &nbsp; 4.5</label>
               </div>
             </div>
-            <p className="location">Ramiro Baldasso st. 400</p>
-            <div className="data-info">
+            <p className="location" style={{ color: labelBackground }}>Ramiro Baldasso st. 400</p>
+            <div className="data-info" style={{ backgroundColor: primaryGrey }}>
               <div className="info-container">
-                <p className="title-info">Price</p>
-                <p className="info">R$ 450</p>
+                <p className="title-info" style={{ color: labelBackground }}>Price</p>
+                <p className="info" style={{ color: white }}>R$ 450</p>
               </div>
               <div className="info-container">
-                <p className="title-info">Capacity</p>
-                <p className="info">800</p>
+                <p className="title-info" style={{ color: labelBackground }}>Capacity</p>
+                <p className="info" style={{ color: white }}>800</p>
               </div>
               <div className="info-container">
-                <p className="title-info">Benefits</p>
-                <div className="info">
+                <p className="title-info" style={{ color: labelBackground }}>Benefits</p>
+                <div className="info" style={{ color: white }}>
                   <FaVolumeUp style={{ marginRight: "10px" }} />
                   <FaBroom style={{ marginRight: "10px" }} />
                   <FaBowlingBall />

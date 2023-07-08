@@ -14,7 +14,6 @@
 }
 
 .logo {
-    color: white;
     font-size: 24px;
     font-weight: 700;
     cursor: pointer;
@@ -29,6 +28,5 @@
 }
 
 .salute {
-    color: white;
     margin-right: 20px;
 }

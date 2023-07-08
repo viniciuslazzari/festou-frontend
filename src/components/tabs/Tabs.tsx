@@ -1,5 +1,6 @@
 import { ReactNode, useState } from "react"
 import "./Tabs.css"
+import { borderColor, labelBackground } from "../../utils/colors"
 
 interface ITabs {
   labels: string[]
@@ -12,10 +13,11 @@ const Tabs = (props: ITabs) => {
 
   return (
     <div className="tabs-wrapper">
-      <div className="labels-sector">
+      <div className="labels-sector" style={{ borderColor: borderColor }}>
         {props.labels.map((label, index) => {
           return <div 
             onClick={() => setCurrentLabel(index)} 
+            style={{ color: labelBackground }}
             className={"label-item " + (currentLabel === index ? "selected-label" : "")}>
               <span className="tab-icon">{props.icons[index]}</span>
               {label}

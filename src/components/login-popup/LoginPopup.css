@@ -1,21 +1,4 @@
-.login-input {
-    width: 200px;
-    border-radius: 10px;
-    padding: 10px;
-    border: 1px solid #323639;
-    background-color: transparent;
-    font-size: 16px;
-    margin-bottom: 20px;
-    height: 40px;
-}
-
-.label-input {
-    color: white;
-    margin-bottom: 10px;
-}
-
 .popup-title {
-    color: white;
     width: 100%;
     text-align: center;
     font-size: 26px;

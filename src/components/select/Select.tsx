@@ -1,6 +1,7 @@
 import { ComponentType, useEffect, useLayoutEffect, useRef, useState } from "react"
 import "./Select.css"
 import { IconBaseProps } from "react-icons"
+import { backgroundColor, labelInput, primaryGrey, white } from "../../utils/colors"
 
 interface IOption {
   value: number,
@@ -32,16 +33,16 @@ const Select = (props: ISelect) => {
 
   return(
     <div className="select-wrapper element-wrapper">
-      <p className="input-label">{props.label}</p>
-      <div onClick={() => {setIsActive(!isActive)}} ref={ref} className="select">
+      <p className="input-label" style={{ color: labelInput }}>{props.label}</p>
+      <div onClick={() => {setIsActive(!isActive)}} ref={ref} className="select" style={{ color: white }}>
         <p>{selectedOption.label}</p>
       </div>
       <div 
-        style={{ width: optionsWidth, visibility: isActive ? "visible" : "hidden" }} 
+        style={{ width: optionsWidth, visibility: isActive ? "visible" : "hidden", backgroundColor: primaryGrey }} 
         className="select-options"
       >
         {props.options.map(option => {
-          return <div onClick={() => setSelectedOption(option)} className="select-option">{option.label}</div>
+          return <div onClick={() => setSelectedOption(option)} className="select-option" style={{ color: white }}>{option.label}</div>
         })}  
       </div>
     </div>

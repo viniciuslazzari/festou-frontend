@@ -9,6 +9,7 @@ import { dateMask } from "../../utils/dateMask"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-hot-toast"
+import { white } from "../../utils/colors"
 
 const options = [
   { value: 1, label: 'Itau' },
@@ -52,12 +53,11 @@ const Signup = () => {
 
     axios.post('https://localhost:3001/festou-api/v1/signup', data)
       .then(function (response) {
-        toast("Criei essa merda!")
+        toast.success("User created!")
         navigate("/")
       })
       .catch(function (error) {
-        toast("Criei essa merda!")
-        navigate("/")
+        toast.error("Error!")
       });
   }, [navigate, serializeData])
 
@@ -91,7 +91,7 @@ const Signup = () => {
       </div>
 
       <div className="picture-wrapper-signup">
-        <div className="picture-signup"></div>
+        <div className="picture-signup" style={{ backgroundColor: white }}></div>
       </div>
     </div>
   )

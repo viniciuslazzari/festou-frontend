@@ -1,6 +1,7 @@
 import { ComponentType, useEffect, useState } from "react"
 import "./Input.css"
 import { IconBaseProps } from "react-icons"
+import { backgroundColor, labelBackground, labelInput, primaryGrey, white } from "../../utils/colors"
 
 interface IInput {
   icon?: ComponentType<IconBaseProps>
@@ -16,16 +17,16 @@ const Input = (props: IInput) => {
 
   useEffect(() => {
     props.onChange(currentValue)
-  }, [currentValue])
+  }, [currentValue, props])
 
   return (
     <div className="element-wrapper">
-      <p className="input-label">{props.label}</p>
+      <p className="input-label" style={{ color: labelInput }}>{props.label}</p>
       <div className="input-wrapper">
-        {props.icon ? <props.icon className="input-icon"/> : <></>}
+        {props.icon ? <props.icon className="input-icon" style={{ color: labelBackground }}/> : <></>}
         <input 
           value={currentValue}
-          style={{ marginLeft: props.icon ? "20px" : "0px" }} 
+          style={{ marginLeft: props.icon ? "20px" : "0px", color: white }} 
           className="input" 
           onChange={e => setCurrentValue(props.mask ? props.mask(e.target.value) : e.target.value)}
           type={props.type ? props.type : "text"}
