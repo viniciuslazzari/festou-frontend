@@ -13,7 +13,7 @@ root.render(
   <React.StrictMode>
     <UserContextProvider>
       <Toaster 
-        position="bottom-right" 
+        position="top-center" 
         toastOptions={{
           className: '',
           style: {
@@ -22,12 +22,6 @@ root.render(
             color: "white",
             backdropFilter: "blur(5.7px)",
           },
-        }}
-        containerStyle={{
-          top: 50,
-          left: 50,
-          bottom: 50,
-          right: 50,
         }}
       />
       <Router />

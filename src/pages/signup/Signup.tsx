@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom"
 import { toast } from "react-hot-toast"
 import { white } from "../../utils/colors"
 import UserContext from "../../context/UserContext"
-import { FaBolt, FaCheck, FaStar } from "react-icons/fa"
+import { FaCheck, FaStar } from "react-icons/fa"
 
 const options = [
   { value: 1, label: 'Itau', icon: <img src="assets/itau.webp" alt="Itau"/> },
