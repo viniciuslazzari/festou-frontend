@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useCallback, useContext, useState } from "react"
 import Input from "../../components/input/Input"
 import "./Signup.css"
 import Button from "../../components/button/Button"
@@ -10,11 +10,14 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-hot-toast"
 import { white } from "../../utils/colors"
+import UserContext from "../../context/UserContext"
 
 const options = [
-  { value: 1, label: 'Itau' },
-  { value: 2, label: 'Bradesco' },
-  { value: 3, label: 'Inter' }
+  { value: 1, label: 'Itau', icon: <img src="assets/itau.webp" alt="Itau"/> },
+  { value: 2, label: 'Bradesco', icon: <img src="assets/bradesco.png" alt="Bradesco"/> },
+  { value: 3, label: 'Inter', icon: <img src="assets/inter.png" alt="Inter"/> },
+  { value: 4, label: 'Nubank', icon: <img src="assets/nubank.png" alt="Nubank"/> },
+  { value: 5, label: 'Banco do Brasil', icon: <img src="assets/bb.png" alt="Banco do Brasil"/> }
 ]
 
 const Signup = () => {
@@ -30,15 +33,18 @@ const Signup = () => {
   const [password, setPassword] = useState<string>("");
 
   let navigate = useNavigate();
+  let user = useContext(UserContext);
 
   const serializeData = useCallback(() => {
+    const dateArr = birthdate.split('/');
+
     const data = {
       "firstName": firstName,
       "lastName": lastName,
       "email": email,
       "cpf": cpf,
       "phone": phone,
-      "birthdate": birthdate,
+      "birthdate": new Date(parseInt(dateArr[2]), parseInt(dateArr[1]) - 1, parseInt(dateArr[0])),
       "bank": bank,
       "account": account,
       "agency": agency,
@@ -49,17 +55,22 @@ const Signup = () => {
   }, [account, agency, bank, birthdate, cpf, email, firstName, lastName, password, phone])
 
   const handleSubmit = useCallback(() => {
+    if (!birthdate){
+      return
+    }
+
     const data = serializeData();
 
-    axios.post('https://localhost:3001/festou-api/v1/signup', data)
+    axios.post('http://127.0.0.1:8000/festou-api/v1/signup', data)
       .then(function (response) {
         toast.success("User created!")
+        user.setState({ isLoggedIn: true, id: 1, name: "Vinicius" })
         navigate("/")
       })
       .catch(function (error) {
-        toast.error("Error!")
+        toast.error(error.response.data["Bad Request"])
       });
-  }, [navigate, serializeData])
+  }, [birthdate, navigate, serializeData, user])
 
   return (
     <div className="signup">
@@ -86,7 +97,7 @@ const Signup = () => {
             <Input label="Password" placeholder="flfksl" onChange={setPassword} type="password"/>
             <Input label="Confirm password" placeholder="flfksl" onChange={() => {}} type="password"/>
           </div>
-          <Button text="Create account" backgroundColor="white" color="black" width="100%" onClick={() => handleSubmit()} />
+          <Button text="Create account" backgroundColor={white} color="black" width="100%" onClick={() => handleSubmit()} />
         </div>
       </div>
 

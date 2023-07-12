@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import Router from './router';
 import "./index.css"
 import { Toaster } from 'react-hot-toast';
+import { UserContextProvider } from './context/UserContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -10,7 +11,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <Toaster position="bottom-right"/>
-    <Router />
+    <UserContextProvider>
+      <Toaster position="bottom-right"/>
+      <Router />
+    </UserContextProvider>
   </React.StrictMode>
 );

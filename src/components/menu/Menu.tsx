@@ -3,15 +3,24 @@ import Button from "../button/Button"
 //import ProfileIcon from "../profile-icon/ProfileIcon"
 import "./Menu.css"
 import LoginPopup from "../login-popup/LoginPopup"
-import { useCallback, useState } from "react"
+import { useCallback, useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { white } from "../../utils/colors"
 import Input from "../input/Input"
+import UserContext from "../../context/UserContext"
+import ProfileIcon from "../profile-icon/ProfileIcon"
+import Dropdown from "../dropdown/Dropdown"
+
+const options = [
+  { label: "My profile", path: "/profile" },
+  { label: "Logout", path: "/logout" },
+]
 
 const Menu = () => {
   const [loginPopup, setLoginPopup] = useState(false)
 
   let navigate = useNavigate();
+  let user = useContext(UserContext);
 
   const login = useCallback(() => {
     setLoginPopup(true)
@@ -32,13 +41,20 @@ const Menu = () => {
   return (
     <div className="bar-div">
       <label onClick={() => handleLogoClick()} className="logo" style={{ color: white }}> 🎉 &nbsp; Festou </label>
-      <Input label="" placeholder="Search by name" onChange={() => {}} icon={FaSearch} />
+      <Input placeholder="Search by name" onChange={() => {}} icon={FaSearch} />
       <div className="left_wrapper">
-        {/* <label className="salute" style={{ color: white }}> Olá, Diggo </label>
-        <ProfileIcon img="assets/profile.jpg" /> */}
-        <LoginPopup onClosePopup={onClosePopup} loginPopup={loginPopup}/>
-        <Button onClick={login} text="Login" width="100px" backgroundColor="transparent" color="white"/>
-        <Button onClick={() => handleSignupClick()} text="Sign up" icon={<FaUser />} width="100px" backgroundColor="white" color="black"/>
+        {user.state.isLoggedIn ? 
+          <>
+            <label className="salute" style={{ color: white }}> Hello, {user.state.name} </label>
+            <Dropdown element={<ProfileIcon img="assets/profile.png" />} options={options} width={"100px"}></Dropdown>
+          </>
+          :
+          <>
+            <LoginPopup onClosePopup={onClosePopup} loginPopup={loginPopup}/>
+            <Button onClick={login} text="Login" width="100px" backgroundColor="transparent" color={white}/>
+            <Button onClick={() => handleSignupClick()} text="Sign up" icon={<FaUser />} width="100px" backgroundColor={white} color="black"/>
+          </>
+        }       
       </div>
     </div>
   )

@@ -1,11 +1,11 @@
 import { ComponentType, useEffect, useState } from "react"
 import "./Input.css"
 import { IconBaseProps } from "react-icons"
-import { backgroundColor, labelBackground, labelInput, primaryGrey, white } from "../../utils/colors"
+import { labelBackground, labelInput, white } from "../../utils/colors"
 
 interface IInput {
   icon?: ComponentType<IconBaseProps>
-  label: string
+  label?: string
   placeholder: string
   type?: string
   onChange: (e: any) => any
@@ -21,8 +21,8 @@ const Input = (props: IInput) => {
 
   return (
     <div className="element-wrapper">
-      <p className="input-label" style={{ color: labelInput }}>{props.label}</p>
-      <div className="input-wrapper">
+      {props.label ? <p className="input-label" style={{ color: labelInput }}>{props.label}</p> : <></>} 
+      <div className="input-wrapper" style={{ marginBottom: props.label ? "20px" : "0px" }}>
         {props.icon ? <props.icon className="input-icon" style={{ color: labelBackground }}/> : <></>}
         <input 
           value={currentValue}

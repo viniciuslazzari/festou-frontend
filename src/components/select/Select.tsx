@@ -1,12 +1,11 @@
-import { ComponentType, useEffect, useLayoutEffect, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import "./Select.css"
-import { IconBaseProps } from "react-icons"
-import { backgroundColor, labelInput, primaryGrey, white } from "../../utils/colors"
+import { labelInput, primaryGrey, white } from "../../utils/colors"
 
 interface IOption {
   value: number,
   label: string,
-  icon?: ComponentType<IconBaseProps>
+  icon?: JSX.Element
 }
 
 interface ISelect {
@@ -42,8 +41,16 @@ const Select = (props: ISelect) => {
         className="select-options"
       >
         {props.options.map(option => {
-          return <div onClick={() => setSelectedOption(option)} className="select-option" style={{ color: white }}>{option.label}</div>
-        })}  
+          return (
+            <div 
+              onClick={() => setSelectedOption(option)} 
+              className="select-option" 
+              style={{ color: white }}
+            >
+              {option.icon}{option.label}
+            </div>
+          )})
+        }  
       </div>
     </div>
   )

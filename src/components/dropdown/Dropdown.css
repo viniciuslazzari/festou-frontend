@@ -1,0 +1,12 @@
+.dropdown-element {
+  cursor: pointer;
+}
+
+.dropdown-options {
+  border-radius: 10px;
+  position: absolute;
+  max-height: 100px;
+  overflow: scroll;
+  height: 200px;
+  margin-top: 20px;
+}

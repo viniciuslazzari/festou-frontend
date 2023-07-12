@@ -1,7 +1,7 @@
 import { FaBowlingBall, FaBroom, FaStar, FaVolumeUp } from "react-icons/fa"
 import { useNavigate } from "react-router-dom";
 import "./ResultsSection.css"
-import { borderColor, labelBackground, primaryGrey, white } from "../../utils/colors";
+import { labelBackground, primaryGrey, white } from "../../utils/colors";
 
 const ResultsSection = () => {
   let navigate = useNavigate();

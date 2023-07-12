@@ -3,10 +3,11 @@ import "./LoginPopup.css"
 import Button from "../button/Button"
 import Input from "../input/Input"
 import { FaLock, FaUser } from "react-icons/fa"
-import { useCallback, useState } from "react"
+import { useCallback, useContext, useState } from "react"
 import axios from "axios"
 import toast from "react-hot-toast"
 import { white } from "../../utils/colors"
+import UserContext from "../../context/UserContext"
 
 interface ILoginPopup {
   onClosePopup: () => any
@@ -16,6 +17,8 @@ interface ILoginPopup {
 const LoginPopup = (props: ILoginPopup) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  let user = useContext(UserContext)
 
   const serializeData = useCallback(() => {
     const data = {
@@ -29,21 +32,21 @@ const LoginPopup = (props: ILoginPopup) => {
   const handleSumbmit = useCallback(() => {
     const data = serializeData()
 
-    axios.post('https://localhost:3001/festou-api/v1/login', data)
+    axios.post('http://127.0.0.1:8000/festou-api/v1/login', data)
       .then(function (response) {
-        toast.success("User created!")
+        user.setState({ isLoggedIn: true, id: response.data.id, name: response.data.firstName })
       })
       .catch(function (error) {
-        toast.error("Error!")
+        toast.error(error.response.data["Bad Request"])
       });
-  }, [serializeData])
+  }, [serializeData, user])
 
   return (
     <Popup onClose={props.onClosePopup} visibility={props.loginPopup}>
-      <p className="popup-title" style={{ color: white }}>😍 &nbsp; Welcome to Festou</p>
+      <p className="popup-title" style={{ color: white }}>Welcome to Festou</p>
       <Input label="Email" placeholder="Enter your email" icon={FaUser} onChange={setEmail} />
       <Input label="Password" placeholder="Enter your password" icon={FaLock} onChange={setPassword} />
-      <Button marginTop="40px" text="Login" backgroundColor="white" color="black" width="100%" onClick={() => handleSumbmit()}/>
+      <Button marginTop="40px" text="Login" backgroundColor={white} color="black" width="100%" onClick={() => handleSumbmit()}/>
     </Popup>
   )
 }
