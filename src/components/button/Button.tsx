@@ -9,14 +9,22 @@ interface IButton {
     icon?: ReactNode
     onClick: () => any
     marginTop?: string
+    disabled?: boolean
 }
 
 const Button = (props: IButton) => {
   return (
     <div 
       className="button" 
-      onClick={() => props.onClick()}
-      style={{ marginTop: props.marginTop, width: props.width, backgroundColor: props.backgroundColor, color: props.color }}
+      onClick={props.disabled ? () => {} : () => props.onClick()}
+      style={{ 
+        marginTop: props.marginTop, 
+        width: props.width, 
+        backgroundColor: props.backgroundColor, 
+        opacity: props.disabled ? "0.5" : "1",
+        cursor: props.disabled ? "not-allowed" : "pointer",
+        color: props.color 
+      }}
     >
       <div style={{ marginRight: "10px", marginTop: "4px" }}>{props.icon}</div>
       <p>{props.text}</p>

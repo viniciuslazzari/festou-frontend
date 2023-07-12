@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import "./Select.css"
-import { labelInput, primaryGrey, white } from "../../utils/colors"
+import { labelBackground, labelInput, primaryGrey, white } from "../../utils/colors"
 
 interface IOption {
   value: number,
@@ -14,8 +14,13 @@ interface ISelect {
   onChange: (e: number) => any
 }
 
+const DEFAULT_VALUE: IOption = {
+  value: 0,
+  label: "Select some value"
+}
+
 const Select = (props: ISelect) => {
-  const [selectedOption, setSelectedOption] = useState<IOption>(props.options[0])
+  const [selectedOption, setSelectedOption] = useState<IOption>(DEFAULT_VALUE)
   const [isActive, setIsActive] = useState<boolean>(false);
   const [optionsWidth, setOptionsWidth] = useState<number>(0);
 
@@ -33,8 +38,13 @@ const Select = (props: ISelect) => {
   return(
     <div className="select-wrapper element-wrapper">
       <p className="input-label" style={{ color: labelInput }}>{props.label}</p>
-      <div onClick={() => {setIsActive(!isActive)}} ref={ref} className="select" style={{ color: white }}>
-        <p>{selectedOption.label}</p>
+      <div 
+        onClick={() => {setIsActive(!isActive)}} 
+        ref={ref} 
+        className="select" 
+        style={{ color: selectedOption.value === 0 ? labelBackground : white }}
+      >
+        <div style={{ marginLeft: "-20px" }} className="select-option">{selectedOption.icon} {selectedOption.label} </div>
       </div>
       <div 
         style={{ width: optionsWidth, visibility: isActive ? "visible" : "hidden", backgroundColor: primaryGrey }} 

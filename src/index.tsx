@@ -12,7 +12,24 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <UserContextProvider>
-      <Toaster position="bottom-right"/>
+      <Toaster 
+        position="bottom-right" 
+        toastOptions={{
+          className: '',
+          style: {
+            padding: '16px',
+            background: "rgba(26, 28, 31, 0.94)",
+            color: "white",
+            backdropFilter: "blur(5.7px)",
+          },
+        }}
+        containerStyle={{
+          top: 50,
+          left: 50,
+          bottom: 50,
+          right: 50,
+        }}
+      />
       <Router />
     </UserContextProvider>
   </React.StrictMode>
