@@ -142,7 +142,9 @@ const Signup = () => {
                 width: "90%",
                 fontSize: "23px"
               }}
-            >Best place to party with friends, I couldn't recommend this place more!</div>
+            >
+              Best place to party with friends, I couldn't recommend this place more!
+            </div>
             <div style={{ display: "flex", flexDirection: "row", width: "90%", marginTop: "20px" }}>
               <div style={{ width: "50%", color: white }}>Vinicius Lazzari</div>
               <div style={{ width: "50%", display: "flex", justifyContent: "flex-end", color: white }}>

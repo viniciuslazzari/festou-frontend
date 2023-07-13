@@ -1,4 +1,4 @@
-import { FaSearch, FaUser } from "react-icons/fa"
+import { FaChevronLeft, FaSearch, FaUser } from "react-icons/fa"
 import Button from "../button/Button"
 //import ProfileIcon from "../profile-icon/ProfileIcon"
 import "./Menu.css"
@@ -12,8 +12,8 @@ import ProfileIcon from "../profile-icon/ProfileIcon"
 import Dropdown from "../dropdown/Dropdown"
 
 const options = [
-  { label: "My profile", path: "/profile" },
-  { label: "Logout", path: "/logout" },
+  { label: "My profile", path: "/profile", icon: <FaUser /> },
+  { label: "Logout", path: "/logout", icon: <FaChevronLeft /> },
 ]
 
 const Menu = () => {
@@ -46,7 +46,7 @@ const Menu = () => {
         {user.state.isLoggedIn ? 
           <>
             <label className="salute" style={{ color: white }}> Hello, {user.state.name} </label>
-            <Dropdown element={<ProfileIcon img="assets/profile.png" />} options={options} width={"100px"}></Dropdown>
+            <Dropdown element={<ProfileIcon img="assets/profile.png" />} options={options} width="200px"></Dropdown>
           </>
           :
           <>

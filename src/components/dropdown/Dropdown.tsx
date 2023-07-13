@@ -37,7 +37,7 @@ const Dropdown = (props: IDropdown) => {
           width: props.width, 
           visibility: isActive ? "visible" : "hidden", 
           backgroundColor: primaryGrey,
-          right: props.width
+          marginRight: props.width
         }} 
         className="dropdown-options"
       >
@@ -45,10 +45,10 @@ const Dropdown = (props: IDropdown) => {
           return (
             <div 
               onClick={() => handleOptionClick(option.path)} 
-              className="select-option" 
+              className="dropdown-option" 
               style={{ color: white }}
             >
-              {option.icon}{option.label}
+              {option.icon} {option.label}
             </div>
           )})
         }  
