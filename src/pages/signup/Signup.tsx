@@ -79,11 +79,11 @@ const Signup = () => {
     axios.post('http://127.0.0.1:8000/festou-api/v1/signup', data)
       .then(function (response) {
         toast.success("User created!")
-        user.setState({ isLoggedIn: true, id: 1, name: "Vinicius" })
+        user.setState({ isLoggedIn: true, id: response.data.id, name: response.data.firstName })
         navigate("/")
       })
       .catch(function (error) {
-        toast.error(error.response.data["Bad Request"])
+        toast.error(error.response.data.description)
       });
   }, [navigate, serializeData, user])
 

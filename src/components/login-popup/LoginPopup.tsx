@@ -45,7 +45,7 @@ const LoginPopup = (props: ILoginPopup) => {
         user.setState({ isLoggedIn: true, id: response.data.id, name: response.data.firstName })
       })
       .catch(function (error) {
-        toast.error(error.response.data["Bad Request"])
+        toast.error(error.response.data.description)
       });
   }, [serializeData, user])
 
