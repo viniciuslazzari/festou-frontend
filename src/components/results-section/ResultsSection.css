@@ -8,8 +8,9 @@
 .result-row {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-bottom: 20px;
+    gap: 20px;
 }
 
 .result-item {
@@ -19,8 +20,8 @@
     border-style: solid;
     padding: 10px;
     border-radius: 10px;
-    flex: 1;
     max-width: 32%;
+    flex: 1;
     cursor: pointer;
     border-color: #323639;
     transition: margin 0.3s ease-in-out;
@@ -29,10 +30,6 @@
         margin-top: -5px;
         border: 1px solid white;
     }
-}
-
-.result-item:not(:last-child) {
-    margin-right: 20px;
 }
 
 .result-image {
@@ -72,13 +69,17 @@
 .right-title-wrapper {
     display: flex;
     justify-content: flex-end;
-    width: 30%;
+    width: 35%;
 }
 
 .location {
     font-size: 13px;
     margin-top: 8px;
     margin-bottom: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 300px;
 }
 
 .title-info {
