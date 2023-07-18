@@ -13,7 +13,7 @@ const Space = () => {
       <Menu inputFunction={() => {}}/>
       <div className="details">
         <div className="details-content">
-          <img className="details-image" src="assets/1.jpg" alt="Result 1"/>
+          <img className="details-image" src="assets/4.webp" alt="Result 1"/>
           <Tabs 
             icons={[
               <FaCamera />,

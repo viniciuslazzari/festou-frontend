@@ -19,7 +19,7 @@ const ResultsSection = (props: IResultSection) => {
   const renderResult = useCallback((item: IResult) => {
     return (
       <div onClick={() => handleSpaceClick(item.id)} className="result-item">
-        <img className="result-image" src="assets/1.jpg" alt="Result 1"/>
+        <img className="result-image" src="assets/4.webp" alt="Result 1"/>
         <div className="result-content">
           <div className="first-info" style={{ color: white }}>
             <p className="title">{item.name}</p>
