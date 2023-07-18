@@ -1,16 +1,20 @@
-import { FaCalendar, FaMap, FaMoneyBill, FaSearch, FaStar, FaUser } from "react-icons/fa"
+import { FaCalendar, FaMap, FaMoneyBill, FaStar, FaUser } from "react-icons/fa"
 import { borderColor, white } from "../../utils/colors"
-import Button from "../button/Button"
 import Input from "../input/Input"
 import "./FilterSection.css"
+import { Dispatch, SetStateAction } from "react"
 
-const FilterSection = () => {
+interface IFilterSection {
+  locationFunction: Dispatch<SetStateAction<string>>
+}
+
+const FilterSection = (props: IFilterSection) => {
   return (
     <div className="filter">
       <div className="filter-content" style={{ borderColor: borderColor }}>      
         <p className="filter-title" style={{ color: white, marginTop: "0px" }}>Filters</p>
         <p className="filter-title" style={{ color: white, fontSize: "16px" }}>Location</p>
-        <Input icon={FaMap} placeholder="Search by location" onChange={() => {}} />
+        <Input icon={FaMap} placeholder="Search by location" onChange={props.locationFunction} />
         <p className="filter-title" style={{ color: white, fontSize: "16px" }}>Capacity</p>
         <Input icon={FaUser} placeholder="Search by capacity" onChange={() => {}} />
         <p className="filter-title" style={{ color: white, fontSize: "16px" }}>Price</p>
@@ -25,7 +29,6 @@ const FilterSection = () => {
         </div>
         <p className="filter-title" style={{ color: white, fontSize: "16px" }}>Rating</p>
         <Input icon={FaStar} placeholder="Search by rating" onChange={() => {}} />
-        <Button icon={<FaSearch />} marginTop="40px" onClick={() => {}} text="Aplly filters" backgroundColor={white} color="black" width="100%"/>
       </div>
     </div>
   )

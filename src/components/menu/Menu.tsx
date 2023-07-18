@@ -3,7 +3,7 @@ import Button from "../button/Button"
 //import ProfileIcon from "../profile-icon/ProfileIcon"
 import "./Menu.css"
 import LoginPopup from "../login-popup/LoginPopup"
-import { useCallback, useContext, useState } from "react"
+import { Dispatch, SetStateAction, useCallback, useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { white } from "../../utils/colors"
 import Input from "../input/Input"
@@ -16,7 +16,11 @@ const options = [
   { label: "Logout", path: "/logout", icon: <FaChevronLeft /> },
 ]
 
-const Menu = () => {
+interface IMenu {
+  inputFunction: Dispatch<SetStateAction<string>>
+}
+
+const Menu = (props: IMenu) => {
   const [loginPopup, setLoginPopup] = useState(false)
 
   let navigate = useNavigate();
@@ -41,7 +45,7 @@ const Menu = () => {
   return (
     <div className="bar-div">
       <label onClick={() => handleLogoClick()} className="logo" style={{ color: white }}> 🎉 &nbsp; Festou </label>
-      <Input placeholder="Search by name" onChange={() => {}} icon={FaSearch} />
+      <Input placeholder="Search by name" onChange={props.inputFunction} icon={FaSearch} />
       <div className="left_wrapper">
         {user.state.isLoggedIn ? 
           <>

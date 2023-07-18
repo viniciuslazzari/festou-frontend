@@ -19,7 +19,7 @@
     border-style: solid;
     padding: 10px;
     border-radius: 10px;
-    flex: 1;
+    max-width: 32%;
     cursor: pointer;
     border-color: #323639;
     transition: margin 0.3s ease-in-out;

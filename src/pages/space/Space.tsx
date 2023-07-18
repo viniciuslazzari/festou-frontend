@@ -10,7 +10,7 @@ const Space = () => {
   
   return (
     <div>
-      <Menu />
+      <Menu inputFunction={() => {}}/>
       <div className="details">
         <div className="details-content">
           <img className="details-image" src="assets/1.jpg" alt="Result 1"/>
