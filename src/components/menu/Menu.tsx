@@ -1,4 +1,4 @@
-import { FaChevronLeft, FaSearch, FaUser } from "react-icons/fa"
+import { FaChevronLeft, FaSearch, FaUpload, FaUser } from "react-icons/fa"
 import Button from "../button/Button"
 //import ProfileIcon from "../profile-icon/ProfileIcon"
 import "./Menu.css"
@@ -41,6 +41,10 @@ const Menu = (props: IMenu) => {
   const handleLogoClick = useCallback(() => {
     navigate("/");
   }, [navigate])
+
+  const handleCreatePlaceClick = useCallback(() => {
+    navigate("/createplace");
+  }, [navigate])
   
   return (
     <div className="bar-div">
@@ -49,12 +53,14 @@ const Menu = (props: IMenu) => {
       <div className="left_wrapper">
         {user.state.isLoggedIn ? 
           <>
+            <Button onClick={() => handleCreatePlaceClick()} icon={<FaUpload/>} text="Publish place" width="170px" backgroundColor="transparent" color={white}/>
             <label className="salute" style={{ color: white }}> Hello, {user.state.name} </label>
             <Dropdown element={<ProfileIcon img="assets/profile.png" />} options={options} width="200px"></Dropdown>
           </>
           :
           <>
             <LoginPopup onClosePopup={onClosePopup} loginPopup={loginPopup}/>
+            <Button onClick={() => handleCreatePlaceClick()} icon={<FaUpload/>} text="Publish place" width="120px" backgroundColor="transparent" color={white}/>
             <Button onClick={login} text="Login" width="100px" backgroundColor="transparent" color={white}/>
             <Button onClick={() => handleSignupClick()} text="Sign up" icon={<FaUser />} width="100px" backgroundColor={white} color="black"/>
           </>
