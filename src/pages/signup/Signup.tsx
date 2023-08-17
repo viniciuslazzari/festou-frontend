@@ -12,6 +12,10 @@ import { toast } from "react-hot-toast"
 import { white } from "../../utils/colors"
 import UserContext from "../../context/UserContext"
 import { FaCheck, FaStar } from "react-icons/fa"
+import { cpfIsValid } from "../../utils/cpfValidator"
+import { stringIsValid } from "../../utils/stringValidator"
+import { dateIsValid } from "../../utils/dateValidator"
+import { emailIsValid } from "../../utils/emailValidator"
 
 const options = [
   { value: 1, label: 'Itau', icon: <img src="assets/itau.webp" alt="Itau"/> },
@@ -51,7 +55,7 @@ const Signup = () => {
       "bank": bank,
       "account": account,
       "agency": agency,
-      "password": password
+      "password": btoa(password)
     }
 
     return data
@@ -68,7 +72,13 @@ const Signup = () => {
     if (!account || account === "") { setButtonDisabled(true); return };
     if (!agency || agency === "") { setButtonDisabled(true); return };
     if (!password || password === "") { setButtonDisabled(true); return };
+
     if (password !== confirmPassword) { setButtonDisabled(true); return };
+    if (!cpfIsValid(cpf)) { setButtonDisabled(true); return };
+    if (!stringIsValid(firstName)) { setButtonDisabled(true); return };
+    if (!stringIsValid(lastName)) { setButtonDisabled(true); return };
+    if (!emailIsValid(email)) { setButtonDisabled(true); return };
+    if (!dateIsValid(birthdate)) { setButtonDisabled(true); return };
 
     setButtonDisabled(false);
   }, [account, agency, bank, birthdate, confirmPassword, cpf, email, firstName, lastName, password, phone])
@@ -110,7 +120,7 @@ const Signup = () => {
             <Input label="Phone" mask={phoneMask} placeholder="(000) 00000-0000" onChange={setPhone}/>
           </div>
           <div className="divisory">
-            <Input label="Birthdate" mask={dateMask} placeholder="00/00/0000" onChange={setBirthdate}/>
+            <Input label="Birthdate" maxLenght={10} mask={dateMask} placeholder="00/00/0000" onChange={setBirthdate}/>
             <Select label="Bank" options={options} onChange={setBank}/>
           </div>
           <div className="divisory">
