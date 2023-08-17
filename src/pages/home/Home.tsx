@@ -41,6 +41,10 @@ const DEFAULT_FILTERS: IFilters = {
 const Home = () => {
   const [nameFilter, setNameFilter] = useState<string>("");
   const [locationFilter, setLocationFilter] = useState<string>("");
+  const [initialPriceFilter, setInitialPriceFilter] = useState<number>(0);
+  const [finalPriceFilter, setFinalPriceFilter] = useState<number>(0);
+  const [capacityFilter, setCapacityFilter] = useState<number>(0);
+  const [scoreFilter, setScoreFilter] = useState<number>(0);
   const [filters, setFilters] = useState<IFilters>(DEFAULT_FILTERS);
   const [results, setResults] = useState<IResult[]>([]);
 
@@ -49,10 +53,14 @@ const Home = () => {
       return({
         ...prevState,
         name: nameFilter || "",
-        location: locationFilter || ""
+        location: locationFilter || "",
+        capacity: capacityFilter || 0,
+        initialPrice: initialPriceFilter || 0,
+        finalPrice: finalPriceFilter || 10000000,
+        score: scoreFilter || 0
       });
     });
-  }, [locationFilter, nameFilter])
+  }, [capacityFilter, finalPriceFilter, initialPriceFilter, locationFilter, nameFilter, scoreFilter])
 
   useEffect(() => {
     axios.post('http://127.0.0.1:8000/festou-api/v1/search', filters)
@@ -68,7 +76,13 @@ const Home = () => {
     <div className="home">
       <Menu inputFunction={setNameFilter}/>
       <div className='content-wrapper'>
-        <FilterSection locationFunction={setLocationFilter}/>
+        <FilterSection 
+          locationFunction={setLocationFilter}
+          capacityFunction={setCapacityFilter}
+          initialPriceFunction={setInitialPriceFilter}
+          finalPriceFunction={setFinalPriceFilter}
+          scoreFunction={setScoreFilter}
+        />
         <ResultsSection results={results}/>
       </div>
     </div>

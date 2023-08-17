@@ -8,6 +8,7 @@ interface IInput {
   label?: string
   placeholder: string
   type?: string
+  maxLenght?: number
   onChange: (e: any) => any
   mask?: (e: any) => any
 }
@@ -28,6 +29,7 @@ const Input = (props: IInput) => {
           value={currentValue}
           style={{ marginLeft: props.icon ? "20px" : "0px", color: white }} 
           className="input" 
+          maxLength={props.maxLenght}
           onChange={e => setCurrentValue(props.mask ? props.mask(e.target.value) : e.target.value)}
           type={props.type ? props.type : "text"}
           placeholder={props.placeholder}>  

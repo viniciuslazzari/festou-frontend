@@ -8,6 +8,7 @@ import axios from "axios"
 import toast from "react-hot-toast"
 import { labelBackground, white } from "../../utils/colors"
 import UserContext from "../../context/UserContext"
+import { emailIsValid } from "../../utils/emailValidator"
 
 interface ILoginPopup {
   onClosePopup: () => any
@@ -24,7 +25,7 @@ const LoginPopup = (props: ILoginPopup) => {
   const serializeData = useCallback(() => {
     const data = {
       "email": email,
-      "password": password
+      "password": btoa(password)
     }
 
     return data
@@ -33,6 +34,8 @@ const LoginPopup = (props: ILoginPopup) => {
   useEffect(() => {
     if (!email || email === "") { setButtonDisabled(true); return };
     if (!password || password === "") { setButtonDisabled(true); return };
+
+    if(!emailIsValid(email)) { setButtonDisabled(true); return };
 
     setButtonDisabled(false);
   }, [email, password])

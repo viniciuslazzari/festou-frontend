@@ -22,8 +22,11 @@
 
 .book-card {
     width: 30%;
-    height: 100px;
+    height: 300px;
     border-radius: 10px;
     position: sticky;
     top: 100px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
 }

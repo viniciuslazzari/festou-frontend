@@ -6,6 +6,10 @@ import { Dispatch, SetStateAction } from "react"
 
 interface IFilterSection {
   locationFunction: Dispatch<SetStateAction<string>>
+  capacityFunction: Dispatch<SetStateAction<number>>
+  initialPriceFunction: Dispatch<SetStateAction<number>>
+  finalPriceFunction: Dispatch<SetStateAction<number>>
+  scoreFunction: Dispatch<SetStateAction<number>>
 }
 
 const FilterSection = (props: IFilterSection) => {
@@ -16,11 +20,11 @@ const FilterSection = (props: IFilterSection) => {
         <p className="filter-title" style={{ color: white, fontSize: "16px" }}>Location</p>
         <Input icon={FaMap} placeholder="Search by location" onChange={props.locationFunction} />
         <p className="filter-title" style={{ color: white, fontSize: "16px" }}>Capacity</p>
-        <Input icon={FaUser} placeholder="Search by capacity" onChange={() => {}} />
+        <Input type="number" icon={FaUser} placeholder="Search by capacity" onChange={props.capacityFunction} />
         <p className="filter-title" style={{ color: white, fontSize: "16px" }}>Price</p>
         <div className="divisory">
-          <Input icon={FaMoneyBill} placeholder="R$ 450" onChange={() => {}}></Input>
-          <Input icon={FaMoneyBill} placeholder="R$ 600" onChange={() => {}}></Input>
+          <Input type="number" icon={FaMoneyBill} placeholder="R$ 450" onChange={props.initialPriceFunction}></Input>
+          <Input type="number" icon={FaMoneyBill} placeholder="R$ 600" onChange={props.finalPriceFunction}></Input>
         </div>
         <p className="filter-title" style={{ color: white, fontSize: "16px" }}>Date</p>
         <div className="divisory">
@@ -28,7 +32,7 @@ const FilterSection = (props: IFilterSection) => {
           <Input icon={FaCalendar} placeholder="00/00/0000" onChange={() => {}}></Input>
         </div>
         <p className="filter-title" style={{ color: white, fontSize: "16px" }}>Rating</p>
-        <Input icon={FaStar} placeholder="Search by rating" onChange={() => {}} />
+        <Input type="number" icon={FaStar} placeholder="Search by rating" onChange={props.scoreFunction} />
       </div>
     </div>
   )
