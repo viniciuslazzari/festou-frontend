@@ -1,20 +1,11 @@
-import { useCallback, useContext, useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Input from "../../components/input/Input"
-//import "./CreatePlace.css"
 import Button from "../../components/button/Button"
-import Select from "../../components/select/Select"
-import { cpfMask } from "../../utils/cpfMask"
-import { phoneMask } from "../../utils/phoneMask"
-import { dateMask } from "../../utils/dateMask"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-hot-toast"
 import { white } from "../../utils/colors"
-import UserContext from "../../context/UserContext"
-import { FaCheck, FaStar } from "react-icons/fa"
-import React from "react"
-import { setDefaultResultOrder } from "dns"
-
+import { FaCheck } from "react-icons/fa"
 
 const CreatePlace = () => {
   const [placeName, setPlaceName] = useState<string>("");

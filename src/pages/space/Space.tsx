@@ -1,14 +1,15 @@
-//import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "./Space.css"
 import Menu from "../../components/menu/Menu";
 import Tabs from "../../components/tabs/Tabs";
-import { FaCalendar, FaCamera, FaHeart, FaMap, FaStar } from "react-icons/fa";
+import { FaCalendar, FaCamera, FaHeart, FaStar } from "react-icons/fa";
 import { primaryGrey, white } from "../../utils/colors";
 import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
+import Scores from "../../components/scores/Scores";
 
 const Space = () => {
-  //const { state } = useLocation();
+  const { state } = useLocation();
   
   return (
     <div>
@@ -21,12 +22,12 @@ const Space = () => {
               <FaCamera />,
               <FaHeart />,
               <FaStar />,
-              <FaMap />
             ]}
-            labels={["Photos", "Benefits", "Avaliations", "Map"]} 
+            labels={["Photos", "Description", "Avaliations"]} 
             tabs={[
               <div>teste1</div>,
-              <div>teste2</div>
+              <div>teste1</div>,
+              <Scores placeId={state.id}/>,
             ]} 
           />
         </div>
