@@ -8,10 +8,10 @@ import toast from 'react-hot-toast';
 
 interface IFilters {
   name: string,
-  initialDate: string,
-  finalDate: string,
-  initialPrice: number,
-  finalPrice: number,
+  initial_date: string,
+  final_date: string,
+  initial_price: number,
+  final_price: number,
   location: string,
   capacity: number,
   score: number
@@ -24,15 +24,15 @@ export interface IResult {
   location: string,
   capacity: number,
   score: number,
-  descrpition: string
+  description: string
 }
 
 const DEFAULT_FILTERS: IFilters = {
   name: "",
-  initialDate: "2012-04-23T18:25:43.511Z",
-  finalDate: "2012-04-23T18:25:43.511Z",
-  initialPrice: 0,
-  finalPrice: 5000,
+  initial_date: "2012-04-23T18:25:43.511Z",
+  final_date: "2012-04-23T18:25:43.511Z",
+  initial_price: 0,
+  final_price: 5000,
   location: "",
   capacity: 0,
   score: 0
