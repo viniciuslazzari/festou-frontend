@@ -9,7 +9,9 @@ interface IFilterSection {
   capacityFunction: Dispatch<SetStateAction<number>>
   initialPriceFunction: Dispatch<SetStateAction<number>>
   finalPriceFunction: Dispatch<SetStateAction<number>>
-  scoreFunction: Dispatch<SetStateAction<number>>
+  scoreFunction: Dispatch<SetStateAction<number>>,
+  initialDateFunction: Dispatch<SetStateAction<string>>,
+  finalDateFunction: Dispatch<SetStateAction<string>>,
 }
 
 const FilterSection = (props: IFilterSection) => {
@@ -28,8 +30,8 @@ const FilterSection = (props: IFilterSection) => {
         </div>
         <p className="filter-title" style={{ color: white, fontSize: "16px" }}>Date</p>
         <div className="divisory">
-          <Input icon={FaCalendar} placeholder="00/00/0000" onChange={() => {}}></Input>
-          <Input icon={FaCalendar} placeholder="00/00/0000" onChange={() => {}}></Input>
+          <Input icon={FaCalendar} placeholder="00/00/0000" onChange={props.initialDateFunction}></Input>
+          <Input icon={FaCalendar} placeholder="00/00/0000" onChange={props.finalDateFunction}></Input>
         </div>
         <p className="filter-title" style={{ color: white, fontSize: "16px" }}>Rating</p>
         <Input type="number" icon={FaStar} placeholder="Search by rating" onChange={props.scoreFunction} />
