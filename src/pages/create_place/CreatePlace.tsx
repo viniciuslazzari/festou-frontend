@@ -5,16 +5,9 @@ import Button from "../../components/button/Button"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-hot-toast"
-import { redColor, white } from "../../utils/colors"
+import { white } from "../../utils/colors"
 import UserContext from "../../context/UserContext"
-import { FaCheck, FaChevronLeft, FaStar, FaTimes, FaUser } from "react-icons/fa"
-import React from "react"
-import { setDefaultResultOrder } from "dns"
-import LoginPopup from "../../components/login-popup/LoginPopup"
-import Dropdown from "../../components/dropdown/Dropdown"
-import ProfileIcon from "../../components/profile-icon/ProfileIcon"
-
-
+import { FaCheck } from "react-icons/fa"
 
 const CreatePlace = () => {
   const [placeName, setPlaceName] = useState<string>("");
@@ -23,13 +16,7 @@ const CreatePlace = () => {
   const [description, setDescription] = useState<string>("");
   const [location, setLocation] = useState<string>("");
   const [termsofuse, setTermsofuse] = useState<string>("");
-  const [loginPopup, setLoginPopup] = useState<boolean>(true);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
-
-  const options = [
-    { label: "My profile", path: "/profile", icon: <FaUser /> },
-    { label: "Logout", path: "/logout", icon: <FaChevronLeft /> },
-  ]
   
   let user = useContext(UserContext);
   let navigate = useNavigate();
@@ -43,7 +30,7 @@ const CreatePlace = () => {
     if (!user.state.isLoggedIn) { setButtonDisabled(true); return };
     
     setButtonDisabled(false);
-  }, [placeName, price, capacity, description, location])
+  }, [placeName, price, capacity, description, location, termsofuse, user.state.isLoggedIn])
 
   const serializeData = useCallback(() => {
     const data = {
@@ -58,12 +45,13 @@ const CreatePlace = () => {
     }
 
     return data
-  }, [placeName, price, capacity, description, location, termsofuse])
+  }, [placeName, price, capacity, description, location, termsofuse, user.state.id])
 
   const handleSubmit = useCallback(() => {
     const data = serializeData();
+
     axios.post('http://127.0.0.1:8000/festou-api/v1/place', data)
-      .then(function (response) {
+      .then(() => {
         toast.success("Place Created!")
         navigate("/")
       })
@@ -72,46 +60,8 @@ const CreatePlace = () => {
       });
   }, [navigate, serializeData])
 
-  const login = useCallback(() => {
-    setLoginPopup(true)
-  }, [])
-
-  const onClosePopup = useCallback(() => {
-    setLoginPopup(false)
-  }, [])
-
-  const handleSignupClick = useCallback(() => {
-    navigate("/signup");
-  }, [navigate])
-
-  const handleLogoClick = useCallback(() => {
-    navigate("/");
-  }, [navigate])
-
-  const handleCreatePlaceClick = useCallback(() => {
-    navigate("/createplace");
-  }, [navigate])
-  
-
   return (
     <div className="create-place">
-      <div className="bar-div">
-      <label onClick={() => handleLogoClick()} className="logo" style={{ color: white }}> 🎉 &nbsp; Festou </label>
-      <div className="left_wrapper">
-        {user.state.isLoggedIn ? 
-          <>
-            <label className="salute" style={{ color: white }}> Hello, {user.state.name} </label>
-            <Dropdown element={<ProfileIcon img="assets/profile.png" />} options={options} width="200px"></Dropdown>
-          </>
-          :
-          <>
-            <LoginPopup onClosePopup={onClosePopup} loginPopup={loginPopup}/>
-            <Button onClick={login} text="Login" width="100px" backgroundColor="transparent" color={white}/>
-            <Button onClick={() => handleSignupClick()} text="Sign up" icon={<FaUser />} width="100px" backgroundColor={white} color="black"/>
-          </>
-        }       
-      </div>
-    </div>
       <div className="form-wrapper-create-place">
         <div className="form-create-place">
           <div
@@ -142,9 +92,6 @@ const CreatePlace = () => {
             width="100%" 
             onClick={() => handleSubmit()} 
           />
-          
-          
-          
         </div>
       </div>   
       <div className="picture-wrapper-create-place">
