@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import FilterSection from '../../components/filter-section/FilterSection';
 import Menu from '../../components/menu/Menu';
 import ResultsSection from '../../components/results-section/ResultsSection';
 import './Home.css';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import UserContext from '../../context/UserContext';
 
 interface IFilters {
   name: string,
-  initialDate: string,
-  finalDate: string,
-  initialPrice: number,
-  finalPrice: number,
+  initial_date: string,
+  final_date: string,
+  initial_price: number,
+  final_price: number,
   location: string,
   capacity: number,
   score: number
@@ -24,15 +25,15 @@ export interface IResult {
   location: string,
   capacity: number,
   score: number,
-  descrpition: string
+  description: string
 }
 
 const DEFAULT_FILTERS: IFilters = {
   name: "",
-  initialDate: "2012-04-23T18:25:43.511Z",
-  finalDate: "2012-04-23T18:25:43.511Z",
-  initialPrice: 0,
-  finalPrice: 5000,
+  initial_date: "",
+  final_date: "",
+  initial_price: 0,
+  final_price: 0,
   location: "",
   capacity: 0,
   score: 0
@@ -41,6 +42,8 @@ const DEFAULT_FILTERS: IFilters = {
 const Home = () => {
   const [nameFilter, setNameFilter] = useState<string>("");
   const [locationFilter, setLocationFilter] = useState<string>("");
+  const [initialDateFilter, setInitialDateFilter] = useState<string>("");
+  const [finalDateFilter, setFinalDateFilter] = useState<string>("");
   const [initialPriceFilter, setInitialPriceFilter] = useState<number>(0);
   const [finalPriceFilter, setFinalPriceFilter] = useState<number>(0);
   const [capacityFilter, setCapacityFilter] = useState<number>(0);
@@ -48,19 +51,24 @@ const Home = () => {
   const [filters, setFilters] = useState<IFilters>(DEFAULT_FILTERS);
   const [results, setResults] = useState<IResult[]>([]);
 
+  let user = useContext(UserContext);
+
   useEffect(() => {
     setFilters(prevState => {
       return({
         ...prevState,
+        user: user.state.isLoggedIn ? user.state.id : 0,
         name: nameFilter || "",
         location: locationFilter || "",
+        initial_date: initialDateFilter || "",
+        final_date: finalDateFilter || "", 
         capacity: capacityFilter || 0,
-        initialPrice: initialPriceFilter || 0,
-        finalPrice: finalPriceFilter || 10000000,
+        initial_price: initialPriceFilter || 0,
+        final_price: finalPriceFilter || 0,
         score: scoreFilter || 0
       });
     });
-  }, [capacityFilter, finalPriceFilter, initialPriceFilter, locationFilter, nameFilter, scoreFilter])
+  }, [capacityFilter, finalDateFilter, finalPriceFilter, initialDateFilter, initialPriceFilter, locationFilter, nameFilter, scoreFilter])
 
   useEffect(() => {
     axios.post('http://127.0.0.1:8000/festou-api/v1/search', filters)
@@ -79,6 +87,8 @@ const Home = () => {
         <FilterSection 
           locationFunction={setLocationFilter}
           capacityFunction={setCapacityFilter}
+          initialDateFunction={setInitialDateFilter}
+          finalDateFunction={setFinalDateFilter}
           initialPriceFunction={setInitialPriceFilter}
           finalPriceFunction={setFinalPriceFilter}
           scoreFunction={setScoreFilter}

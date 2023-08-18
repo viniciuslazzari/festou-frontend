@@ -49,7 +49,7 @@ const LoginPopup = (props: ILoginPopup) => {
 
     axios.post('http://127.0.0.1:8000/festou-api/v1/login', data)
       .then(function (response) {
-        user.setState({ isLoggedIn: true, id: response.data.id, name: response.data.firstName })
+        user.setState({ isLoggedIn: true, id: response.data.id, name: response.data.first_name })
       })
       .catch(function (error) {
         toast.error(error.response.data.description)

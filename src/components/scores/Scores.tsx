@@ -28,7 +28,7 @@ const Scores = (props: IScores) => {
   let user = useContext(UserContext)
 
   const fetchData = useCallback(() => {
-    axios.get('http://127.0.0.1:8000/festou-api/v1/get_score/' + props.placeId)
+    axios.get('http://127.0.0.1:8000/festou-api/v1/getScore/' + props.placeId)
       .then(function (response) {
         setItems(response.data)
       })
@@ -55,13 +55,13 @@ const Scores = (props: IScores) => {
     }
 
     const body = {
-      idClient: user.state.id,
+      id_client: user.state.id,
       description: sendScore,
       score: sendScoreRating,
-      idPlace: props.placeId
+      id_place: props.placeId
     }
 
-    axios.post('http://127.0.0.1:8000/festou-api/v1/create_score', body)
+    axios.post('http://127.0.0.1:8000/festou-api/v1/createScore', body)
       .then(() => {
         fetchData()
         setSendScore("")

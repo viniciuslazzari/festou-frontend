@@ -46,8 +46,8 @@ const Signup = () => {
     const dateArr = birthdate.split('/');
 
     const data = {
-      "firstName": firstName,
-      "lastName": lastName,
+      "first_name": firstName,
+      "last_name": lastName,
       "email": email,
       "cpf": cpf,
       "phone": phone,
@@ -89,7 +89,7 @@ const Signup = () => {
     axios.post('http://127.0.0.1:8000/festou-api/v1/signup', data)
       .then(function (response) {
         toast.success("User created!")
-        user.setState({ isLoggedIn: true, id: response.data.id, name: response.data.firstName })
+        user.setState({ isLoggedIn: true, id: response.data.id, name: response.data.first_name })
         navigate("/")
       })
       .catch(function (error) {
