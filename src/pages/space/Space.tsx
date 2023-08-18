@@ -7,9 +7,22 @@ import { primaryGrey, white } from "../../utils/colors";
 import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
 import Scores from "../../components/scores/Scores";
+import { useCallback, useContext } from "react";
+import UserContext from "../../context/UserContext";
+import toast from "react-hot-toast";
 
 const Space = () => {
   const { state } = useLocation();
+  
+  let user = useContext(UserContext)
+
+  const handleClick = useCallback(() => {
+    if (!user.state.isLoggedIn) toast.error("You need to be logged in to perform this action!")
+
+    const body = {
+      
+    }
+  }, [user.state.isLoggedIn])
   
   return (
     <div>
@@ -38,7 +51,7 @@ const Space = () => {
             <Input icon={FaCalendar} placeholder="00/00/0000" onChange={() => {}}></Input>
             <Input icon={FaCalendar} placeholder="00/00/0000" onChange={() => {}}></Input>
           </div>
-          <Button text="Book now" backgroundColor={white} color="black" width="100%" onClick={() => {}}></Button>
+          <Button text="Book now" backgroundColor={white} color="black" width="100%" onClick={() => handleClick()}></Button>
         </div>
       </div>
     </div>

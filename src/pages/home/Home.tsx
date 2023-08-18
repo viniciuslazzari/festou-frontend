@@ -55,8 +55,8 @@ const Home = () => {
         name: nameFilter || "",
         location: locationFilter || "",
         capacity: capacityFilter || 0,
-        initialPrice: initialPriceFilter || 0,
-        finalPrice: finalPriceFilter || 10000000,
+        initial_price: initialPriceFilter || 0,
+        final_price: finalPriceFilter || 10000000,
         score: scoreFilter || 0
       });
     });

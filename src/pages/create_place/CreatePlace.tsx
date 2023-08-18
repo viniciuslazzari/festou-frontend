@@ -41,6 +41,7 @@ const CreatePlace = () => {
     if (!description || description === "") { setButtonDisabled(true); return };
     if (!termsofuse || termsofuse === "") { setButtonDisabled(true); return };
     if (!user.state.isLoggedIn) { setButtonDisabled(true); return };
+    
     setButtonDisabled(false);
   }, [placeName, price, capacity, description, location])
 
@@ -49,9 +50,9 @@ const CreatePlace = () => {
       "name": placeName,
       "price": price,
       "capacity": capacity,
-      "descrpition": description,
+      "description": description,
       "location": location,
-      "termsofuse": termsofuse,
+      "terms_of_use": termsofuse,
       "id_user": user.state.id,
       "score": "0"
     }
