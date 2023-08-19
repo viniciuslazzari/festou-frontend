@@ -1,15 +1,13 @@
-import { FaChevronLeft, FaHouseUser, FaSearch, FaUpload, FaUser } from "react-icons/fa"
-import Button from "../button/Button"
-//import ProfileIcon from "../profile-icon/ProfileIcon"
-import "./Menu.css"
-import LoginPopup from "../login-popup/LoginPopup"
-import { Dispatch, SetStateAction, useCallback, useContext, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { white } from "../../utils/colors"
-import Input from "../input/Input"
-import UserContext from "../../context/UserContext"
-import ProfileIcon from "../profile-icon/ProfileIcon"
-import Dropdown from "../dropdown/Dropdown"
+import { Dispatch, SetStateAction, useCallback, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../../context/UserContext";
+import { white } from "../../utils/colors";
+import Dropdown from "../dropdown/Dropdown";
+import ProfileIcon from "../profile-icon/ProfileIcon";
+import LoginPopup from "../login-popup/LoginPopup";
+import Button from "../button/Button";
+import { FaChevronLeft, FaHouseUser, FaUpload, FaUser } from "react-icons/fa";
+import "./header.css"
 
 const options = [
   { label: "My profile", path: "/profile", icon: <FaUser /> },
@@ -18,11 +16,7 @@ const options = [
   { label: "Logout", path: "/logout", icon: <FaChevronLeft /> },
 ]
 
-interface IMenu {
-  inputFunction: Dispatch<SetStateAction<string>>
-}
-
-const Menu = (props: IMenu) => {
+const Header = () => {
   const [loginPopup, setLoginPopup] = useState(false)
 
   let navigate = useNavigate();
@@ -45,13 +39,12 @@ const Menu = (props: IMenu) => {
   }, [navigate])
   
   return (
-    <div className="bar-div">
+    <div className="bar-div-head">
       <label onClick={() => handleLogoClick()} className="logo" style={{ color: white }}> 🎉 &nbsp; Festou </label>
-      <Input placeholder="Search by name" onChange={props.inputFunction} icon={FaSearch} />
-      <div className="left_wrapper">
+      <div className="left_wrapper-head">
         {user.state.isLoggedIn ? 
           <>
-            <label className="salute" style={{ color: white }}> Hello, {user.state.name} </label>
+            <label className="salute-head" style={{ color: white }}> Hello, {user.state.name} </label>
             <Dropdown element={<ProfileIcon img="assets/profile.png" />} options={options} width="200px"></Dropdown>
           </>
           :
@@ -66,4 +59,4 @@ const Menu = (props: IMenu) => {
   )
 }
 
-export default Menu
+export default Header
