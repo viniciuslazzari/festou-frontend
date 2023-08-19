@@ -2,12 +2,13 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import './profile.css';
 import Header from '../../components/header/header';
 import ProfilePicture from '../../components/profile-picture/ProfilePicture';
-import Button from '../../components/button/Button';
 import { useNavigate } from 'react-router-dom';
-import { white } from '../../utils/colors';
+import { secondarygrey, white } from '../../utils/colors';
 import UserContext from '../../context/UserContext';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
+import ButtonBorder from '../../components/button-border/ButtonBorder';
+
 
 
 const optionsDictionary = {
@@ -80,25 +81,25 @@ const Profile = () => {
           <ProfilePicture img="assets/profile.png" />
           <h2>{userInfo.first_name} {userInfo.last_name}</h2>
           <div className='buttons-profile'>
-            <Button
+            <ButtonBorder
               disabled={false}
               onClick={handleEditProfile}
               text="Edit Profile"
               width="300px"
-              backgroundColor="black"
+              backgroundColor="rgba(0,0,0,0.15)"
               color={white}
               fontSize='20px'
-              marginTop='20px'
+              marginTop='10px'
             />
-            <Button
+            <ButtonBorder
               disabled={false}
               onClick={handleMyPlaces}
               text="My Places"
               width="300px"
-              backgroundColor="black"
+              backgroundColor="rgba(0,0,0,0.15)"
               color={white}
               fontSize='20px'
-              marginTop='20px'
+              marginTop='10px'
             />
             </div>
         </div>
