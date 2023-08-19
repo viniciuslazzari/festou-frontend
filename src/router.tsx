@@ -6,6 +6,8 @@ import Space from './pages/space/Space';
 import Signup from './pages/signup/Signup';
 import Logout from './pages/logout/Logout';
 import CreatePlace from './pages/create_place/CreatePlace';
+import ListPlaceUser from './pages/list_places/ListPlacesUser';
+import Profile from './pages/profile/profile';
 
 const Router = () => {
   return (
@@ -16,6 +18,8 @@ const Router = () => {
         <Route path='/space' element={<Space />} />
         <Route path='/logout' element={<Logout />} />
         <Route path='/createplace' element={<CreatePlace />} />
+        <Route path='/userPlaces' element={<ListPlaceUser />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
     </BrowserRouter>
   )
