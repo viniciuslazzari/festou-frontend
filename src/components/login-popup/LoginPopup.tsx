@@ -42,7 +42,7 @@ const LoginPopup = (props: ILoginPopup) => {
 
   const handleAdminLogin = useCallback(() => {
     window.location.href = "http://127.0.0.1:8000/admin";
-  }, [navigator])
+  }, [])
 
   const handleSumbmit = useCallback(() => {
     const data = serializeData()

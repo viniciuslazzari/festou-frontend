@@ -7,17 +7,26 @@ import { primaryGrey, white } from "../../utils/colors";
 import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
 import Scores from "../../components/scores/Scores";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import UserContext from "../../context/UserContext";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const Space = () => {
   const [initialDate, setInitialDate] = useState<string>("");
   const [finalDate, setFinalDate] = useState<string>("");
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
 
   const { state } = useLocation();
   
   let user = useContext(UserContext)
+
+  useEffect(() => {
+    if (!initialDate || initialDate.length < 10) { setButtonDisabled(true); return; }
+    if (!finalDate || finalDate.length < 10) { setButtonDisabled(true); return; }
+
+    setButtonDisabled(false)
+  }, [finalDate, initialDate])
 
   const handleClick = useCallback(() => {
     if (!user.state.isLoggedIn) toast.error("You need to be logged in to perform this action!")
@@ -29,7 +38,13 @@ const Space = () => {
       final_date: finalDate
     }
 
-    console.log(body)
+    axios.post('http://127.0.0.1:8000/festou-api/v1/transaction', body)
+    .then(function (response) {
+      toast.success("Booking made with success!")
+    })
+    .catch(function (error) {
+      toast.error(error.response.data.description)
+    });
   }, [finalDate, initialDate, state.id, user.state.id, user.state.isLoggedIn])
   
   return (
@@ -59,7 +74,7 @@ const Space = () => {
             <Input icon={FaCalendar} placeholder="00/00/0000" onChange={setInitialDate}></Input>
             <Input icon={FaCalendar} placeholder="00/00/0000" onChange={setFinalDate}></Input>
           </div>
-          <Button text="Book now" backgroundColor={white} color="black" width="100%" onClick={() => handleClick()}></Button>
+          <Button disabled={buttonDisabled} text="Book now" backgroundColor={white} color="black" width="100%" onClick={() => handleClick()}></Button>
         </div>
       </div>
     </div>
