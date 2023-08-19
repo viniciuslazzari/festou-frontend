@@ -40,6 +40,10 @@ const LoginPopup = (props: ILoginPopup) => {
     setButtonDisabled(false);
   }, [email, password])
 
+  const handleAdminLogin = useCallback(() => {
+    window.location.href = "http://127.0.0.1:8000/admin";
+  }, [navigator])
+
   const handleSumbmit = useCallback(() => {
     const data = serializeData()
 
@@ -69,6 +73,16 @@ const LoginPopup = (props: ILoginPopup) => {
           onClick={() => handleSumbmit()}
           icon={<FaChevronRight />}
           disabled={buttonDisabled}
+        />
+        <Button
+          marginTop="10px" // Espaçamento menor para o novo botão
+          text="Admin Login"
+          backgroundColor="transparent" // Fundo transparente
+          color={labelBackground} // Cor de fundo original
+          width="100%" 
+          onClick={() => handleAdminLogin()}
+          icon={<FaChevronRight />}
+          disabled={false}
         />
       </div>
     </Popup>

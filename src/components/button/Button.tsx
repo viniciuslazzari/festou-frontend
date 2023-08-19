@@ -7,6 +7,7 @@ interface IButton {
     color: string
     width: string
     icon?: ReactNode
+    fontSize?: string
     onClick: () => any
     marginTop?: string
     disabled?: boolean
@@ -18,6 +19,7 @@ const Button = (props: IButton) => {
       className="button" 
       onClick={props.disabled ? () => {} : () => props.onClick()}
       style={{ 
+        fontSize: props.fontSize,
         marginTop: props.marginTop, 
         width: props.width, 
         backgroundColor: props.backgroundColor, 

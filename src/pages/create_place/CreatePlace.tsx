@@ -8,6 +8,8 @@ import { toast } from "react-hot-toast"
 import { white } from "../../utils/colors"
 import UserContext from "../../context/UserContext"
 import { FaCheck } from "react-icons/fa"
+import Header from "../../components/header/header"
+
 
 const CreatePlace = () => {
   const [placeName, setPlaceName] = useState<string>("");
@@ -26,6 +28,7 @@ const CreatePlace = () => {
     if (!price || price === "") { setButtonDisabled(true); return };
     if (!capacity || capacity === "") { setButtonDisabled(true); return };
     if (!description || description === "") { setButtonDisabled(true); return };
+    if (!location || location === "") { setButtonDisabled(true); return };
     if (!termsofuse || termsofuse === "") { setButtonDisabled(true); return };
     if (!user.state.isLoggedIn) { setButtonDisabled(true); return };
     
@@ -40,8 +43,8 @@ const CreatePlace = () => {
       "description": description,
       "location": location,
       "terms_of_use": termsofuse,
-      "id_user": user.state.id,
-      "score": "0"
+      //"id": user.state.id,
+      //"score": "0"
     }
 
     return data
@@ -64,6 +67,7 @@ const CreatePlace = () => {
     <div className="create-place">
       <div className="form-wrapper-create-place">
         <div className="form-create-place">
+          <Header/>
           <div
             style={{
               color: white,
