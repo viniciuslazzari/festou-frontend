@@ -51,11 +51,11 @@ const Signup = () => {
       "email": email,
       "cpf": cpf,
       "phone": phone,
-      "birthdate": new Date(parseInt(dateArr[2]), parseInt(dateArr[1]) - 1, parseInt(dateArr[0])),
+      "password": btoa(password),
+      "birthdate": parseInt(dateArr[2]) +  '-' + parseInt(dateArr[1]) + '-' + parseInt(dateArr[0]),
       "bank": bank,
       "account": account,
-      "agency": agency,
-      "password": btoa(password)
+      "agency": agency
     }
 
     return data

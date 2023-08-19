@@ -8,6 +8,8 @@ import { toast } from "react-hot-toast"
 import { white } from "../../utils/colors"
 import UserContext from "../../context/UserContext"
 import { FaCheck } from "react-icons/fa"
+import Header from "../../components/header/header"
+
 
 const CreatePlace = () => {
   const [placeName, setPlaceName] = useState<string>("");
@@ -41,7 +43,8 @@ const CreatePlace = () => {
       "description": description,
       "location": location,
       "terms_of_use": termsofuse,
-      "id_owner": user.state.id
+      //"id": user.state.id,
+      //"score": "0"
     }
 
     return data
@@ -64,6 +67,7 @@ const CreatePlace = () => {
     <div className="create-place">
       <div className="form-wrapper-create-place">
         <div className="form-create-place">
+          <Header/>
           <div
             style={{
               color: white,
