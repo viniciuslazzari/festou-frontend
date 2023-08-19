@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./ListPlaceUser.css"
 import { labelBackground, primaryGrey, white } from "../../utils/colors";
 import { IResult } from "../../pages/list_places/ListPlacesUser";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 interface IResultSection {
   results: IResult[]
@@ -13,43 +13,45 @@ const ListPlace = (props: IResultSection) => {
   let navigate = useNavigate();
 
   const handleSpaceClick = useCallback((id: number) => {
-    navigate("/space", { state: { id: id } });
+    navigate("/editPlace", { state: { id: id } });
   }, [navigate])
 
+  
   const renderResult = useCallback((item: IResult) => {
+    const maxLength = 150; // Defina o número máximo de caracteres a serem exibidos
+    const truncatedDescription =
+    item.description.length > maxLength
+      ? item.description.substring(0, maxLength) + "..." 
+      : item.description;
+
+    const truncatedTermsOfUse =
+    item.description.length > maxLength
+      ? item.description.substring(0, maxLength) + "..." 
+      : item.description;
     return (
       <div style={{ margin: '20px' }}>
         <div onClick={() => handleSpaceClick(item.id)} className="result-item-lpu">
           <img className="result-image-lpu" src="assets/4.webp" alt="Result 1"/>
-          <div className="result-content-lpu">
-            
-            <div className="first-info-lpu" style={{ color: white }}>
-              <p className="title-lpu">{item.name}</p>
-              <div className="right-title-wrapper-lpu" style={{ color: labelBackground }}>
-                <FaStar style={{ marginTop: "2px" }} />
-                <label> &nbsp; {item.score}</label>
+          <span>
+            <div className="result-content-lpu">
+              <div className="first-info-lpu" style={{ color: white }}>
+                <p className="title-lpu" style={{height:"40px"}}>{item.name}</p>
+              </div>
+              <p className="location-lpu" style={{ color: labelBackground }}>{item.location}</p>
+              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px" }}>
+                <p> <strong> Price: </strong> R$ {item.price}</p>
+              </div>
+              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"5px"}}>
+                <p> <strong> Capacity: </strong> {item.capacity}</p>
+              </div>
+              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"5px"}}>
+                <p> <strong> Description: </strong> {truncatedDescription}</p>
+              </div>
+              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"5px"}}>
+                <p> <strong> Terms of Use: </strong> {truncatedTermsOfUse}</p>
               </div>
             </div>
-            <p className="location-lpu" style={{ color: labelBackground }}>{item.location}</p>
-            <div className="data-info-lpu" style={{ backgroundColor: primaryGrey }}>
-              <div className="info-container-lpu">
-                <p className="title-info-lpu" style={{ color: labelBackground }}>Price</p>
-                <p className="info-lpu" style={{ color: white }}>R$ {item.price}</p>
-              </div>
-              <div className="info-container-lpu">
-                <p className="title-info-lpu" style={{ color: labelBackground }}>Capacity</p>
-                <p className="info-lpu" style={{ color: white }}>{item.capacity}</p>
-              </div>
-              <div className="info-container-lpu">
-                <p className="title-info-lpu" style={{ color: labelBackground }}>Benefits</p>
-                <div className="info-lpu" style={{ color: white }}>
-                  <FaVolumeUp style={{ marginRight: "10px" }} />
-                  <FaBroom style={{ marginRight: "10px" }} />
-                  <FaBowlingBall />
-                </div>
-              </div>
-            </div>
-          </div>
+          </span>
         </div>
       </div>
     )

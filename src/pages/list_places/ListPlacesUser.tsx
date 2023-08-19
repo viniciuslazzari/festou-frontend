@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import UserContext from '../../context/UserContext';
 import Header from '../../components/header/header';
 import axios from 'axios';
@@ -6,53 +6,43 @@ import './ListPlacesUser.css'
 import { toast } from 'react-hot-toast';
 import ListPlace from '../../components/list-places-user/ListPlaceUser';
 
-
 export interface IResult {
   id: number,
   name: string,
   price: number,
   location: string,
   capacity: number,
-  score: number,
   description: string
+  terms_of_use: string
 }
 
-interface IResultSection {
-  results: IResult[]
-}
 const mockPlace1 = {
   id: 1,
-  name: 'Local Example',
-  price: 50,
-  location: 'Example City',
-  capacity: 100,
-  score: 4.5,
-  description: 'Description for Local Example',
-};
-const mockPlace2 = {
-  id: 1,
-  name: 'Local Example',
-  price: 50,
-  location: 'Example City',
-  capacity: 100,
-  score: 4.5,
-  description: 'Description for Local Example',
+  name: 'Elegante Garden Hall',
+  price: 3500,
+  location: 'Rua das Flores, 123 - Cidade das Celebrações',
+  capacity: 150,
+  description: 'descricaoSalaoDeFestas',
+  terms_of_use: 'termosDeUso'
 };
 
 const ListPlaceUser = () => {
-  const [results, setResults] = useState<IResultSection[]>([]);
+  const [results, setResults] = useState<IResult[]>([]);
 
   let user = useContext(UserContext);
-  let id = user.state.id;
 
-  axios.get('http://127.0.0.1:8000/festou-api/v1/userPlaces'+ 1)
-    .then(function (response) {
-      setResults(response.data);
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      toast.error(error.response.data.description)
-    });
+  useEffect(() => {
+    if (!user.state.isLoggedIn) toast.error("You need to be logged in to perform this action!")
+
+    axios.get('http://127.0.0.1:8000/festou-api/v1/userPlaces/' + user.state.id)
+      .then(function (response) {
+        setResults(response.data);
+      })
+      .catch(function (error) {
+        toast.error(error.response.data.description)
+      });
+  }, []);
+
 
   return (
     <div>
@@ -63,7 +53,6 @@ const ListPlaceUser = () => {
         </div>
         
         <ListPlace results={results} /> 
-        
       </div>
     </div>
   );
