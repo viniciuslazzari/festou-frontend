@@ -1,4 +1,4 @@
-import { FaChevronLeft, FaHouseUser, FaSearch, FaUpload, FaUser } from "react-icons/fa"
+import { FaChevronLeft, FaHouseUser, FaMoneyBill, FaSearch, FaUpload, FaUser } from "react-icons/fa"
 import Button from "../button/Button"
 //import ProfileIcon from "../profile-icon/ProfileIcon"
 import "./Menu.css"
@@ -15,6 +15,7 @@ const options = [
   { label: "My profile", path: "/profile", icon: <FaUser /> },
   { label: "Create place", path: "/createplace", icon: <FaUpload /> },
   { label: "My Places", path: "/userPlaces", icon: <FaHouseUser /> },
+  { label: "My Transactions", path: "/userTransaction", icon: <FaMoneyBill /> },
   { label: "Logout", path: "/logout", icon: <FaChevronLeft /> },
 ]
 
