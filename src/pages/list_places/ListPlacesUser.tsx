@@ -45,7 +45,7 @@ const ListPlaceUser = () => {
   let user = useContext(UserContext);
   let id = user.state.id;
 
-  axios.post('http://127.0.0.1:8000/festou-api/v1/userPlaces', {"id_owner":1})
+  axios.get('http://127.0.0.1:8000/festou-api/v1/userPlaces'+ 1)
     .then(function (response) {
       setResults(response.data);
       console.log(response.data);
@@ -62,7 +62,7 @@ const ListPlaceUser = () => {
           Your places:
         </div>
         
-        <ListPlace results={[mockPlace1, mockPlace2, mockPlace2]} /> 
+        <ListPlace results={results} /> 
         
       </div>
     </div>
