@@ -60,15 +60,15 @@ const Home = () => {
         user: user.state.isLoggedIn ? user.state.id : 0,
         name: nameFilter || "",
         location: locationFilter || "",
-        initial_date: initialDateFilter || "",
-        final_date: finalDateFilter || "", 
+        initial_date: initialDateFilter && initialDateFilter.length === 10 ? initialDateFilter : "",
+        final_date: finalDateFilter && finalDateFilter.length === 10 ? finalDateFilter : "", 
         capacity: capacityFilter || 0,
         initial_price: initialPriceFilter || 0,
         final_price: finalPriceFilter || 0,
         score: scoreFilter || 0
       });
     });
-  }, [capacityFilter, finalDateFilter, finalPriceFilter, initialDateFilter, initialPriceFilter, locationFilter, nameFilter, scoreFilter])
+  }, [capacityFilter, finalDateFilter, finalPriceFilter, initialDateFilter, initialPriceFilter, locationFilter, nameFilter, scoreFilter, user.state.id, user.state.isLoggedIn])
 
   useEffect(() => {
     axios.post('http://127.0.0.1:8000/festou-api/v1/search', filters)
