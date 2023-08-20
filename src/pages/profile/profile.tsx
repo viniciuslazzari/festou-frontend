@@ -32,6 +32,7 @@ const Profile = () => {
     bank: '1' as BankKey,
     account: '',
     agency: '',
+    balance: '',
   };
   const [userInfo, setUserInfo] = useState<{
     first_name: string;
@@ -43,6 +44,7 @@ const Profile = () => {
     bank: BankKey;
     account: string;
     agency: string;
+    balance: string;
   }>(DEFAULT_INFO);
 
   let navigate = useNavigate();
@@ -55,6 +57,11 @@ const Profile = () => {
   const handleMyPlaces = useCallback(() => {
     navigate("/userPlaces");
   }, [navigate]);
+
+  const handleMyTransaction = useCallback(() => {
+    navigate("/userTransaction");
+  }, [navigate]);
+
 
   const loadUserProfile = useCallback(() => {
     if (!user.state.isLoggedIn) toast.error("You need to be logged in to perform this action!")
@@ -101,6 +108,16 @@ const Profile = () => {
               fontSize='20px'
               marginTop='10px'
             />
+            <ButtonBorder
+              disabled={false}
+              onClick={handleMyTransaction}
+              text="My Transactions"
+              width="300px"
+              backgroundColor="rgba(0,0,0,0.15)"
+              color={white}
+              fontSize='20px'
+              marginTop='10px'
+            />
             </div>
         </div>
         <div className="profile-info">
@@ -137,6 +154,10 @@ const Profile = () => {
           <div className="data-container">
             <strong>Agency:</strong>
             <span>{userInfo.agency}</span>
+          </div>
+          <div className="data-container">
+            <strong>Balance:</strong>
+            <span>R${userInfo.balance}</span>
           </div>
         </div>
       </div>

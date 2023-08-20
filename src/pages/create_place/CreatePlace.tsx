@@ -43,7 +43,7 @@ const CreatePlace = () => {
       "description": description,
       "location": location,
       "terms_of_use": termsofuse,
-      //"id": user.state.id,
+      "id_owner": user.state.id,
       //"score": "0"
     }
 
