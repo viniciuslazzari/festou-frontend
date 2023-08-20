@@ -1,0 +1,15 @@
+.content-wrapper-edit-place {
+  margin: 10px 40px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+}
+
+.title-list-edit-place {
+  font-size: 36px;
+  color: white;
+  font-weight: 700;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
