@@ -1,14 +1,12 @@
-import React, { useCallback, useContext, useEffect, useState, useSyncExternalStore } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import UserContext from '../../context/UserContext';
 import Header from '../../components/header/header';
 import axios from 'axios';
 import './listUserTransactions.css'
 import { toast } from 'react-hot-toast';
-import ListPlace from '../../components/list-places-user/ListPlaceUser';
-import { labelBackground, white } from '../../utils/colors';
 import ListUserTransactionsResult, { IPlace, ITransactionResult } from '../../components/list-user-transactions-result/ListUserTransactionsResult';
 
-
+/*
 
 const mock_transactions=[
   {
@@ -16,18 +14,21 @@ const mock_transactions=[
     id_place: 27,
     initial_date: "2023-08-24",
     final_date: "2023-08-21",
+    transaction_state: "Started",
   },
   {
     id_client: 38,
     id_place: 27,
     initial_date: "2023-08-24",
     final_date: "2023-08-21",
+    transaction_state: "Started",
   },
   {
     id_client: 38,
     id_place: 27,
     initial_date: "2023-08-24",
     final_date: "2023-08-21",
+    transaction_state: "Started",
   }
 ]
 const mock_places=[
@@ -59,10 +60,10 @@ const mock_places=[
     terms_of_use: 'string'
   }
 ]
-
+*/
 const ListUserTransactions = () => {
-  const [transactions, setTransactions] = useState<ITransactionResult[]>(mock_transactions);
-  const [places, setPlaces] = useState<IPlace[]>(mock_places);
+  const [transactions, setTransactions] = useState<ITransactionResult[]>([]);
+  const [places, setPlaces] = useState<IPlace[]>([]);
 
   let user = useContext(UserContext);
 
@@ -77,6 +78,7 @@ const ListUserTransactions = () => {
         toast.error(error.response.data.description)
       });
 
+      console.log(transactions)
       let id_transactions = [];
       for (let i = 0; i < transactions.length; i += 1) {
         id_transactions.push(transactions[i].id_place)
@@ -84,22 +86,21 @@ const ListUserTransactions = () => {
       const query = {
         'id_list': id_transactions
       }
-      console.log(id_transactions)
-      axios.post('http://127.0.0.1:8000/festou-api/v1/IdListPlaces/', {query})
+      axios.post('http://127.0.0.1:8000/festou-api/v1/IdListPlaces', query)
       .then(function (response) {
-        setTransactions(response.data);
+        setPlaces(response.data);
 
       })
       .catch(function (error) {
         toast.error(error.response.data.description)
       });
-  }, []);
+  }, [transactions, user.state.id, user.state.isLoggedIn]);
 
   return (
-    <div>
+    <div style={{marginTop:"100px"}}>
       <Header/>
-      <div className='content-wrapper-list-user-transactions'>
-        <div className='title-list-user-transactions'>
+      <div className='content-wrapper-user-transactions'>
+        <div className='title-user-transactions'>
           Your transactions:
         </div>
         

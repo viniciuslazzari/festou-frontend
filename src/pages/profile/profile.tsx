@@ -118,7 +118,7 @@ const Profile = () => {
           </div>
           <div className="data-container">
             <strong>Birthdate:</strong>
-            <span>{userInfo.birthdate}</span>
+            <span>{new Date(userInfo.birthdate).toLocaleDateString('pt-BR')}</span>
           </div>
           <div className="data-container">
             <strong>Bank:</strong>

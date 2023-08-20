@@ -1,7 +1,8 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { labelBackground, white } from "../../utils/colors";
+import { labelBackground, redColor, white } from "../../utils/colors";
 import "./ListUserTransactionsResult.css"
+import ButtonBorder from "../button-border/ButtonBorder";
 
 export interface ITransactionResultSection {
   transactions: ITransactionResult[],
@@ -12,7 +13,9 @@ export interface ITransactionResult {
   final_date: string
   id_client: number
   id_place: number
+  //id_advisor: number
   initial_date: string
+  //transaction_state: string
 }
 
 export interface IPlace {
@@ -28,6 +31,9 @@ export interface IPlace {
 const ListUserTransactionsResult = (props: ITransactionResultSection) => {
   let navigate = useNavigate();
 
+  const handleCancel = useCallback(() => {
+    navigate('/')
+  }, [navigate]);
   
   const renderResult = useCallback((item: ITransactionResult, place:IPlace) => {
     return (
@@ -51,10 +57,22 @@ const ListUserTransactionsResult = (props: ITransactionResultSection) => {
               <p> <strong> Data Final: </strong> {new Date(item.final_date).toLocaleDateString('pt-BR')}</p>
             </div>
           </div>
+          <span >
+              <ButtonBorder
+                disabled={/*item.transaction_state !== 'Started'*/false}
+                onClick={handleCancel}
+                text="Cancel "
+                width="300px"
+                backgroundColor="rgba(0,0,0,0.15)"
+                color={redColor}
+                fontSize='20px'
+                marginTop='10px'
+              />
+            </span>
         </div>
       </div>
     )
-  }, [])
+  }, [handleCancel])
 
   return (
     <div className="results">
