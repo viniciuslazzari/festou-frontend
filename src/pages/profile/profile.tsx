@@ -1,9 +1,9 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import './profile.css';
 import Header from '../../components/header/header';
 import ProfilePicture from '../../components/profile-picture/ProfilePicture';
 import { useNavigate } from 'react-router-dom';
-import { secondarygrey, white } from '../../utils/colors';
+import { white } from '../../utils/colors';
 import UserContext from '../../context/UserContext';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
@@ -71,7 +71,7 @@ const Profile = () => {
 
   useEffect(() => {
     loadUserProfile();
-  }, []);
+  }, [loadUserProfile]);
 
   return (
     <div className="profile-page">

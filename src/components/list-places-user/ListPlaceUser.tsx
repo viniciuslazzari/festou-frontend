@@ -1,9 +1,8 @@
-import { FaBowlingBall, FaBroom, FaStar, FaVolumeUp } from "react-icons/fa"
 import { useNavigate } from "react-router-dom";
 import "./ListPlaceUser.css"
-import { labelBackground, primaryGrey, white } from "../../utils/colors";
+import { labelBackground, white } from "../../utils/colors";
 import { IResult } from "../../pages/list_places/ListPlacesUser";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 interface IResultSection {
   results: IResult[]
@@ -15,7 +14,6 @@ const ListPlace = (props: IResultSection) => {
   const handleSpaceClick = useCallback((id: number) => {
     navigate("/editPlace", { state: { id: id } });
   }, [navigate])
-
   
   const renderResult = useCallback((item: IResult) => {
     const maxLength = 150; // Defina o número máximo de caracteres a serem exibidos
@@ -61,13 +59,11 @@ const ListPlace = (props: IResultSection) => {
     <div className="results">
       {(() => {
         const component = [];
-
         for (let i = 0; i < props.results.length; i += 1) {
           component.push(
             renderResult(props.results[i])
           )
         }
-
         return component;
       })()}
     </div>
