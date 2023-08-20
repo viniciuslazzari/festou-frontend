@@ -9,7 +9,6 @@ import { redColor, white } from "../../utils/colors";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import { FaCheck } from "react-icons/fa";
-import { stat } from "fs";
 
 const EditPlace = () => {
   const { state } = useLocation();
@@ -52,7 +51,7 @@ const EditPlace = () => {
       .catch(function (error) {
         toast.error(error.response.data.description)
       });
-  }, [])
+  }, [state.id])
 
   const serializeData = useCallback(() => {
     const data = {
@@ -65,7 +64,7 @@ const EditPlace = () => {
     }
 
     return data
-  }, [placeName, price, capacity, description, location, terms_of_use, user.state.isLoggedIn])
+  }, [placeName, price, capacity, description, location, terms_of_use])
 
   const handleDiscard = useCallback(() => {
     navigate("/userPlaces")

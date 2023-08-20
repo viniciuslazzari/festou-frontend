@@ -10,7 +10,6 @@ import UserContext from "../../context/UserContext"
 import { FaCheck } from "react-icons/fa"
 import Header from "../../components/header/header"
 
-
 const CreatePlace = () => {
   const [placeName, setPlaceName] = useState<string>("");
   const [price, setPrice] = useState<string>("");
@@ -43,8 +42,7 @@ const CreatePlace = () => {
       "description": description,
       "location": location,
       "terms_of_use": termsofuse,
-      "id_owner": user.state.id,
-      //"score": "0"
+      "id_owner": user.state.id
     }
 
     return data

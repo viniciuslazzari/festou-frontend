@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import UserContext from '../../context/UserContext';
 import Header from '../../components/header/header';
 import axios from 'axios';
@@ -16,16 +16,6 @@ export interface IResult {
   terms_of_use: string
 }
 
-const mockPlace1 = {
-  id: 1,
-  name: 'Elegante Garden Hall',
-  price: 3500,
-  location: 'Rua das Flores, 123 - Cidade das Celebrações',
-  capacity: 150,
-  description: 'descricaoSalaoDeFestas',
-  terms_of_use: 'termosDeUso'
-};
-
 const ListPlaceUser = () => {
   const [results, setResults] = useState<IResult[]>([]);
 
@@ -41,17 +31,13 @@ const ListPlaceUser = () => {
       .catch(function (error) {
         toast.error(error.response.data.description)
       });
-  }, []);
-
+  }, [user.state.id, user.state.isLoggedIn]);
 
   return (
     <div>
       <Header/>
       <div className='content-wrapper-places-user'>
-        <div className='title-places-user'>
-          Your places:
-        </div>
-        
+        <div className='title-places-user'> Your places </div>
         <ListPlace results={results} /> 
       </div>
     </div>

@@ -7,7 +7,7 @@ interface IProfilePicture {
 const ProfilePicture = (props: IProfilePicture) => {
   return (
     <div className="profile-picture">
-      <img src={props.img}  ></img>
+      <img src={props.img} alt="The profile user"></img>
     </div>
   )
 }
