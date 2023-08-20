@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState, useSyncExternalStore } from 'react';
 import UserContext from '../../context/UserContext';
 import Header from '../../components/header/header';
 import axios from 'axios';
@@ -6,25 +6,11 @@ import './listUserTransactions.css'
 import { toast } from 'react-hot-toast';
 import ListPlace from '../../components/list-places-user/ListPlaceUser';
 import { labelBackground, white } from '../../utils/colors';
+import ListUserTransactionsResult, { IPlace, ITransactionResult } from '../../components/list-user-transactions-result/ListUserTransactionsResult';
 
-export interface ITransactionResult {
-  id_client: number,
-  id_place: number,
-  initial_date: string,
-  final_date: string,
-}
 
-export interface IPlace {
-  id: number,
-  name: string,
-  price: number,
-  location: string,
-  capacity: number,
-  description: string
-  terms_of_use: string
-}
 
-const mock=[
+const mock_transactions=[
   {
     id_client: 38,
     id_place: 27,
@@ -44,65 +30,81 @@ const mock=[
     final_date: "2023-08-21",
   }
 ]
-const mock_place={
-  id: 27,
-  name: 'Cucko',
-  price: 500,
-  location: 'Cucko',
-  capacity: 100,
-  description: 'string',
-  terms_of_use: 'string'
-}
+const mock_places=[
+  {
+    id: 31,
+    name: 'Cucko',
+    price: 500,
+    location: 'Cucko',
+    capacity: 100,
+    description: 'string',
+    terms_of_use: 'string'
+  },
+  {
+    id: 32,
+    name: 'Gloria',
+    price: 500,
+    location: 'Gloria',
+    capacity: 100,
+    description: 'string',
+    terms_of_use: 'string'
+  },
+  {
+    id: 32,
+    name: 'Gloria',
+    price: 500,
+    location: 'Gloria',
+    capacity: 100,
+    description: 'string',
+    terms_of_use: 'string'
+  }
+]
 
 const ListUserTransactions = () => {
-  const [results, setResults] = useState<ITransactionResult[]>(mock);
-  const [place, setPlace] = useState<IPlace>();
+  const [transactions, setTransactions] = useState<ITransactionResult[]>(mock_transactions);
+  const [places, setPlaces] = useState<IPlace[]>(mock_places);
 
   let user = useContext(UserContext);
 
-  const renderResult = useCallback((item: ITransactionResult) => {
-    return (
-      <div>
-        <Header/> 
-          <div className="transaction-results" >
-            <div className="transaction-item" >
-              <img className="result-image-transaction" src="assets/4.webp" alt="Result 1"/>
-              <div className="result-content-transaction">
-              <div className="first-info-transaction" style={{ color: white }}>
-                <p className="title-transaction" style={{height:"40px"}}>
-                  {mock_place.name}
-                </p>
-              </div>
-              <p className="location-lpu" style={{ color: labelBackground }}>Location</p>
-              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px" }}>
-                <p> <strong> Price: </strong> R$ {mock_place.price}</p>
-              </div>
-              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"10px"}}>
-                <p> <strong> Data inicial: </strong> {new Date(item.initial_date).toLocaleDateString('pt-BR')}</p>
-              </div>
-              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"10px"}}>
-                <p> <strong> Data Final: </strong> {new Date(item.final_date).toLocaleDateString('pt-BR')}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }, [])
+  useEffect(() => {
+    if (!user.state.isLoggedIn) toast.error("You need to be logged in to perform this action!")
+
+    axios.get('http://127.0.0.1:8000/festou-api/v1/userTransactions/' + user.state.id)
+      .then(function (response) {
+        setTransactions(response.data);
+      })
+      .catch(function (error) {
+        toast.error(error.response.data.description)
+      });
+
+      let id_transactions = [];
+      for (let i = 0; i < transactions.length; i += 1) {
+        id_transactions.push(transactions[i].id_place)
+      }
+      const query = {
+        'id_list': id_transactions
+      }
+      console.log(id_transactions)
+      axios.post('http://127.0.0.1:8000/festou-api/v1/IdListPlaces/', {query})
+      .then(function (response) {
+        setTransactions(response.data);
+
+      })
+      .catch(function (error) {
+        toast.error(error.response.data.description)
+      });
+  }, []);
 
   return (
-    <div className="results">
-      {(() => {
-        const component = [];
-
-        for (let i = 0; i < mock.length; i += 1) {
-          component.push(
-            renderResult(mock[i])
-          )
-        }
-
-        return component;
-      })()}
+    <div>
+      <Header/>
+      <div className='content-wrapper-list-user-transactions'>
+        <div className='title-list-user-transactions'>
+          Your transactions:
+        </div>
+        
+        <ListUserTransactionsResult transactions={transactions} places={places}/> 
+      </div>
     </div>
   )
 }
