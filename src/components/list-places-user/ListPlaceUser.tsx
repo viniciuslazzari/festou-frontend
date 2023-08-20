@@ -27,25 +27,25 @@ const ListPlace = (props: IResultSection) => {
       ? item.description.substring(0, maxLength) + "..." 
       : item.description;
     return (
-      <div style={{ margin: '20px' }}>
+      <div style={{ margin: '10px' }}>
         <div onClick={() => handleSpaceClick(item.id)} className="result-item-lpu">
           <img className="result-image-lpu" src="assets/4.webp" alt="Result 1"/>
           <span>
             <div className="result-content-lpu">
               <div className="first-info-lpu" style={{ color: white }}>
-                <p className="title-lpu" style={{height:"40px"}}>{item.name}</p>
+                <p className="title-lpu" style={{height:"20px"}}>{item.name}</p>
               </div>
               <p className="location-lpu" style={{ color: labelBackground }}>{item.location}</p>
-              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px" }}>
+              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"16px" }}>
                 <p> <strong> Price: </strong> R$ {item.price}</p>
               </div>
-              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"5px"}}>
+              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"16px", marginTop:"5px"}}>
                 <p> <strong> Capacity: </strong> {item.capacity}</p>
               </div>
-              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"5px"}}>
+              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"16px", marginTop:"5px"}}>
                 <p> <strong> Description: </strong> {truncatedDescription}</p>
               </div>
-              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"5px"}}>
+              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"16px", marginTop:"5px"}}>
                 <p> <strong> Terms of Use: </strong> {truncatedTermsOfUse}</p>
               </div>
             </div>

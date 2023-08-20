@@ -50,13 +50,13 @@ const ListUserTransactionsResult = (props: ITransactionResultSection) => {
               </p>
             </div>
             <p className="location-transaction" style={{ color: labelBackground }}>Location: {item.location}</p>
-            <div className="info-container-transaction" style={{color:labelBackground, fontSize:"20px" }}>
+            <div className="info-container-transaction" style={{color:labelBackground, fontSize:"16px" }}>
               <p> <strong> Price: </strong> R$ {item.payment}</p>
             </div>
-            <div className="info-container-transaction" style={{color:labelBackground, fontSize:"20px", marginTop:"10px"}}>
+            <div className="info-container-transaction" style={{color:labelBackground, fontSize:"16px", marginTop:"10px"}}>
               <p> <strong> Data inicial: </strong> {new Date(item.initial_date).toLocaleDateString('pt-BR')}</p>
             </div>
-            <div className="info-container-transaction" style={{color:labelBackground, fontSize:"20px", marginTop:"10px"}}>
+            <div className="info-container-transaction" style={{color:labelBackground, fontSize:"16px", marginTop:"10px"}}>
               <p> <strong> Data Final: </strong> {new Date(item.final_date).toLocaleDateString('pt-BR')}</p>
             </div>
           </div>
@@ -66,10 +66,10 @@ const ListUserTransactionsResult = (props: ITransactionResultSection) => {
               onClick={() => handleCancel(item.id)}
               id={item.id}
               text="Cancel "
-              width="300px"
+              width="150px"
               backgroundColor="rgba(0,0,0,0.15)"
               color={redColor}
-              fontSize='20px'
+              fontSize='16px'
               marginTop='10px'
             />
           </div>
