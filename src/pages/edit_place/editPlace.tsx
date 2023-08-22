@@ -82,7 +82,7 @@ const EditPlace = () => {
       .catch(function (error) {
         toast.error(error.response.data.description)
       });
-  }, [navigate, serializeData])
+  }, [navigate, serializeData, state.id])
   
   return (
     <div className="create-place">
