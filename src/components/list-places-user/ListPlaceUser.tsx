@@ -3,6 +3,9 @@ import "./ListPlaceUser.css"
 import { labelBackground, white } from "../../utils/colors";
 import { IResult } from "../../pages/list_places/ListPlacesUser";
 import { useCallback } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+import Button from "../button/Button";
 
 interface IResultSection {
   results: IResult[]
@@ -14,9 +17,20 @@ const ListPlace = (props: IResultSection) => {
   const handleSpaceClick = useCallback((id: number) => {
     navigate("/editPlace", { state: { id: id } });
   }, [navigate])
+
+  const handleDeletePlace = useCallback((id: number) => {
+    axios.delete('http://127.0.0.1:8000/festou-api/v1/deletePlace/' + id)
+      .then(() => {
+        toast.success("Place deleted!")
+      })
+      .catch((error) => {
+        toast.error(error.response.data.description)
+      });
+  }, [])
   
   const renderResult = useCallback((item: IResult) => {
     const maxLength = 150; // Defina o número máximo de caracteres a serem exibidos
+
     const truncatedDescription =
     item.description.length > maxLength
       ? item.description.substring(0, maxLength) + "..." 
@@ -26,34 +40,37 @@ const ListPlace = (props: IResultSection) => {
     item.description.length > maxLength
       ? item.description.substring(0, maxLength) + "..." 
       : item.description;
+      
     return (
       <div style={{ margin: '20px' }}>
-        <div onClick={() => handleSpaceClick(item.id)} className="result-item-lpu">
+        <div className="result-item-lpu">
           <img className="result-image-lpu" src="assets/4.webp" alt="Result 1"/>
-          <span>
-            <div className="result-content-lpu">
-              <div className="first-info-lpu" style={{ color: white }}>
-                <p className="title-lpu" style={{height:"40px"}}>{item.name}</p>
-              </div>
-              <p className="location-lpu" style={{ color: labelBackground }}>{item.location}</p>
-              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px" }}>
-                <p> <strong> Price: </strong> R$ {item.price}</p>
-              </div>
-              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"5px"}}>
-                <p> <strong> Capacity: </strong> {item.capacity}</p>
-              </div>
-              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"5px"}}>
-                <p> <strong> Description: </strong> {truncatedDescription}</p>
-              </div>
-              <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"5px"}}>
-                <p> <strong> Terms of Use: </strong> {truncatedTermsOfUse}</p>
-              </div>
+          <div className="result-content-lpu">
+            <div className="first-info-lpu" style={{ color: white }}>
+              <p className="title-lpu" style={{height:"40px"}}>{item.name}</p>
             </div>
-          </span>
+            <p className="location-lpu" style={{ color: labelBackground }}>{item.location}</p>
+            <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px" }}>
+              <p> <strong> Price: </strong> R$ {item.price}</p>
+            </div>
+            <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"5px"}}>
+              <p> <strong> Capacity: </strong> {item.capacity}</p>
+            </div>
+            <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"5px"}}>
+              <p> <strong> Description: </strong> {truncatedDescription}</p>
+            </div>
+            <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"5px"}}>
+              <p> <strong> Terms of Use: </strong> {truncatedTermsOfUse}</p>
+            </div>
+          </div>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <Button text={"Edit"} backgroundColor={white} color="black" width={"100px"} onClick={() => handleSpaceClick(item.id)} />
+            <Button text={"Delete"} backgroundColor={white} color="black" width={"100px"} onClick={() => handleDeletePlace(item.id)} />
+          </div>
         </div>
       </div>
     )
-  }, [handleSpaceClick])
+  }, [handleDeletePlace, handleSpaceClick])
 
   return (
     <div className="results">
