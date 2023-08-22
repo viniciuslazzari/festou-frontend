@@ -19,12 +19,6 @@ const ListUserTransactions = () => {
   }, [navigate]);
 
   useEffect(() => {
-    
-    if (!user.state.isLoggedIn) {
-      toast.error("You need to be logged in to perform this action!");
-      return;
-    }
-  
     axios.get('http://127.0.0.1:8000/festou-api/v1/getTransactionsMade/' + user.state.id)
       .then(function (response) {
         setTransactions(response.data);

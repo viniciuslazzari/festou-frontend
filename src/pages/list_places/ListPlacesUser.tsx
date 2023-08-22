@@ -30,8 +30,6 @@ const ListPlaceUser = () => {
   }, [navigate, user.state.isLoggedIn])
 
   useEffect(() => {
-    if (!user.state.isLoggedIn) toast.error("You need to be logged in to perform this action!")
-
     axios.get('http://127.0.0.1:8000/festou-api/v1/userPlaces/' + user.state.id)
       .then(function (response) {
         setResults(response.data);

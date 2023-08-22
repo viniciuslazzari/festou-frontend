@@ -59,14 +59,7 @@ const Profile = () => {
     navigate("/userTransaction");
   }, [navigate]);
 
-  // Only access page when logged in
-  useEffect(() => {
-    if (!user.state.isLoggedIn) navigate("/");
-  }, [navigate, user.state.isLoggedIn])
-
   const loadUserProfile = useCallback(() => {
-    if (!user.state.isLoggedIn) toast.error("You need to be logged in to perform this action!")
-
     axios.get('http://127.0.0.1:8000/festou-api/v1/user/' + user.state.id)
       .then(function (response) {
         setUserInfo(response.data);
@@ -75,11 +68,13 @@ const Profile = () => {
       .catch(function (error) {
         toast.error(error.response.data.description)
       });
-  }, [user.state.id, user.state.isLoggedIn]);
+  }, [user.state.id]);
 
+  // Only access page when logged in
   useEffect(() => {
+    if (!user.state.isLoggedIn) { navigate("/"); return; };
     loadUserProfile();
-  }, [loadUserProfile]);
+  }, [loadUserProfile, navigate, user.state.isLoggedIn])
 
   return (
     <div className="profile-page">
