@@ -59,6 +59,10 @@ const Profile = () => {
     navigate("/userTransaction");
   }, [navigate]);
 
+  // Only access page when logged in
+  useEffect(() => {
+    if (!user.state.isLoggedIn) navigate("/");
+  }, [navigate, user.state.isLoggedIn])
 
   const loadUserProfile = useCallback(() => {
     if (!user.state.isLoggedIn) toast.error("You need to be logged in to perform this action!")

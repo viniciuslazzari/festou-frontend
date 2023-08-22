@@ -34,6 +34,10 @@ const ListUserTransactions = () => {
       });
   }, [user.state.id, user.state.isLoggedIn]);
   
+  // Only access page when logged in
+  useEffect(() => {
+    if (!user.state.isLoggedIn) navigate("/");
+  }, [navigate, user.state.isLoggedIn])
 
   return (
     <div style={{marginTop:"100px"}}>

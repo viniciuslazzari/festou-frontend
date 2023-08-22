@@ -71,6 +71,11 @@ const EditPlace = () => {
     return data
   }, [placeName, price, capacity, description, location, terms_of_use])
 
+  // Only access page when logged in
+  useEffect(() => {
+    if (!user.state.isLoggedIn) navigate("/");
+  }, [navigate, user.state.isLoggedIn])
+
   const handleSubmit = useCallback(() => {
     const data = serializeData();
 

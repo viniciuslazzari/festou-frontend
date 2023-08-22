@@ -6,6 +6,7 @@ import './ListPlacesUser.css'
 import { toast } from 'react-hot-toast';
 import ListPlace from '../../components/list-places-user/ListPlaceUser';
 import { white } from '../../utils/colors';
+import { useNavigate } from 'react-router-dom';
 
 export interface IResult {
   id: number,
@@ -21,6 +22,12 @@ const ListPlaceUser = () => {
   const [results, setResults] = useState<IResult[]>([]);
 
   let user = useContext(UserContext);
+  let navigate = useNavigate();
+
+  // Only access page when logged in
+  useEffect(() => {
+    if (!user.state.isLoggedIn) navigate("/");
+  }, [navigate, user.state.isLoggedIn])
 
   useEffect(() => {
     if (!user.state.isLoggedIn) toast.error("You need to be logged in to perform this action!")

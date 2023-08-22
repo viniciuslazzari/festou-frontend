@@ -22,6 +22,11 @@ const CreatePlace = () => {
   let user = useContext(UserContext);
   let navigate = useNavigate();
 
+  // Only access page when logged in
+  useEffect(() => {
+    if (!user.state.isLoggedIn) navigate("/");
+  }, [navigate, user.state.isLoggedIn])
+
   useEffect(() => {
     if (!placeName || placeName === "") { setButtonDisabled(true); return };
     if (!price || price === "") { setButtonDisabled(true); return };
