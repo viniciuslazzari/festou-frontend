@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import UserContext from '../../context/UserContext';
 import Header from '../../components/header/header';
 import axios from 'axios';
@@ -9,21 +9,27 @@ import { primaryGrey, white } from '../../utils/colors';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/button/Button';
 
+enum Transactions {
+  Created,
+  Received
+}
+
 const ListUserTransactions = () => {
   const [transactions, setTransactions] = useState<ITransactionResult[]>([]);
+  const [current, setCurrent] = useState<Transactions>(Transactions.Received);
   const [url, setUrl] = useState<string>("http://127.0.0.1:8000/festou-api/v1/getTransactionsMade/");
 
   let user = useContext(UserContext);
   let navigate = useNavigate();
 
-  const handleTransactionsReceived = useCallback(() => {
-    if (url === "http://127.0.0.1:8000/festou-api/v1/getTransactionsMade/"){
+  useEffect(() => {
+    if (current === Transactions.Received){
       setUrl("http://127.0.0.1:8000/festou-api/v1/getTransactionsReceived/")
       return;
     }
 
     setUrl("http://127.0.0.1:8000/festou-api/v1/getTransactionsMade/")
-  }, [url]);
+  }, [current]);
 
   useEffect(() => {
     axios.get(url + user.state.id)
@@ -46,7 +52,7 @@ const ListUserTransactions = () => {
       <div className='content-wrapper-user-transactions'>
         <div className='title-user-transactions' style={{ color: white }}> Your transactions </div>
         <Button
-          onClick={handleTransactionsReceived}
+          onClick={() => current === Transactions.Created ? setCurrent(Transactions.Received) : setCurrent(Transactions.Created)}
           text="Show Received Transactions"
           width="500px"
           backgroundColor={primaryGrey}
