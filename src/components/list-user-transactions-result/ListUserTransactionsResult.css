@@ -16,16 +16,16 @@
 }
 
 .result-content-transaction{
-  margin-top: 20px;
-  margin-left: 20px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .result-image-transaction {
   border-radius: 10px;
-  width: 225px;
-  height: 225px;
+  width: 175px;
+  height: 175px;
   object-fit: cover;
-  margin: 20px;
+  margin: 10px;
   
 }
 
@@ -42,17 +42,14 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  font-size: 28px;
+  font-size: 20px;
 }
 
 .location-transaction {
-  font-size: 24px;
+  font-size: 16px;
   margin-top: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   white-space: nowrap;
   overflow: hidden;
 }
 
-.info-container-transaction{
-  
-}
