@@ -1,16 +1,12 @@
 .content-wrapper-user-transactions {
-  margin: 10px 40px;
   display: flex;
   flex-direction: column;
-  margin-top: 150px;
+  width: 90%;
+  justify-content: center;
+  align-items: center;
 }
 
 .title-user-transactions {
-  font-size: 36px;
-  color: white;
+  font-size: 32px;
   font-weight: 700;
-  margin-bottom: 30px;
-  margin-top: 30px;
 }
-
-

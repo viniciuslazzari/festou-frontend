@@ -1,48 +1,41 @@
 .transaction-item {
   display: flex;
   flex-direction: row;
+  align-items: center;
   border-width: 1px;
   border-style: solid;
-  padding: 10px;
-  border-radius: 3px;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
 
   cursor: pointer;
   border-color: #323639;
   transition: margin 0.3s ease-in-out;
+
   &:hover {
-      margin-top: -5px;
       border: 1px solid white;
   }
 }
 
-.result-content-transaction{
-  margin-top: 10px;
-  margin-left: 10px;
-}
-
 .result-image-transaction {
   border-radius: 10px;
-  width: 175px;
-  height: 175px;
+  width: 210px;
+  height: 210px;
   object-fit: cover;
-  margin: 10px;
-  
 }
 
 .first-info-transaction {
   display: flex;
   flex-direction: row;
-  font-size: 15px;
+  font-size: 23px;
   line-height: 22px;
   font-weight: 700;
-  margin-top: 10px;
 }
 
 .title-transaction {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  font-size: 20px;
 }
 
 .location-transaction {
@@ -53,3 +46,15 @@
   overflow: hidden;
 }
 
+.result-content-transaction {
+  margin-left: 20px;
+  height: 100%;
+}
+
+.list-transactions-button {
+  width: 400px;
+  height: 210px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
