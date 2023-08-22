@@ -50,10 +50,10 @@ const ListUserTransactionsResult = (props: ITransactionResultSection) => {
             <p> <strong> Price: </strong> R$ {item.payment}</p>
           </div>
           <div className="info-container-transaction" style={{color:labelBackground, fontSize:"16px", marginTop:"5px"}}>
-            <p> <strong> Initial date: </strong> {new Date(item.initial_date).toLocaleDateString('pt-BR')}</p>
+            <p> <strong> Initial date: </strong> {item.initial_date}</p>
           </div>
           <div className="info-container-transaction" style={{color:labelBackground, fontSize:"16px", marginTop:"5px"}}>
-            <p> <strong> Final date: </strong> {new Date(item.final_date).toLocaleDateString('pt-BR')}</p>
+            <p> <strong> Final date: </strong> {item.final_date}</p>
           </div>
         </div>
         <div className="list-transactions-button">
