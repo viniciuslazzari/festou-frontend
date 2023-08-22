@@ -37,43 +37,41 @@ const ListPlace = (props: IResultSection) => {
       : item.description;
 
     const truncatedTermsOfUse =
-    item.description.length > maxLength
-      ? item.description.substring(0, maxLength) + "..." 
-      : item.description;
+    item.terms_of_use.length > maxLength
+      ? item.terms_of_use.substring(0, maxLength) + "..." 
+      : item.terms_of_use;
       
     return (
-      <div style={{ margin: '20px' }}>
-        <div className="result-item-lpu">
-          <img className="result-image-lpu" src="assets/4.webp" alt="Result 1"/>
-          <div className="result-content-lpu">
-            <div className="first-info-lpu" style={{ color: white }}>
-              <p className="title-lpu" style={{height:"40px"}}>{item.name}</p>
-            </div>
-            <p className="location-lpu" style={{ color: labelBackground }}>{item.location}</p>
-            <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px" }}>
-              <p> <strong> Price: </strong> R$ {item.price}</p>
-            </div>
-            <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"5px"}}>
-              <p> <strong> Capacity: </strong> {item.capacity}</p>
-            </div>
-            <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"5px"}}>
-              <p> <strong> Description: </strong> {truncatedDescription}</p>
-            </div>
-            <div className="info-container-lpu" style={{color:labelBackground, fontSize:"20px", marginTop:"5px"}}>
-              <p> <strong> Terms of Use: </strong> {truncatedTermsOfUse}</p>
-            </div>
+      <div className="result-item-lpu">
+        <img className="result-image-lpu" src="assets/4.webp" alt="Result 1"/>
+        <div className="result-content-lpu">
+          <div className="first-info-lpu" style={{ color: white }}>
+            <p className="title-lpu" style={{height:"40px"}}>{item.name}</p>
           </div>
-          <div style={{ display: "flex", flexDirection: "row" }}>
-            <Button text={"Edit"} backgroundColor={white} color="black" width={"100px"} onClick={() => handleSpaceClick(item.id)} />
-            <Button text={"Delete"} backgroundColor={white} color="black" width={"100px"} onClick={() => handleDeletePlace(item.id)} />
+          <p className="location-lpu" style={{ color: labelBackground }}>{item.location}</p>
+          <div className="info-container-lpu" style={{color:labelBackground, fontSize:"16px" }}>
+            <p> <strong> Price: </strong> R$ {item.price}</p>
           </div>
+          <div className="info-container-lpu" style={{color:labelBackground, fontSize:"16px", marginTop:"5px"}}>
+            <p> <strong> Capacity: </strong> {item.capacity}</p>
+          </div>
+          <div className="info-container-lpu" style={{color:labelBackground, fontSize:"16px", marginTop:"5px"}}>
+            <p> <strong> Description: </strong> {truncatedDescription}</p>
+          </div>
+          <div className="info-container-lpu" style={{color:labelBackground, fontSize:"16px", marginTop:"5px"}}>
+            <p> <strong> Terms of Use: </strong> {truncatedTermsOfUse}</p>
+          </div>
+        </div>
+        <div style={{ display: "flex", justifyContent: "flex-end", flexDirection: "row", height: "210px", gap: "20px", width: "100%" }}>
+          <Button text={"Edit"} backgroundColor={white} color="black" width={"100px"} onClick={() => handleSpaceClick(item.id)} />
+          <Button text={"Delete"} backgroundColor={white} color="black" width={"100px"} onClick={() => handleDeletePlace(item.id)} />
         </div>
       </div>
     )
   }, [handleDeletePlace, handleSpaceClick])
 
   return (
-    <div className="results">
+    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
       {(() => {
         const component = [];
         for (let i = 0; i < props.results.length; i += 1) {

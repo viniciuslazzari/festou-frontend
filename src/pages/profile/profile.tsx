@@ -3,13 +3,11 @@ import './profile.css';
 import Header from '../../components/header/header';
 import ProfilePicture from '../../components/profile-picture/ProfilePicture';
 import { useNavigate } from 'react-router-dom';
-import { white } from '../../utils/colors';
+import { primaryGrey, white } from '../../utils/colors';
 import UserContext from '../../context/UserContext';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
-import ButtonBorder from '../../components/button-border/ButtonBorder';
-
-
+import Button from '../../components/button/Button';
 
 const optionsDictionary = {
   '1': { value: '1', label: 'Itau', icon: <img src="../../../public/assets/itau.webp" alt="Itau" /> },
@@ -18,7 +16,6 @@ const optionsDictionary = {
   '4': { value: '4', label: 'Nubank', icon: <img src="../../../public/assets/nubank.png" alt="Nubank" /> },
   '5': { value: '5', label: 'Banco do Brasil', icon: <img src="../../../public/assets/bb.png" alt="Banco do Brasil" /> }
 };
-
 
 const Profile = () => {
   type BankKey = '1' | '2' | '3' | '4' | '5';
@@ -88,32 +85,32 @@ const Profile = () => {
           <ProfilePicture img="assets/profile.png" />
           <h2>{userInfo.first_name} {userInfo.last_name}</h2>
           <div className='buttons-profile'>
-            <ButtonBorder
+            <Button
               disabled={false}
               onClick={handleEditProfile}
               text="Edit Profile"
               width="300px"
-              backgroundColor="rgba(0,0,0,0.15)"
+              backgroundColor={primaryGrey}
               color={white}
               fontSize='20px'
               marginTop='10px'
             />
-            <ButtonBorder
+            <Button
               disabled={false}
               onClick={handleMyPlaces}
               text="My Places"
               width="300px"
-              backgroundColor="rgba(0,0,0,0.15)"
+              backgroundColor={primaryGrey}
               color={white}
               fontSize='20px'
               marginTop='10px'
             />
-            <ButtonBorder
+            <Button
               disabled={false}
               onClick={handleMyTransaction}
               text="My Transactions"
               width="300px"
-              backgroundColor="rgba(0,0,0,0.15)"
+              backgroundColor={primaryGrey}
               color={white}
               fontSize='20px'
               marginTop='10px'

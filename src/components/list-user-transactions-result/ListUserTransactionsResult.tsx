@@ -2,7 +2,6 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { labelBackground, redColor, white } from "../../utils/colors";
 import "./ListUserTransactionsResult.css"
-import ButtonBorder from "../button-border/ButtonBorder";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import ButtonCancel from "../button-cancel/ButtonCancel";
@@ -36,7 +35,7 @@ const ListUserTransactionsResult = (props: ITransactionResultSection) => {
       .catch(function (error) {
         toast.error(error.response.data.description);
       });
-  }, []);
+  }, [navigate]);
   
   const renderResult = useCallback((item: ITransactionResult) => {
     return (

@@ -11,6 +11,7 @@ interface IInput {
   maxLenght?: number
   onChange: (e: any) => any
   mask?: (e: any) => any
+  defaultValue?: string
 }
 
 const Input = (props: IInput) => {
@@ -19,6 +20,10 @@ const Input = (props: IInput) => {
   useEffect(() => {
     props.onChange(currentValue)
   }, [currentValue, props])
+
+  useEffect(() => {
+    setCurrentValue(props.defaultValue)
+  }, [props.defaultValue])
 
   return (
     <div className="element-wrapper">

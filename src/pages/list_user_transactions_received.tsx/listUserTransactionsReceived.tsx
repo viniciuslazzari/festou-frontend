@@ -5,8 +5,8 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import ListUserTransactionsResult, { ITransactionResult } from '../../components/list-user-transactions-result/ListUserTransactionsResult';
 import { useNavigate } from 'react-router-dom';
-import ButtonBorder from '../../components/button-border/ButtonBorder';
 import { white } from '../../utils/colors';
+import Button from '../../components/button/Button';
 
 const ListUserTransactionsReceived = () => {
   const [transactions, setTransactions] = useState<ITransactionResult[]>([]);
@@ -44,7 +44,7 @@ const ListUserTransactionsReceived = () => {
         </div>
         <div className='list-transactions-button'>
 
-          <ButtonBorder
+          <Button
             disabled={false}
             onClick={handleTransactionsMade}
             text="Show Made Transactions"

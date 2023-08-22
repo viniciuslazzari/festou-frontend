@@ -6,7 +6,7 @@
 }
 
 .form-wrapper-create-place {
-  width: 75%;
+  width: 60%;
   padding: 100px;
   display: flex;
   flex-direction: column;
@@ -19,7 +19,7 @@
 }
 
 .picture-wrapper-create-place {
-  width: 25%;
+  width: 40%;
   padding: 20px;
 }
 
@@ -29,7 +29,7 @@
   border-radius: 10px;
   overflow: hidden;
   object-fit: fill;
-  background: url(../../../public/assets/signup.webp);
+  background: url(../../../public/assets/create_place2.png);
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;

@@ -5,10 +5,19 @@ import { useLocation, useNavigate } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { redColor, white } from "../../utils/colors";
+import { white } from "../../utils/colors";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import { FaCheck } from "react-icons/fa";
+
+interface IPlace {
+  name: string,
+  price: string,
+  capacity: string,
+  description: string,
+  location: string,
+  terms_of_use: string,  
+}
 
 const EditPlace = () => {
   const { state } = useLocation();
@@ -20,6 +29,8 @@ const EditPlace = () => {
   const [location, setLocation] = useState<string>("");
   const [terms_of_use, setTermsofuse] = useState<string>("");
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
+
+  const [defaultValues, setDefaultValues] = useState<IPlace | null>(null);
 
   let user = useContext(UserContext);
   let navigate = useNavigate();
@@ -37,16 +48,10 @@ const EditPlace = () => {
   }, [placeName, price, capacity, description, location, terms_of_use, user.state.isLoggedIn])
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/festou-api/v1/place/'+state.id)
+    axios.get('http://127.0.0.1:8000/festou-api/v1/place/' + state.id)
       .then(function(response){
-        const placeInfo = response.data;
-        console.log(placeInfo)
-        setPlaceName(placeInfo.name)
-        setPrice(placeInfo.price)
-        setCapacity(placeInfo.capacity)
-        setLocation(placeInfo.location)
-        //setDescription(placeInfo.description)
-        //setTermsofuse(placeInfo.terms_of_use)
+        setDefaultValues(response.data);
+        console.log(response.data)
       })
       .catch(function (error) {
         toast.error(error.response.data.description)
@@ -66,14 +71,10 @@ const EditPlace = () => {
     return data
   }, [placeName, price, capacity, description, location, terms_of_use])
 
-  const handleDiscard = useCallback(() => {
-    navigate("/userPlaces")
-  }, [navigate])
-
   const handleSubmit = useCallback(() => {
     const data = serializeData();
 
-    axios.put('http://127.0.0.1:8000/festou-api/v1/editPlace', data)
+    axios.put('http://127.0.0.1:8000/festou-api/v1/editPlace/' + state.id, data)
       .then(() => {
         toast.success("Place updated!")
         navigate("/")
@@ -96,15 +97,15 @@ const EditPlace = () => {
               marginBottom: "30px",
               textAlign: "center"
             }}
-            >Edit you place:</div>
-          <Input label="Place Name" placeholder="Enter the name of the place" onChange={setPlaceName} />
+            >Edit your own place!</div>
+          <Input label="Place Name" defaultValue={defaultValues?.name} placeholder="Enter the name of the place" onChange={setPlaceName} />
           <div className="divisory">
-            <Input label="Price" placeholder="Enter the price of your place" onChange={setPrice} />
-            <Input label="Capacity" placeholder="Enter the capacity of the place" onChange={setCapacity} />
+            <Input label="Price"  defaultValue={defaultValues?.price} placeholder="Enter the price of your place" onChange={setPrice} />
+            <Input label="Capacity" defaultValue={defaultValues?.capacity} placeholder="Enter the capacity of the place" onChange={setCapacity} />
           </div>
-          <Input label="Location" placeholder="Enter the location of your place" onChange={setLocation} />
-          <Input label="Description" placeholder="Enter a brief description of your place" onChange={setDescription} />
-          <Input label="Terms of Use" placeholder="Enter the terms of use of your place" onChange={setTermsofuse} />
+          <Input label="Location" defaultValue={defaultValues?.location} placeholder="Enter the location of your place" onChange={setLocation} />
+          <Input label="Description" defaultValue={defaultValues?.description} placeholder="Enter a brief description of your place" onChange={setDescription} />
+          <Input label="Terms of Use" defaultValue={defaultValues?.terms_of_use} placeholder="Enter the terms of use of your place" onChange={setTermsofuse} />
            
           <Button 
             disabled={buttonDisabled} 
@@ -115,16 +116,6 @@ const EditPlace = () => {
             icon={<FaCheck />}
             width="100%" 
             onClick={() => handleSubmit()} 
-          />
-          <Button 
-            disabled={false} 
-            marginTop= "20px"
-            text="Discard Changes" 
-            backgroundColor={redColor} 
-            color="black"
-            icon={<FaCheck />}
-            width="100%" 
-            onClick={() => handleDiscard()} 
           />
         </div>
       </div>   

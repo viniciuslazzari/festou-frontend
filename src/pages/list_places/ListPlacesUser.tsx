@@ -5,6 +5,7 @@ import axios from 'axios';
 import './ListPlacesUser.css'
 import { toast } from 'react-hot-toast';
 import ListPlace from '../../components/list-places-user/ListPlaceUser';
+import { white } from '../../utils/colors';
 
 export interface IResult {
   id: number,
@@ -34,10 +35,10 @@ const ListPlaceUser = () => {
   }, [user.state.id, user.state.isLoggedIn]);
 
   return (
-    <div>
+    <div style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}>
       <Header/>
       <div className='content-wrapper-places-user'>
-        <div className='title-places-user'> Your places </div>
+        <div className='title-places-user' style={{ color: white }}> Your places </div>
         <ListPlace results={results} /> 
       </div>
     </div>

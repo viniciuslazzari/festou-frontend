@@ -5,9 +5,9 @@ import axios from 'axios';
 import './listUserTransactions.css'
 import { toast } from 'react-hot-toast';
 import ListUserTransactionsResult, { ITransactionResult } from '../../components/list-user-transactions-result/ListUserTransactionsResult';
-import ButtonBorder from '../../components/button-border/ButtonBorder';
 import { white } from '../../utils/colors';
 import { useNavigate } from 'react-router-dom';
+import Button from '../../components/button/Button';
 
 const ListUserTransactions = () => {
   const [transactions, setTransactions] = useState<ITransactionResult[]>([]);
@@ -32,7 +32,7 @@ const ListUserTransactions = () => {
       .catch(function (error) {
         toast.error(error.response.data.description);
       });
-  }, []);
+  }, [user.state.id, user.state.isLoggedIn]);
   
 
   return (
@@ -42,7 +42,7 @@ const ListUserTransactions = () => {
         <div className='title-user-transactions'>
           Your transactions made:
         </div>
-        <ButtonBorder
+        <Button
           disabled={false}
           onClick={handleTransactionsReceived}
           text="Show Received Transactions"

@@ -1,7 +1,7 @@
 import { useCallback, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../context/UserContext";
-import { redColor, white } from "../../utils/colors";
+import { white } from "../../utils/colors";
 import Dropdown from "../dropdown/Dropdown";
 import ProfileIcon from "../profile-icon/ProfileIcon";
 import LoginPopup from "../login-popup/LoginPopup";
