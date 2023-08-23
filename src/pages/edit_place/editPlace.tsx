@@ -72,7 +72,7 @@ const EditPlace = () => {
     formData.append("description", description);
     formData.append("location", location);
     formData.append("terms_of_use", terms_of_use);
-    formData.append("id_owner", userId);
+    formData.append("id_owner", userId?userId:'');
     formData.append("image_1", "");
     formData.append("image_2", "");
     formData.append("image_3", "");

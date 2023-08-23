@@ -138,7 +138,7 @@ const EditProfile = () => {
           </div>
           <Button 
             disabled={buttonDisabled} 
-            text="Create account" 
+            text="Save changes" 
             backgroundColor={white} 
             color="black"
             icon={<FaCheck />}
