@@ -1,8 +1,7 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Header from "../../components/header/header";
 import './editPlace.css';
 import { useLocation, useNavigate } from "react-router-dom";
-import UserContext from "../../context/UserContext";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { white } from "../../utils/colors";

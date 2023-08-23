@@ -1,11 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import FilterSection from '../../components/filter-section/FilterSection';
 import Menu from '../../components/menu/Menu';
 import ResultsSection from '../../components/results-section/ResultsSection';
 import './Home.css';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import UserContext from '../../context/UserContext';
 import Cookies from 'js-cookie';
 
 interface IFilters {

@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Input from "../../components/input/Input"
 import "./EditProfile.css"
 import Button from "../../components/button/Button"
@@ -9,7 +9,6 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-hot-toast"
 import { white } from "../../utils/colors"
-import UserContext from "../../context/UserContext"
 import { FaCheck, FaStar } from "react-icons/fa"
 import { stringIsValid } from "../../utils/stringValidator"
 import { dateIsValid } from "../../utils/dateValidator"
@@ -48,7 +47,6 @@ const EditProfile = () => {
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
 
   let navigate = useNavigate();
-  const userToken = Cookies.get('userToken')
   const userId = Cookies.get('id')
 
   const serializeData = useCallback(() => {

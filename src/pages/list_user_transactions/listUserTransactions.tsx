@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
-import UserContext from '../../context/UserContext';
+import { useEffect, useState } from 'react';
 import Header from '../../components/header/header';
 import axios from 'axios';
 import './listUserTransactions.css'

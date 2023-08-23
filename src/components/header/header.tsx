@@ -1,6 +1,5 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import UserContext from "../../context/UserContext";
 import { white } from "../../utils/colors";
 import Dropdown from "../dropdown/Dropdown";
 import ProfileIcon from "../profile-icon/ProfileIcon";
@@ -22,7 +21,6 @@ const Header = () => {
   const [loginPopup, setLoginPopup] = useState(false)
 
   let navigate = useNavigate();
-  let user = useContext(UserContext);
   const userToken = Cookies.get('userToken');
   const username = Cookies.get('username');
 

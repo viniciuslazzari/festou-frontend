@@ -9,7 +9,6 @@ import toast from "react-hot-toast"
 import { labelBackground, white } from "../../utils/colors"
 import UserContext from "../../context/UserContext"
 import { emailIsValid } from "../../utils/emailValidator"
-import { useNavigate } from "react-router-dom"
 import Cookies from 'js-cookie';
 
 interface ILoginPopup {
@@ -23,7 +22,6 @@ const LoginPopup = (props: ILoginPopup) => {
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true)
 
   let user = useContext(UserContext)
-  let navigate = useNavigate();
 
   const serializeData = useCallback(() => {
     const data = {
@@ -46,11 +44,6 @@ const LoginPopup = (props: ILoginPopup) => {
   const handleAdminLogin = useCallback(() => {
     window.location.href = "http://127.0.0.1:8000/admin";
   }, [])
-
-  const handleSignUp = useCallback(() => {
-    navigate('/signup')
-  }, [navigate])
-
 
   const handleSumbmit = useCallback(() => {
     const data = serializeData()
