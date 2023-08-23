@@ -15,7 +15,8 @@ const InputImage = (props: IInput) => {
   return (
     <div className="element-wrapper">
       {props.label ? <p className="input-label" style={{ color: labelInput }}>{props.label}</p> : <></>} 
-      <div className="input-wrapper" style={{ marginBottom: props.label ? "20px" : "0px" }}>
+      <label className="input-wrapper" style={{ color: white, fontSize: "13px", marginBottom: props.label ? "20px" : "0px" }}>
+        Select image
         {props.icon ? <props.icon className="input-icon" style={{ color: labelBackground }}/> : <></>}
         <input 
           style={{ marginLeft: props.icon ? "20px" : "0px", color: white }} 
@@ -25,7 +26,7 @@ const InputImage = (props: IInput) => {
           alt="fdoskfodskof"
         >  
         </input>
-      </div>
+      </label>
     </div>
   )
 }
