@@ -67,7 +67,7 @@ const Scores = (props: IScores) => {
         setSendScore("")
       })
       .catch((error) => {
-        toast.error(error.response.data.description)
+        toast.error(error.response.data.message)
       });
   }, [fetchData, props.placeId, sendScore, sendScoreRating, user.state.id])
 
