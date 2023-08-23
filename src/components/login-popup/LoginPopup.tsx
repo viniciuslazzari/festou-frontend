@@ -54,14 +54,11 @@ const LoginPopup = (props: ILoginPopup) => {
         Cookies.set('username', response.data.first_name);
         Cookies.set('id', response.data.id);
         Cookies.set('userToken', '1234');
-        
       })
       .catch(function (error) {
         toast.error(error.response.data.description)
       });
   }, [serializeData, user])
-
-  
 
   return (
     <Popup onClose={props.onClosePopup} visibility={props.loginPopup}>

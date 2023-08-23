@@ -54,7 +54,6 @@ const ListUserTransactionsResult = (props: ITransactionResultSection) => {
   const renderResult = useCallback((item: ITransactionResult, type : ITransactions) => {
     return (
       <div className="transaction-item" >
-        <img className="result-image-transaction" src="assets/4.webp" alt="Result 1"/>
         <div className="result-content-transaction">
           <div className="first-info-transaction" style={{ color: white }}>
             <p className="title-transaction" style={{height:"40px"}}> {item.name} </p>
