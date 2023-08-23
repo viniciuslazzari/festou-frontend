@@ -1,0 +1,41 @@
+.input-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  border-radius: 10px;
+  padding: 15px;
+  border: 1px solid transparent;
+  font-size: 16px;
+  margin-bottom: 20px;
+  height: 40px;
+  background-color: #222528;
+  transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+
+  &:hover {
+    border: 1px solid #323639;
+  }
+
+  &:focus-within {
+    border: 1px solid #323639;
+    background-color: transparent;
+  }
+}
+
+.input {
+  width: 100%;
+  background-color: transparent;
+}
+
+.input-icon {
+  font-size: 13px;
+}
+
+.input-label {
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.element-wrapper {
+  flex: 1 1 0;
+}

@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import "./Space.css"
 import Menu from "../../components/menu/Menu";
 import Tabs from "../../components/tabs/Tabs";
-import { FaAddressBook, FaCalendar, FaCamera, FaHeart, FaStar } from "react-icons/fa";
+import { FaAddressBook, FaCalendar, FaHeart, FaStar } from "react-icons/fa";
 import { primaryGrey, white } from "../../utils/colors";
 import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
@@ -27,6 +27,7 @@ const Space = () => {
   const [initialDate, setInitialDate] = useState<string>("");
   const [finalDate, setFinalDate] = useState<string>("");
   const [space, setSpace] = useState<ISPace | null>(null);
+  const [image, setImage] = useState<string>("");
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
 
   const { state } = useLocation();
@@ -43,6 +44,7 @@ const Space = () => {
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/festou-api/v1/place/' + state.id)
     .then(response => {
+      setImage("data:image/jpeg;base64," + response.data.image_1);
       setSpace(response.data)
     })
     .catch(error => {
@@ -74,17 +76,15 @@ const Space = () => {
       <Menu inputFunction={() => {}}/>
       <div className="details">
         <div className="details-content">
-          <img className="details-image" src="assets/4.webp" alt="Result 1"/>
+          <img className="details-image" src={image} alt="Result 1"/>
           <Tabs 
             icons={[
-              <FaCamera />,
               <FaHeart />,
               <FaStar />,
               <FaAddressBook />
             ]}
-            labels={["Photos", "Description", "Avaliations", "Terms of use"]} 
+            labels={["Description", "Avaliations", "Terms of use"]} 
             tabs={[
-              <div>teste1</div>,
               <div>{space?.description}</div>,
               <Scores placeId={state.id}/>,
               <div>{space?.terms_of_use}</div>

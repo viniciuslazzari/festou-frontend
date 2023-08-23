@@ -25,7 +25,8 @@ export interface IResult {
   location: string,
   capacity: number,
   score: number,
-  description: string
+  description: string,
+  image_1: string
 }
 
 const DEFAULT_FILTERS: IFilters = {

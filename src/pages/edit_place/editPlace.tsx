@@ -9,6 +9,7 @@ import { white } from "../../utils/colors";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import { FaCheck } from "react-icons/fa";
+import InputImage from "../../components/inputImage/Input";
 
 interface IPlace {
   name: string,
@@ -28,6 +29,7 @@ const EditPlace = () => {
   const [description, setDescription] = useState<string>("");
   const [location, setLocation] = useState<string>("");
   const [terms_of_use, setTermsofuse] = useState<string>("");
+  const [photo, setPhoto] = useState<File | null>(null);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
 
   const [defaultValues, setDefaultValues] = useState<IPlace | null>(null);
@@ -59,17 +61,25 @@ const EditPlace = () => {
   }, [state.id])
 
   const serializeData = useCallback(() => {
-    const data = {
-      "name": placeName,
-      "price": price,
-      "capacity": capacity,
-      "description": description,
-      "location": location,
-      "terms_of_use": terms_of_use,    
-    }
+    const formData = new FormData();
 
-    return data
-  }, [placeName, price, capacity, description, location, terms_of_use])
+    formData.append("name", placeName);
+    formData.append("price", price);
+    formData.append("capacity", capacity);
+    formData.append("description", description);
+    formData.append("location", location);
+    formData.append("terms_of_use", terms_of_use);
+    formData.append("id_owner", user.state.id.toString());
+    formData.append("image_1", "");
+    formData.append("image_2", "");
+    formData.append("image_3", "");
+
+    if (photo) { formData.append('image_1', photo); }
+    if (photo) { formData.append('image_2', photo); }
+    if (photo) { formData.append('image_3', photo); }
+
+    return formData
+  }, [placeName, price, capacity, description, location, terms_of_use, user.state.id, photo])
 
   // Only access page when logged in
   useEffect(() => {
@@ -111,7 +121,8 @@ const EditPlace = () => {
           <Input label="Location" defaultValue={defaultValues?.location} placeholder="Enter the location of your place" onChange={setLocation} />
           <Input label="Description" defaultValue={defaultValues?.description} placeholder="Enter a brief description of your place" onChange={setDescription} />
           <Input label="Terms of Use" defaultValue={defaultValues?.terms_of_use} placeholder="Enter the terms of use of your place" onChange={setTermsofuse} />
-           
+          <InputImage label="Images" acceptedFormats={[".png", ".jpg"]} onChange={setPhoto} />
+          
           <Button 
             disabled={buttonDisabled} 
             marginTop= "20px"

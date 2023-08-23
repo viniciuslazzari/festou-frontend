@@ -17,9 +17,11 @@ const ResultsSection = (props: IResultSection) => {
   }, [navigate])
 
   const renderResult = useCallback((item: IResult) => {
+    const url = "data:image/jpeg;base64," + item.image_1
+
     return (
       <div onClick={() => handleSpaceClick(item.id)} className="result-item">
-        <img className="result-image" src="assets/4.webp" alt="Result 1"/>
+        <img className="result-image" src={url} alt="Result 1"/>
         <div className="result-content">
           <div className="first-info" style={{ color: white }}>
             <p className="title">{item.name}</p>

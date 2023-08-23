@@ -14,8 +14,9 @@ export interface IResult {
   price: number,
   location: string,
   capacity: number,
-  description: string
-  terms_of_use: string
+  description: string,
+  terms_of_use: string,
+  image_1: string
 }
 
 const ListPlaceUser = () => {

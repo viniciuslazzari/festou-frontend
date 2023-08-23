@@ -24,6 +24,7 @@
     width: 30%;
     height: 300px;
     border-radius: 10px;
+    z-index: 0;
     position: sticky;
     top: 100px;
     padding: 20px;
