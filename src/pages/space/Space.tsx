@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import "./Space.css"
 import Menu from "../../components/menu/Menu";
 import Tabs from "../../components/tabs/Tabs";
-import { FaAddressBook, FaHeart, FaStar } from "react-icons/fa";
+import { FaAddressBook, FaCheck, FaHeart, FaStar } from "react-icons/fa";
 import { primaryGrey, white } from "../../utils/colors";
 import Button from "../../components/button/Button";
 import Scores from "../../components/scores/Scores";
@@ -13,6 +13,7 @@ import axios from "axios";
 import LoginPopup from "../../components/login-popup/LoginPopup";
 import Calendar from "react-calendar";
 import './Calendar.css';
+import { addDays } from "../../utils/addDaysToDate";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -34,6 +35,7 @@ const Space = () => {
   const [space, setSpace] = useState<ISPace | null>(null);
   const [image, setImage] = useState<string>("");
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
+  const [daysBetween, setDaysBetween] = useState<number>(5);
   const [loginPopup, setLoginPopup] = useState<boolean>(false);
 
   const { state } = useLocation();
@@ -43,6 +45,15 @@ const Space = () => {
   const onClosePopup = useCallback(() => {
     setLoginPopup(false)
   }, [])
+
+  useEffect(() => {
+    if (!Array.isArray(dates)) return;
+    if (!dates[0] || !dates[1]) return;
+    
+    const oneDay = 24 * 60 * 60 * 1000;
+    
+    setDaysBetween(Math.round(Math.abs((dates[0].getTime() - dates[1].getTime()) / oneDay)));
+  }, [dates])
 
   useEffect(() => {
     if (!dates || !Array.isArray(dates)) { setButtonDisabled(true); return; }
@@ -106,10 +117,18 @@ const Space = () => {
         </div>
         <div className="book-card" style={{ backgroundColor: primaryGrey }}>
           <p style={{ color: white, fontSize: "23px", fontWeight: 700, marginBottom: "10px" }}>{space?.name}</p>
-          <p style={{ color: white, fontSize: "20px", fontWeight: 700, marginBottom: "10px" }}>R$ {space?.price}/noite</p>
+          <p style={{ color: white, fontSize: "20px", fontWeight: 700, marginBottom: "10px" }}>R${space?.price}/noite</p>
           <p style={{ color: white, marginBottom: "40px" }}> <FaStar /> {space?.score} - {space?.avaliations} avaliations</p>
-          <Calendar locale="en-US" onChange={setDates} selectRange minDate={new Date()} />
-          <Button disabled={buttonDisabled} marginTop="40px" text="Book now" backgroundColor={white} color="black" width="100%" onClick={() => handleClick()}></Button>
+          <Calendar locale="en-US" onChange={setDates} defaultValue={[new Date(), addDays(new Date(), 4)]} selectRange minDate={new Date()} />
+          <p
+            style={{
+              color: white,
+              marginTop: "40px",
+              fontSize: "16px",
+              fontWeight: 500
+            }}
+          >R${space?.price} x {daysBetween} = R${space ? space.price * daysBetween : 0}</p>
+          <Button icon={<FaCheck />} disabled={buttonDisabled} marginTop="40px" text="Book now" backgroundColor={white} color="black" width="100%" onClick={() => handleClick()}></Button>
         </div>
       </div>
     </div>
