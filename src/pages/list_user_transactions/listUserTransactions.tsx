@@ -9,21 +9,21 @@ import { primaryGrey, white } from '../../utils/colors';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/button/Button';
 
-enum Transactions {
+enum ITransactions {
   Created,
   Received
 }
 
 const ListUserTransactions = () => {
   const [transactions, setTransactions] = useState<ITransactionResult[]>([]);
-  const [current, setCurrent] = useState<Transactions>(Transactions.Received);
+  const [current, setCurrent] = useState<ITransactions>(ITransactions.Created);
   const [url, setUrl] = useState<string>("http://127.0.0.1:8000/festou-api/v1/getTransactionsMade/");
 
   let user = useContext(UserContext);
   let navigate = useNavigate();
 
   useEffect(() => {
-    if (current === Transactions.Received){
+    if (current === ITransactions.Received){
       setUrl("http://127.0.0.1:8000/festou-api/v1/getTransactionsReceived/")
       return;
     }
@@ -45,15 +45,15 @@ const ListUserTransactions = () => {
   useEffect(() => {
     if (!user.state.isLoggedIn) navigate("/");
   }, [navigate, user.state.isLoggedIn])
-
+  console.log(current)
   return (
     <div style={{ marginTop: "100px", display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Header/>
       <div className='content-wrapper-user-transactions'>
-        <div className='title-user-transactions' style={{ color: white }}> Your transactions </div>
+        <div className='title-user-transactions' style={{ color: white }}> Your transactions {((current === ITransactions.Received) ? "Received" : "Created")}</div>
         <Button
-          onClick={() => current === Transactions.Created ? setCurrent(Transactions.Received) : setCurrent(Transactions.Created)}
-          text="Show Received Transactions"
+          onClick={() => current === ITransactions.Created ? setCurrent(ITransactions.Received) : setCurrent(ITransactions.Created)}
+          text={"Show Transactions " + ((current === ITransactions.Received) ?  "Created" : "Received" )}
           width="500px"
           backgroundColor={primaryGrey}
           color={white}
@@ -61,7 +61,7 @@ const ListUserTransactions = () => {
           marginTop='20px'
         />
         
-        <ListUserTransactionsResult transactions={transactions}/>
+        <ListUserTransactionsResult transactions={transactions} transaction_type={current}/>
       </div>
     </div>
   )

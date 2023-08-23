@@ -1,13 +1,19 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { labelBackground, white } from "../../utils/colors";
+import { labelBackground, redColor, white } from "../../utils/colors";
 import "./ListUserTransactionsResult.css"
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Button from "../button/Button";
 
+enum ITransactions {
+  Created,
+  Received
+}
+
 export interface ITransactionResultSection {
   transactions: ITransactionResult[]
+  transaction_type: ITransactions
 }
 
 export interface ITransactionResult {
@@ -20,6 +26,7 @@ export interface ITransactionResult {
   payment: number
   name: string
   location: string
+  
 }
 
 const ListUserTransactionsResult = (props: ITransactionResultSection) => {
@@ -30,14 +37,23 @@ const ListUserTransactionsResult = (props: ITransactionResultSection) => {
     axios.get('http://127.0.0.1:8000/festou-api/v1/chargeback/' + id)
       .then(function (response) {
         toast.success("Transaction canceled successfully")
-        navigate('/')
       })
       .catch(function (error) {
         toast.error(error.response.data.description);
       });
   }, [navigate]);
   
-  const renderResult = useCallback((item: ITransactionResult) => {
+  const handleReport = useCallback((id:number) => {
+    axios.get('http://127.0.0.1:8000/festou-api/v1/reportUser/' + id)
+      .then(function (response) {
+        toast.success("Report done")
+      })
+      .catch(function (error) {
+        toast.error(error.response.data.description);
+      });
+  }, [])
+
+  const renderResult = useCallback((item: ITransactionResult, type : ITransactions) => {
     return (
       <div className="transaction-item" >
         <img className="result-image-transaction" src="assets/4.webp" alt="Result 1"/>
@@ -50,19 +66,19 @@ const ListUserTransactionsResult = (props: ITransactionResultSection) => {
             <p> <strong> Price: </strong> R$ {item.payment}</p>
           </div>
           <div className="info-container-transaction" style={{color:labelBackground, fontSize:"16px", marginTop:"5px"}}>
-            <p> <strong> Initial date: </strong> {item.initial_date}</p>
+            <p> <strong> Initial date: </strong> {new Date(item.initial_date).toLocaleDateString("pt-BR")}</p>
           </div>
           <div className="info-container-transaction" style={{color:labelBackground, fontSize:"16px", marginTop:"5px"}}>
-            <p> <strong> Final date: </strong> {item.final_date}</p>
+            <p> <strong> Final date: </strong> {new Date(item.final_date).toLocaleDateString("pt-BR")}</p>
           </div>
         </div>
         <div className="list-transactions-button">
           <Button
-            disabled={item.transaction_state !== 'Started'}
-            onClick={() => handleCancel(item.id)}
-            text="Cancel"
+            disabled={!((item.transaction_state === 'Started' && type === ITransactions.Created) || type === ITransactions.Received)}
+            onClick={(type === ITransactions.Created) ? () => handleCancel(item.id) : () => handleReport(item.id)}
+            text={(type === ITransactions.Created) ? (item.transaction_state === 'Canceled'?"Canceled":"Cancel"):"Report"}
             width="150px"
-            backgroundColor={white}
+            backgroundColor={(item.transaction_state === 'Canceled') ? redColor : white}
             color="black"
             fontSize='16px'
             marginTop='10px'
@@ -70,7 +86,7 @@ const ListUserTransactionsResult = (props: ITransactionResultSection) => {
         </div>
       </div>
     )
-  }, [handleCancel])
+  }, [handleCancel, handleReport])
 
   return (
     <div className="results" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
@@ -78,7 +94,7 @@ const ListUserTransactionsResult = (props: ITransactionResultSection) => {
         const component = [];
         for (let i = 0; i < props.transactions.length; i += 1) {
           component.push(
-            renderResult(props.transactions[i])
+            renderResult(props.transactions[i], props.transaction_type)
           )
         }
         return component;
