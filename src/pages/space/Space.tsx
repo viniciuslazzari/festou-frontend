@@ -22,7 +22,8 @@ interface ISPace {
   capacity: number,
   price: number,
   score: number,
-  terms_of_use: string
+  terms_of_use: string,
+  avaliations: number
 }
 
 const Space = () => {
@@ -100,16 +101,16 @@ const Space = () => {
             ]}
             labels={["Description", "Avaliations", "Terms of use"]} 
             tabs={[
-              <div>{space?.description}</div>,
+              <div style={{ color: white }}>{space?.description}</div>,
               <Scores placeId={state.id}/>,
-              <div>{space?.terms_of_use}</div>
+              <div style={{ color: white }}>{space?.terms_of_use}</div>
             ]} 
           />
         </div>
         <div className="book-card" style={{ backgroundColor: primaryGrey }}>
           <p style={{ color: white, fontSize: "23px", fontWeight: 700, marginBottom: "10px" }}>{space?.name}</p>
           <p style={{ color: white, fontSize: "20px", fontWeight: 700, marginBottom: "10px" }}>R$ {space?.price}/noite</p>
-          <p style={{ color: white }}> <FaStar style={{ color: "yellow" }} /> 4.5 - 18 comentários</p>
+          <p style={{ color: white }}> <FaStar /> {space?.score} - {space?.avaliations} avaliations</p>
           <div style={{ marginBottom: "20px", marginTop: "20px" }} className="divisory">
             <Input icon={FaCalendar} placeholder="DD/MM/AAAA" onChange={setInitialDate} mask={dateMask}></Input>
             <Input icon={FaCalendar} placeholder="DD/MM/AAAA" onChange={setFinalDate} mask={dateMask}></Input>
