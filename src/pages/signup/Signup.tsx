@@ -16,7 +16,6 @@ import { cpfIsValid } from "../../utils/cpfValidator"
 import { stringIsValid } from "../../utils/stringValidator"
 import { dateIsValid } from "../../utils/dateValidator"
 import { emailIsValid } from "../../utils/emailValidator"
-import Header from "../../components/header/header"
 
 const options = [
   { value: 1, label: 'Itau', icon: <img src="assets/itau.webp" alt="Itau"/> },
