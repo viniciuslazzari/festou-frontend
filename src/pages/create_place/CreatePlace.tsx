@@ -54,20 +54,14 @@ const CreatePlace = () => {
     formData.append("terms_of_use", termsofuse);
     formData.append("id_owner", userId?userId:'0');
     formData.append("image_1", "");
-    formData.append("image_2", "");
-    formData.append("image_3", "");
 
     if (photo) { formData.append('image_1', photo); }
-    if (photo) { formData.append('image_2', photo); }
-    if (photo) { formData.append('image_3', photo); }
 
     return formData
   }, [placeName, price, capacity, description, location, termsofuse, userId, photo])
 
   const handleSubmit = useCallback(() => {
     const data = serializeData();
-
-    console.log(data)
 
     axios.post('http://127.0.0.1:8000/festou-api/v1/place', data, { headers: { 'Content-Type': 'multipart/form-data' }})
       .then(() => {

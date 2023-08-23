@@ -64,7 +64,6 @@ const Profile = () => {
     axios.get('http://127.0.0.1:8000/festou-api/v1/user/' + userId)
       .then(function (response) {
         setUserInfo(response.data);
-        console.log(response.data)
       })
       .catch(function (error) {
         toast.error(error.response.data.description)

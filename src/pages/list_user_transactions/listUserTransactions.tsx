@@ -46,7 +46,7 @@ const ListUserTransactions = () => {
   useEffect(() => {
     if (!userToken) navigate("/");
   }, [navigate, userToken])
-  console.log(current)
+  
   return (
     <div style={{ marginTop: "100px", display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Header/>

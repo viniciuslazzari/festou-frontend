@@ -55,7 +55,6 @@ const EditPlace = () => {
     axios.get('http://127.0.0.1:8000/festou-api/v1/place/' + state.id)
       .then(function(response){
         setDefaultValues(response.data);
-        console.log(response.data)
       })
       .catch(function (error) {
         toast.error(error.response.data.description)
@@ -73,12 +72,8 @@ const EditPlace = () => {
     formData.append("terms_of_use", terms_of_use);
     formData.append("id_owner", userId?userId:'');
     formData.append("image_1", "");
-    formData.append("image_2", "");
-    formData.append("image_3", "");
 
     if (photo) { formData.append('image_1', photo); }
-    if (photo) { formData.append('image_2', photo); }
-    if (photo) { formData.append('image_3', photo); }
 
     return formData
   }, [placeName, price, capacity, description, location, terms_of_use, userId, photo])

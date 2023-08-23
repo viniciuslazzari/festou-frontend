@@ -85,7 +85,6 @@ const EditProfile = () => {
     axios.get('http://127.0.0.1:8000/festou-api/v1/user/' + userId)
       .then(function(response){
         setDefaultValues(response.data);
-        console.log(response.data)
       })
       .catch(function (error) {
         toast.error(error.response.data.description)
@@ -95,7 +94,7 @@ const EditProfile = () => {
   const handleSubmit = useCallback(() => {
     const data = serializeData();
 
-    axios.post('http://127.0.0.1:8000/festou-api/v1/editProfile', data)
+    axios.put('http://127.0.0.1:8000/festou-api/v1/editUser/' + userId, data)
       .then(function (response) {
         toast.success("User Updated!")
         navigate("/")
@@ -103,7 +102,7 @@ const EditProfile = () => {
       .catch(function (error) {
         toast.error(error.response.data.description)
       });
-  }, [navigate, serializeData])
+  }, [navigate, serializeData, userId])
 
   return (
     <div className="signup">

@@ -36,7 +36,6 @@ const ListUserTransactionsResult = (props: ITransactionResultSection) => {
         toast.success("Transaction canceled successfully")
       })
       .catch(function (error) {
-        console.log(error)
         toast.error(error.response.data.message);
       });
   }, []);
