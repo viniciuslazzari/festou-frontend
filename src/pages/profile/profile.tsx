@@ -8,6 +8,7 @@ import UserContext from '../../context/UserContext';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import Button from '../../components/button/Button';
+import Cookies from 'js-cookie';
 
 const optionsDictionary = {
   '1': { value: '1', label: 'Itau', icon: <img src="../../../public/assets/itau.webp" alt="Itau" /> },
@@ -45,7 +46,8 @@ const Profile = () => {
   }>(DEFAULT_INFO);
 
   let navigate = useNavigate();
-  let user = useContext(UserContext);
+  const userToken = Cookies.get('userToken')
+  const userId = Cookies.get('id')
 
   const handleEditProfile = useCallback(() => {
     navigate("/editProfile");
@@ -60,7 +62,7 @@ const Profile = () => {
   }, [navigate]);
 
   const loadUserProfile = useCallback(() => {
-    axios.get('http://127.0.0.1:8000/festou-api/v1/user/' + user.state.id)
+    axios.get('http://127.0.0.1:8000/festou-api/v1/user/' + userId)
       .then(function (response) {
         setUserInfo(response.data);
         console.log(response.data)
@@ -68,13 +70,13 @@ const Profile = () => {
       .catch(function (error) {
         toast.error(error.response.data.description)
       });
-  }, [user.state.id]);
+  }, [userId]);
 
   // Only access page when logged in
   useEffect(() => {
-    if (!user.state.isLoggedIn) { navigate("/"); return; };
+    if (!userToken) { navigate("/"); return; };
     loadUserProfile();
-  }, [loadUserProfile, navigate, user.state.isLoggedIn])
+  }, [loadUserProfile, navigate, userToken])
 
   return (
     <div className="profile-page">

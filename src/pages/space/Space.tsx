@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { dateMask } from "../../utils/dateMask";
 import LoginPopup from "../../components/login-popup/LoginPopup";
+import Cookies from "js-cookie";
 
 interface ISPace {
   id: number,
@@ -34,7 +35,8 @@ const Space = () => {
 
   const { state } = useLocation();
   
-  let user = useContext(UserContext)
+  const userToken = Cookies.get('userToken')
+  const userId = Cookies.get('id')
 
   const login = useCallback(() => {
     setLoginPopup(true)
@@ -62,13 +64,13 @@ const Space = () => {
   }, [state.id])
 
   const handleClick = useCallback(() => {
-    if (!user.state.isLoggedIn) {
+    if (!userToken) {
       toast.error("You need to be logged in to perform this action!")
       login()
     }
 
     const body = {
-      id_client: user.state.id,
+      id_client: userId, 
       id_place: state.id,
       initial_date: initialDate,
       final_date: finalDate
@@ -81,7 +83,7 @@ const Space = () => {
     .catch(error => {
       toast.error(error.response.data.description)
     });
-  }, [finalDate, initialDate, state.id, user.state.id, user.state.isLoggedIn])
+  }, [finalDate, initialDate, login, state.id, userId, userToken])
   
   return (
     <div>

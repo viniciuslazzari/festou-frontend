@@ -10,6 +10,7 @@ import Input from "../input/Input"
 import UserContext from "../../context/UserContext"
 import ProfileIcon from "../profile-icon/ProfileIcon"
 import Dropdown from "../dropdown/Dropdown"
+import Cookies from "js-cookie"
 
 const options = [
   { label: "My profile", path: "/profile", icon: <FaUser /> },
@@ -27,7 +28,8 @@ const Menu = (props: IMenu) => {
   const [loginPopup, setLoginPopup] = useState(false)
 
   let navigate = useNavigate();
-  let user = useContext(UserContext);
+  const username = Cookies.get('username')
+  const userToken = Cookies.get('userToken')
 
   const login = useCallback(() => {
     setLoginPopup(true)
@@ -50,9 +52,9 @@ const Menu = (props: IMenu) => {
       <label onClick={() => handleLogoClick()} className="logo" style={{ color: white }}> 🎉 &nbsp; Festou </label>
       <Input placeholder="Search by name" onChange={props.inputFunction} icon={FaSearch} />
       <div className="left_wrapper">
-        {user.state.isLoggedIn ? 
+        {userToken ? 
           <>
-            <label className="salute" style={{ color: white }}> Hello, {user.state.name} </label>
+            <label className="salute" style={{ color: white }}> Hello, {username} </label>
             <Dropdown element={<ProfileIcon img="assets/profile.png" />} options={options} width="200px"></Dropdown>
           </>
           :

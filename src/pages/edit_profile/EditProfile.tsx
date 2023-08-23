@@ -17,6 +17,7 @@ import { stringIsValid } from "../../utils/stringValidator"
 import { dateIsValid } from "../../utils/dateValidator"
 import { emailIsValid } from "../../utils/emailValidator"
 import Header from "../../components/header/header"
+import Cookies from "js-cookie"
 
 const options = [
   { value: 1, label: 'Itau', icon: <img src="assets/itau.webp" alt="Itau"/> },
@@ -50,7 +51,8 @@ const EditProfile = () => {
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
 
   let navigate = useNavigate();
-  let user = useContext(UserContext);
+  const userToken = Cookies.get('userToken')
+  const userId = Cookies.get('id')
 
   const serializeData = useCallback(() => {
     const dateArr = birthdate.split('/');
@@ -85,7 +87,7 @@ const EditProfile = () => {
   }, [account, agency, bank, birthdate, firstName, lastName, phone])
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/festou-api/v1/user/' + user.state.id)
+    axios.get('http://127.0.0.1:8000/festou-api/v1/user/' + userId)
       .then(function(response){
         setDefaultValues(response.data);
         console.log(response.data)
@@ -93,21 +95,20 @@ const EditProfile = () => {
       .catch(function (error) {
         toast.error(error.response.data.description)
       });
-  }, [user.state.id])
+  }, [userId])
 
   const handleSubmit = useCallback(() => {
     const data = serializeData();
 
     axios.post('http://127.0.0.1:8000/festou-api/v1/editProfile', data)
       .then(function (response) {
-        toast.success("User created!")
-        user.setState({ isLoggedIn: true, id: response.data.id, name: response.data.first_name })
+        toast.success("User Updated!")
         navigate("/")
       })
       .catch(function (error) {
         toast.error(error.response.data.description)
       });
-  }, [navigate, serializeData, user])
+  }, [navigate, serializeData])
 
   return (
     <div className="signup">

@@ -6,6 +6,7 @@ import './Home.css';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import UserContext from '../../context/UserContext';
+import Cookies from 'js-cookie';
 
 interface IFilters {
   name: string,
@@ -51,13 +52,14 @@ const Home = () => {
   const [filters, setFilters] = useState<IFilters>(DEFAULT_FILTERS);
   const [results, setResults] = useState<IResult[]>([]);
 
-  let user = useContext(UserContext);
+  const userToken = Cookies.get('userToken')
+  const userId = Cookies.get('id')
 
   useEffect(() => {
     setFilters(prevState => {
       return({
         ...prevState,
-        user: user.state.isLoggedIn ? user.state.id : 0,
+        user: userToken ? userId : 0,
         name: nameFilter || "",
         location: locationFilter || "",
         initial_date: initialDateFilter && initialDateFilter.length === 10 ? initialDateFilter : "",
@@ -68,7 +70,7 @@ const Home = () => {
         score: scoreFilter || 0
       });
     });
-  }, [capacityFilter, finalDateFilter, finalPriceFilter, initialDateFilter, initialPriceFilter, locationFilter, nameFilter, scoreFilter, user.state.id, user.state.isLoggedIn])
+  }, [capacityFilter, finalDateFilter, finalPriceFilter, initialDateFilter, initialPriceFilter, locationFilter, nameFilter, scoreFilter, userId, userToken])
 
   useEffect(() => {
     axios.post('http://127.0.0.1:8000/festou-api/v1/search', filters)

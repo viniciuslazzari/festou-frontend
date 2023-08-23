@@ -8,6 +8,7 @@ import ListUserTransactionsResult, { ITransactionResult } from '../../components
 import { primaryGrey, white } from '../../utils/colors';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/button/Button';
+import Cookies from 'js-cookie';
 
 enum ITransactions {
   Created,
@@ -19,7 +20,8 @@ const ListUserTransactions = () => {
   const [current, setCurrent] = useState<ITransactions>(ITransactions.Created);
   const [url, setUrl] = useState<string>("http://127.0.0.1:8000/festou-api/v1/getTransactionsMade/");
 
-  let user = useContext(UserContext);
+  const userToken = Cookies.get('userToken')
+  const userId = Cookies.get('id')
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -32,19 +34,19 @@ const ListUserTransactions = () => {
   }, [current]);
 
   useEffect(() => {
-    axios.get(url + user.state.id)
+    axios.get(url + userId)
       .then(function (response) {
         setTransactions(response.data);
       })
       .catch(function (error) {
         toast.error(error.response.data.description);
       });
-  }, [url, user.state.id, user.state.isLoggedIn]);
+  }, [url, userId, userToken]);
   
   // Only access page when logged in
   useEffect(() => {
-    if (!user.state.isLoggedIn) navigate("/");
-  }, [navigate, user.state.isLoggedIn])
+    if (!userToken) navigate("/");
+  }, [navigate, userToken])
   console.log(current)
   return (
     <div style={{ marginTop: "100px", display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

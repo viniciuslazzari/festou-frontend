@@ -8,6 +8,7 @@ import LoginPopup from "../login-popup/LoginPopup";
 import Button from "../button/Button";
 import { FaChevronLeft, FaHouseUser, FaMoneyBill, FaUpload, FaUser } from "react-icons/fa";
 import "./header.css"
+import Cookies from "js-cookie";
 
 const options = [
   { label: "My profile", path: "/profile", icon: <FaUser /> },
@@ -22,6 +23,8 @@ const Header = () => {
 
   let navigate = useNavigate();
   let user = useContext(UserContext);
+  const userToken = Cookies.get('userToken');
+  const username = Cookies.get('username');
 
   const login = useCallback(() => {
     setLoginPopup(true)
@@ -43,9 +46,9 @@ const Header = () => {
     <div className="bar-div-head">
       <label onClick={() => handleLogoClick()} className="logo" style={{ color: white }}> 🎉 &nbsp; Festou </label>
       <div className="left_wrapper-head">
-        {user.state.isLoggedIn ? 
+        {userToken ? 
           <>
-            <label className="salute-head" style={{ color: white }}> Hello, {user.state.name} </label>
+            <label className="salute-head" style={{ color: white }}> Hello, {username} </label>
             <Dropdown element={<ProfileIcon img="assets/profile.png" />} options={options} width="200px"></Dropdown>
           </>
           :

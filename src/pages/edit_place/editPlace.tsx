@@ -9,6 +9,7 @@ import { white } from "../../utils/colors";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import { FaCheck } from "react-icons/fa";
+import Cookies from "js-cookie";
 
 interface IPlace {
   name: string,
@@ -32,7 +33,8 @@ const EditPlace = () => {
 
   const [defaultValues, setDefaultValues] = useState<IPlace | null>(null);
 
-  let user = useContext(UserContext);
+  const userToken = Cookies.get('userToken')
+  const userId = Cookies.get('id')
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -42,10 +44,10 @@ const EditPlace = () => {
     if (!location || location === "") { setButtonDisabled(true); return };
     //if (!description || description === "") { setButtonDisabled(true); return };
     //if (!terms_of_use || terms_of_use === "") { setButtonDisabled(true); return };
-    if (!user.state.isLoggedIn) { setButtonDisabled(true); return };
+    if (!userToken) { setButtonDisabled(true); return };
     
     setButtonDisabled(false);
-  }, [placeName, price, capacity, description, location, terms_of_use, user.state.isLoggedIn])
+  }, [placeName, price, capacity, description, location, terms_of_use, userToken])
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/festou-api/v1/place/' + state.id)
@@ -73,8 +75,8 @@ const EditPlace = () => {
 
   // Only access page when logged in
   useEffect(() => {
-    if (!user.state.isLoggedIn) navigate("/");
-  }, [navigate, user.state.isLoggedIn])
+    if (!userToken) navigate("/");
+  }, [navigate, userToken])
 
   const handleSubmit = useCallback(() => {
     const data = serializeData();

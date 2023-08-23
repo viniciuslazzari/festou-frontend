@@ -7,6 +7,7 @@ import { toast } from 'react-hot-toast';
 import ListPlace from '../../components/list-places-user/ListPlaceUser';
 import { white } from '../../utils/colors';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 export interface IResult {
   id: number,
@@ -21,23 +22,24 @@ export interface IResult {
 const ListPlaceUser = () => {
   const [results, setResults] = useState<IResult[]>([]);
 
-  let user = useContext(UserContext);
+  const userToken = Cookies.get('userToken')
+  const userId = Cookies.get('id')
   let navigate = useNavigate();
 
   // Only access page when logged in
   useEffect(() => {
-    if (!user.state.isLoggedIn) navigate("/");
-  }, [navigate, user.state.isLoggedIn])
+    if (!userToken) navigate("/");
+  }, [navigate, userToken])
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/festou-api/v1/userPlaces/' + user.state.id)
+    axios.get('http://127.0.0.1:8000/festou-api/v1/userPlaces/' + userId)
       .then(function (response) {
         setResults(response.data);
       })
       .catch(function (error) {
         toast.error(error.response.data.description)
       });
-  }, [user.state.id, user.state.isLoggedIn]);
+  }, [userId, userToken]);
 
   return (
     <div style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}>

@@ -17,6 +17,7 @@ import { stringIsValid } from "../../utils/stringValidator"
 import { dateIsValid } from "../../utils/dateValidator"
 import { emailIsValid } from "../../utils/emailValidator"
 import Header from "../../components/header/header"
+import Cookies from "js-cookie"
 
 const options = [
   { value: 1, label: 'Itau', icon: <img src="assets/itau.webp" alt="Itau"/> },
@@ -41,7 +42,6 @@ const Signup = () => {
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
 
   let navigate = useNavigate();
-  let user = useContext(UserContext);
 
   const serializeData = useCallback(() => {
     const dateArr = birthdate.split('/');
@@ -90,13 +90,15 @@ const Signup = () => {
     axios.post('http://127.0.0.1:8000/festou-api/v1/signup', data)
       .then(function (response) {
         toast.success("User created!")
-        user.setState({ isLoggedIn: true, id: response.data.id, name: response.data.first_name })
+        Cookies.set('username', response.data.first_name);
+        Cookies.set('id', response.data.id);
+        Cookies.set('userToken', '1234')
         navigate("/")
       })
       .catch(function (error) {
         toast.error(error.response.data.description)
       });
-  }, [navigate, serializeData, user])
+  }, [navigate, serializeData])
 
   return (
     <div className="signup">

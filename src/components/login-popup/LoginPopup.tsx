@@ -10,6 +10,7 @@ import { labelBackground, white } from "../../utils/colors"
 import UserContext from "../../context/UserContext"
 import { emailIsValid } from "../../utils/emailValidator"
 import { useNavigate } from "react-router-dom"
+import Cookies from 'js-cookie';
 
 interface ILoginPopup {
   onClosePopup: () => any
@@ -50,7 +51,6 @@ const LoginPopup = (props: ILoginPopup) => {
     navigate('/signup')
   }, [navigate])
 
-  
 
   const handleSumbmit = useCallback(() => {
     const data = serializeData()
@@ -58,11 +58,17 @@ const LoginPopup = (props: ILoginPopup) => {
     axios.post('http://127.0.0.1:8000/festou-api/v1/login', data)
       .then(function (response) {
         user.setState({ isLoggedIn: true, id: response.data.id, name: response.data.first_name })
+        Cookies.set('username', response.data.first_name);
+        Cookies.set('id', response.data.id);
+        Cookies.set('userToken', '1234');
+        
       })
       .catch(function (error) {
         toast.error(error.response.data.description)
       });
   }, [serializeData, user])
+
+  
 
   return (
     <Popup onClose={props.onClosePopup} visibility={props.loginPopup}>

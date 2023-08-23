@@ -8,6 +8,7 @@ import { borderColor, labelBackground, primaryGrey, white } from "../../utils/co
 import UserContext from "../../context/UserContext"
 import ProfileIcon from "../profile-icon/ProfileIcon"
 import { FaStar } from "react-icons/fa"
+import Cookies from "js-cookie"
 
 interface IScores {
   placeId: number
@@ -25,7 +26,8 @@ const Scores = (props: IScores) => {
   const [sendScore, setSendScore] = useState<string>("");
   const [sendScoreRating, setSendScoreRating] = useState<number>(0);
 
-  let user = useContext(UserContext)
+  const userToken = Cookies.get('userToken');
+  const userId = Cookies.get('id');
 
   const fetchData = useCallback(() => {
     axios.get('http://127.0.0.1:8000/festou-api/v1/getScore/' + props.placeId)
@@ -49,13 +51,13 @@ const Scores = (props: IScores) => {
   }, [sendScore, sendScoreRating])
 
   const handleSubmit = useCallback(() => {
-    if (user.state.id === 0) {
+    if (userToken) {
       toast.error("You should be logged in to perform this action")
       return
     }
 
     const body = {
-      id_client: user.state.id,
+      id_client: userId,
       description: sendScore,
       score: sendScoreRating,
       id_place: props.placeId
@@ -69,7 +71,7 @@ const Scores = (props: IScores) => {
       .catch((error) => {
         toast.error(error.response.data.description)
       });
-  }, [fetchData, props.placeId, sendScore, sendScoreRating, user.state.id])
+  }, [fetchData, props.placeId, sendScore, sendScoreRating, userId, userToken])
 
   return (
     <div>

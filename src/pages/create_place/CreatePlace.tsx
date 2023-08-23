@@ -9,6 +9,7 @@ import { white } from "../../utils/colors"
 import UserContext from "../../context/UserContext"
 import { FaCheck } from "react-icons/fa"
 import Header from "../../components/header/header"
+import Cookies from "js-cookie"
 
 const CreatePlace = () => {
   const [placeName, setPlaceName] = useState<string>("");
@@ -19,13 +20,14 @@ const CreatePlace = () => {
   const [termsofuse, setTermsofuse] = useState<string>("");
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
   
-  let user = useContext(UserContext);
+  const userToken = Cookies.get('userToken')
+  const userId = Cookies.get('id')
   let navigate = useNavigate();
 
   // Only access page when logged in
   useEffect(() => {
-    if (!user.state.isLoggedIn) navigate("/");
-  }, [navigate, user.state.isLoggedIn])
+    if (!userToken) navigate("/");
+  }, [navigate, userToken])
 
   useEffect(() => {
     if (!placeName || placeName === "") { setButtonDisabled(true); return };
@@ -34,10 +36,10 @@ const CreatePlace = () => {
     if (!description || description === "") { setButtonDisabled(true); return };
     if (!location || location === "") { setButtonDisabled(true); return };
     if (!termsofuse || termsofuse === "") { setButtonDisabled(true); return };
-    if (!user.state.isLoggedIn) { setButtonDisabled(true); return };
+    if (!userToken) { setButtonDisabled(true); return };
     
     setButtonDisabled(false);
-  }, [placeName, price, capacity, description, location, termsofuse, user.state.isLoggedIn])
+  }, [placeName, price, capacity, description, location, termsofuse, userToken])
 
   const serializeData = useCallback(() => {
     const data = {
@@ -47,11 +49,11 @@ const CreatePlace = () => {
       "description": description,
       "location": location,
       "terms_of_use": termsofuse,
-      "id_owner": user.state.id
+      "id_owner": userId
     }
 
     return data
-  }, [placeName, price, capacity, description, location, termsofuse, user.state.id])
+  }, [placeName, price, capacity, description, location, termsofuse, userId])
 
   const handleSubmit = useCallback(() => {
     const data = serializeData();
