@@ -2,17 +2,20 @@ import { useLocation } from "react-router-dom";
 import "./Space.css"
 import Menu from "../../components/menu/Menu";
 import Tabs from "../../components/tabs/Tabs";
-import { FaAddressBook, FaCalendar, FaHeart, FaStar } from "react-icons/fa";
+import { FaAddressBook, FaHeart, FaStar } from "react-icons/fa";
 import { primaryGrey, white } from "../../utils/colors";
 import Button from "../../components/button/Button";
-import Input from "../../components/input/Input";
 import Scores from "../../components/scores/Scores";
 import { useCallback, useContext, useEffect, useState } from "react";
 import UserContext from "../../context/UserContext";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { dateMask } from "../../utils/dateMask";
 import LoginPopup from "../../components/login-popup/LoginPopup";
+import Calendar from "react-calendar";
+import './Calendar.css';
+
+type ValuePiece = Date | null;
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 interface ISPace {
   id: number,
@@ -27,8 +30,7 @@ interface ISPace {
 }
 
 const Space = () => {
-  const [initialDate, setInitialDate] = useState<string>("");
-  const [finalDate, setFinalDate] = useState<string>("");
+  const [dates, setDates] = useState<Value>(new Date());
   const [space, setSpace] = useState<ISPace | null>(null);
   const [image, setImage] = useState<string>("");
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
@@ -38,20 +40,15 @@ const Space = () => {
   
   let user = useContext(UserContext)
 
-  const login = useCallback(() => {
-    setLoginPopup(true)
-  }, [])
-
   const onClosePopup = useCallback(() => {
     setLoginPopup(false)
   }, [])
 
   useEffect(() => {
-    if (!initialDate || initialDate.length < 10) { setButtonDisabled(true); return; }
-    if (!finalDate || finalDate.length < 10) { setButtonDisabled(true); return; }
+    if (!dates || !Array.isArray(dates)) { setButtonDisabled(true); return; }
 
     setButtonDisabled(false)
-  }, [finalDate, initialDate])
+  }, [dates])
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/festou-api/v1/place/' + state.id)
@@ -67,14 +64,14 @@ const Space = () => {
   const handleClick = useCallback(() => {
     if (!user.state.isLoggedIn) {
       toast.error("You need to be logged in to perform this action!")
-      login()
+      return
     }
 
     const body = {
       id_client: user.state.id,
       id_place: state.id,
-      initial_date: initialDate,
-      final_date: finalDate
+      initial_date: dates && Array.isArray(dates) && dates[0] ? dates[0].toLocaleDateString('en-GB') : "",
+      final_date: dates && Array.isArray(dates) && dates[1] ? dates[1].toLocaleDateString('en-GB') : "",
     }
 
     axios.post('http://127.0.0.1:8000/festou-api/v1/transaction', body)
@@ -84,7 +81,7 @@ const Space = () => {
     .catch(error => {
       toast.error(error.response.data.description)
     });
-  }, [finalDate, initialDate, login, state.id, user.state.id, user.state.isLoggedIn])
+  }, [dates, state.id, user.state.id, user.state.isLoggedIn])
   
   return (
     <div>
@@ -110,12 +107,9 @@ const Space = () => {
         <div className="book-card" style={{ backgroundColor: primaryGrey }}>
           <p style={{ color: white, fontSize: "23px", fontWeight: 700, marginBottom: "10px" }}>{space?.name}</p>
           <p style={{ color: white, fontSize: "20px", fontWeight: 700, marginBottom: "10px" }}>R$ {space?.price}/noite</p>
-          <p style={{ color: white }}> <FaStar /> {space?.score} - {space?.avaliations} avaliations</p>
-          <div style={{ marginBottom: "20px", marginTop: "20px" }} className="divisory">
-            <Input icon={FaCalendar} placeholder="DD/MM/AAAA" onChange={setInitialDate} mask={dateMask}></Input>
-            <Input icon={FaCalendar} placeholder="DD/MM/AAAA" onChange={setFinalDate} mask={dateMask}></Input>
-          </div>
-          <Button disabled={buttonDisabled} text="Book now" backgroundColor={white} color="black" width="100%" onClick={() => handleClick()}></Button>
+          <p style={{ color: white, marginBottom: "40px" }}> <FaStar /> {space?.score} - {space?.avaliations} avaliations</p>
+          <Calendar locale="en-US" onChange={setDates} selectRange minDate={new Date()} />
+          <Button disabled={buttonDisabled} marginTop="40px" text="Book now" backgroundColor={white} color="black" width="100%" onClick={() => handleClick()}></Button>
         </div>
       </div>
     </div>

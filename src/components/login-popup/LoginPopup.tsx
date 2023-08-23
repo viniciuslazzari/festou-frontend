@@ -9,7 +9,6 @@ import toast from "react-hot-toast"
 import { labelBackground, white } from "../../utils/colors"
 import UserContext from "../../context/UserContext"
 import { emailIsValid } from "../../utils/emailValidator"
-import { useNavigate } from "react-router-dom"
 
 interface ILoginPopup {
   onClosePopup: () => any
@@ -22,7 +21,6 @@ const LoginPopup = (props: ILoginPopup) => {
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true)
 
   let user = useContext(UserContext)
-  let navigate = useNavigate();
 
   const serializeData = useCallback(() => {
     const data = {
@@ -45,12 +43,6 @@ const LoginPopup = (props: ILoginPopup) => {
   const handleAdminLogin = useCallback(() => {
     window.location.href = "http://127.0.0.1:8000/admin";
   }, [])
-
-  const handleSignUp = useCallback(() => {
-    navigate('/signup')
-  }, [navigate])
-
-  
 
   const handleSumbmit = useCallback(() => {
     const data = serializeData()
@@ -81,16 +73,6 @@ const LoginPopup = (props: ILoginPopup) => {
           onClick={() => handleSumbmit()}
           icon={<FaChevronRight />}
           disabled={buttonDisabled}
-        />
-        <Button 
-          marginTop="20px" 
-          text="Sign up" 
-          backgroundColor={white} 
-          color="black" 
-          width="100%" 
-          onClick={() => handleSignUp()}
-          icon={<FaChevronRight />}
-          disabled={false}
         />
         <Button
           marginTop="10px" // Espaçamento menor para o novo botão
