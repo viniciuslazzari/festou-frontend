@@ -83,7 +83,7 @@ const Space = () => {
     .catch(error => {
       toast.error(error.response.data.description)
     });
-  }, [finalDate, initialDate, state.id, user.state.id, user.state.isLoggedIn])
+  }, [finalDate, initialDate, login, state.id, user.state.id, user.state.isLoggedIn])
   
   return (
     <div>
