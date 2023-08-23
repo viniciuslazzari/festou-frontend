@@ -36,10 +36,10 @@ const CreatePlace = () => {
     if (!description || description === "") { setButtonDisabled(true); return };
     if (!location || location === "") { setButtonDisabled(true); return };
     if (!termsofuse || termsofuse === "") { setButtonDisabled(true); return };
-    if (!user.state.isLoggedIn) { setButtonDisabled(true); return };
+    if (!photo || photo === null) { setButtonDisabled(true); return };
     
     setButtonDisabled(false);
-  }, [placeName, price, capacity, description, location, termsofuse, user.state.isLoggedIn])
+  }, [placeName, price, capacity, description, location, termsofuse, user.state.isLoggedIn, photo])
 
   const serializeData = useCallback(() => {
     const formData = new FormData();

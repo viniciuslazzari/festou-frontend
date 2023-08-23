@@ -42,12 +42,12 @@ const EditPlace = () => {
     if (!price || price === "") { setButtonDisabled(true); return };
     if (!capacity || capacity === "") { setButtonDisabled(true); return };
     if (!location || location === "") { setButtonDisabled(true); return };
-    //if (!description || description === "") { setButtonDisabled(true); return };
-    //if (!terms_of_use || terms_of_use === "") { setButtonDisabled(true); return };
-    if (!user.state.isLoggedIn) { setButtonDisabled(true); return };
+    if (!description || description === "") { setButtonDisabled(true); return };
+    if (!terms_of_use || terms_of_use === "") { setButtonDisabled(true); return };
+    if (!photo || photo === null) { setButtonDisabled(true); return };
     
     setButtonDisabled(false);
-  }, [placeName, price, capacity, description, location, terms_of_use, user.state.isLoggedIn])
+  }, [placeName, price, capacity, description, location, terms_of_use, user.state.isLoggedIn, photo])
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/festou-api/v1/place/' + state.id)
@@ -118,7 +118,7 @@ const EditPlace = () => {
             <Input label="Price"  defaultValue={defaultValues?.price} placeholder="Enter the price of your place" onChange={setPrice} />
             <Input label="Capacity" defaultValue={defaultValues?.capacity} placeholder="Enter the capacity of the place" onChange={setCapacity} />
           </div>
-          <Input label="Location" defaultValue={defaultValues?.location} placeholder="Enter the location of your place" onChange={setLocation} />
+          <Input label="Location" disabled={true} defaultValue={defaultValues?.location} placeholder="Enter the location of your place" onChange={setLocation} />
           <Input label="Description" defaultValue={defaultValues?.description} placeholder="Enter a brief description of your place" onChange={setDescription} />
           <Input label="Terms of Use" defaultValue={defaultValues?.terms_of_use} placeholder="Enter the terms of use of your place" onChange={setTermsofuse} />
           <InputImage label="Images" acceptedFormats={[".png", ".jpg"]} onChange={setPhoto} />
