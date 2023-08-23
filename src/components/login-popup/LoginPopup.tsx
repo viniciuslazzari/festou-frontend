@@ -23,6 +23,7 @@ const LoginPopup = (props: ILoginPopup) => {
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true)
 
   let user = useContext(UserContext)
+  let navigate = useNavigate();
 
   const serializeData = useCallback(() => {
     const data = {
