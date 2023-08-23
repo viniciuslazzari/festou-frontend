@@ -10,6 +10,7 @@ import ListPlaceUser from './pages/list_places/ListPlacesUser';
 import Profile from './pages/profile/profile';
 import EditPlace from './pages/edit_place/editPlace';
 import ListUserTransactions from './pages/list_user_transactions/listUserTransactions';
+import EditProfile from './pages/edit_profile/EditProfile';
 
 const Router = () => {
   return (
@@ -24,6 +25,7 @@ const Router = () => {
         <Route path='/profile' element={<Profile />} />
         <Route path='/userTransaction' element={<ListUserTransactions />} />
         <Route path='/editPlace' element={<EditPlace />} />
+        <Route path='/editProfile' element={<EditProfile />} />
       </Routes>
     </BrowserRouter>
   )

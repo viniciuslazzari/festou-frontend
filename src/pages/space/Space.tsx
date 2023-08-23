@@ -76,7 +76,7 @@ const Space = () => {
 
     axios.post('http://127.0.0.1:8000/festou-api/v1/transaction', body)
     .then(() => {
-      toast.success("Booking made with success!")
+      toast.success("Booking made successfully!")
     })
     .catch(error => {
       toast.error(error.response.data.description)
