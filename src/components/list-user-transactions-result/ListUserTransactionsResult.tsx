@@ -1,5 +1,4 @@
 import { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 import { labelBackground, redColor, white } from "../../utils/colors";
 import "./ListUserTransactionsResult.css"
 import axios from "axios";
@@ -30,8 +29,6 @@ export interface ITransactionResult {
 }
 
 const ListUserTransactionsResult = (props: ITransactionResultSection) => {
-  let navigate = useNavigate();
-
   const handleCancel = useCallback((id:number) => {
     
     axios.get('http://127.0.0.1:8000/festou-api/v1/chargeback/' + id)
@@ -39,9 +36,10 @@ const ListUserTransactionsResult = (props: ITransactionResultSection) => {
         toast.success("Transaction canceled successfully")
       })
       .catch(function (error) {
-        toast.error(error.response.data.description);
+        console.log(error)
+        toast.error(error.response.data.message);
       });
-  }, [navigate]);
+  }, []);
   
   const handleReport = useCallback((id:number) => {
     axios.get('http://127.0.0.1:8000/festou-api/v1/reportUser/' + id)

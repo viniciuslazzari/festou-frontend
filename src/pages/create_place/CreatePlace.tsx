@@ -10,6 +10,7 @@ import UserContext from "../../context/UserContext"
 import { FaCheck } from "react-icons/fa"
 import Header from "../../components/header/header"
 import Cookies from "js-cookie"
+import InputImage from "../../components/inputImage/Input"
 
 const CreatePlace = () => {
   const [placeName, setPlaceName] = useState<string>("");
@@ -18,6 +19,7 @@ const CreatePlace = () => {
   const [description, setDescription] = useState<string>("");
   const [location, setLocation] = useState<string>("");
   const [termsofuse, setTermsofuse] = useState<string>("");
+  const [photo, setPhoto] = useState<File | null>(null);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
   
   const userToken = Cookies.get('userToken')
@@ -37,28 +39,38 @@ const CreatePlace = () => {
     if (!location || location === "") { setButtonDisabled(true); return };
     if (!termsofuse || termsofuse === "") { setButtonDisabled(true); return };
     if (!userToken) { setButtonDisabled(true); return };
+    if (!photo || photo === null) { setButtonDisabled(true); return };
     
     setButtonDisabled(false);
-  }, [placeName, price, capacity, description, location, termsofuse, userToken])
+  }, [placeName, price, capacity, description, location, termsofuse, userToken, photo])
 
   const serializeData = useCallback(() => {
-    const data = {
-      "name": placeName,
-      "price": price,
-      "capacity": capacity,
-      "description": description,
-      "location": location,
-      "terms_of_use": termsofuse,
-      "id_owner": userId
-    }
+    const formData = new FormData();
 
-    return data
-  }, [placeName, price, capacity, description, location, termsofuse, userId])
+    formData.append("name", placeName);
+    formData.append("price", price);
+    formData.append("capacity", capacity);
+    formData.append("description", description);
+    formData.append("location", location);
+    formData.append("terms_of_use", termsofuse);
+    formData.append("id_owner", userId?userId:'0');
+    formData.append("image_1", "");
+    formData.append("image_2", "");
+    formData.append("image_3", "");
+
+    if (photo) { formData.append('image_1', photo); }
+    if (photo) { formData.append('image_2', photo); }
+    if (photo) { formData.append('image_3', photo); }
+
+    return formData
+  }, [placeName, price, capacity, description, location, termsofuse, userId, photo])
 
   const handleSubmit = useCallback(() => {
     const data = serializeData();
 
-    axios.post('http://127.0.0.1:8000/festou-api/v1/place', data)
+    console.log(data)
+
+    axios.post('http://127.0.0.1:8000/festou-api/v1/place', data, { headers: { 'Content-Type': 'multipart/form-data' }})
       .then(() => {
         toast.success("Place Created!")
         navigate("/")
@@ -73,15 +85,6 @@ const CreatePlace = () => {
       <div className="form-wrapper-create-place">
         <div className="form-create-place">
           <Header/>
-          <div
-            style={{
-              color: white,
-              fontSize: "36px",
-              fontWeight: "700",
-              marginBottom: "30px",
-              textAlign: "center"
-            }}
-            >Describe the place that you want to add!</div>
           <Input label="Place Name" placeholder="Enter the name of the place" onChange={setPlaceName}/>
           <div className="divisory">
             <Input label="Price" placeholder="Enter the price of your place" onChange={setPrice}/>
@@ -90,6 +93,7 @@ const CreatePlace = () => {
           <Input label="Location" placeholder="Enter the location of your place" onChange={setLocation}/>
           <Input label="Description" placeholder="Enter a brief description of your place" onChange={setDescription}/>
           <Input label="Terms of Use" placeholder="Enter the terms of use of your place" onChange={setTermsofuse}/>
+          <InputImage label="Images" acceptedFormats={[".png", ".jpg"]} onChange={setPhoto} />
            
           <Button 
             disabled={buttonDisabled} 

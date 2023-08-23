@@ -30,6 +30,7 @@ const ListPlace = (props: IResultSection) => {
   
   const renderResult = useCallback((item: IResult) => {
     const maxLength = 150; // Defina o número máximo de caracteres a serem exibidos
+    const url = "data:image/jpeg;base64," + item.image_1
 
     const truncatedDescription =
     item.description.length > maxLength
@@ -43,7 +44,7 @@ const ListPlace = (props: IResultSection) => {
       
     return (
       <div className="result-item-lpu">
-        <img className="result-image-lpu" src="assets/4.webp" alt="Result 1"/>
+        <img className="result-image-lpu" src={url} alt="Result 1"/>
         <div className="result-content-lpu">
           <div className="first-info-lpu" style={{ color: white }}>
             <p className="title-lpu" style={{height:"40px"}}>{item.name}</p>

@@ -102,7 +102,6 @@ const Signup = () => {
 
   return (
     <div className="signup">
-      <Header/>
       <div className="form-wrapper-signup">
         <div className="form-signup">
           <div 

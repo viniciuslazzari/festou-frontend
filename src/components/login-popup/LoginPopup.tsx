@@ -23,7 +23,6 @@ const LoginPopup = (props: ILoginPopup) => {
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true)
 
   let user = useContext(UserContext)
-  let navigate = useNavigate();
 
   const serializeData = useCallback(() => {
     const data = {
@@ -87,16 +86,6 @@ const LoginPopup = (props: ILoginPopup) => {
           onClick={() => handleSumbmit()}
           icon={<FaChevronRight />}
           disabled={buttonDisabled}
-        />
-        <Button 
-          marginTop="20px" 
-          text="Sign up" 
-          backgroundColor={white} 
-          color="black" 
-          width="100%" 
-          onClick={() => handleSignUp()}
-          icon={<FaChevronRight />}
-          disabled={false}
         />
         <Button
           marginTop="10px" // Espaçamento menor para o novo botão

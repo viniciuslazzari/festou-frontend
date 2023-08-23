@@ -7,6 +7,7 @@
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 2;
     background: rgba(0, 0, 0, 0.7);
     transition: opacity 500ms;
 }
@@ -15,7 +16,7 @@
     position: absolute;
     top: 50vh;
     left: 50vw;
-    margin-top: -200px;
+    margin-top: -250px;
     margin-left: -200px;
     border-radius: 20px;
     padding: 40px;
