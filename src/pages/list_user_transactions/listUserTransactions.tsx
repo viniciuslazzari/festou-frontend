@@ -50,10 +50,10 @@ const ListUserTransactions = () => {
     <div style={{ marginTop: "100px", display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Header/>
       <div className='content-wrapper-user-transactions'>
-        <div className='title-user-transactions' style={{ color: white }}> Your transactions </div>
+        <div className='title-user-transactions' style={{ color: white }}> Your transactions {((current === Transactions.Received) ? "Received" : "Created")}</div>
         <Button
           onClick={() => current === Transactions.Created ? setCurrent(Transactions.Received) : setCurrent(Transactions.Created)}
-          text="Show Received Transactions"
+          text={"Show Transactions " + ((current === Transactions.Received) ? "Received" : "Created")}
           width="500px"
           backgroundColor={primaryGrey}
           color={white}

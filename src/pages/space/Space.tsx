@@ -11,6 +11,8 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import UserContext from "../../context/UserContext";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { dateMask } from "../../utils/dateMask";
+import LoginPopup from "../../components/login-popup/LoginPopup";
 
 interface ISPace {
   id: number,
@@ -28,10 +30,19 @@ const Space = () => {
   const [finalDate, setFinalDate] = useState<string>("");
   const [space, setSpace] = useState<ISPace | null>(null);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
+  const [loginPopup, setLoginPopup] = useState<boolean>(false);
 
   const { state } = useLocation();
   
   let user = useContext(UserContext)
+
+  const login = useCallback(() => {
+    setLoginPopup(true)
+  }, [])
+
+  const onClosePopup = useCallback(() => {
+    setLoginPopup(false)
+  }, [])
 
   useEffect(() => {
     if (!initialDate || initialDate.length < 10) { setButtonDisabled(true); return; }
@@ -51,7 +62,10 @@ const Space = () => {
   }, [state.id])
 
   const handleClick = useCallback(() => {
-    if (!user.state.isLoggedIn) toast.error("You need to be logged in to perform this action!")
+    if (!user.state.isLoggedIn) {
+      toast.error("You need to be logged in to perform this action!")
+      login()
+    }
 
     const body = {
       id_client: user.state.id,
@@ -72,6 +86,7 @@ const Space = () => {
   return (
     <div>
       <Menu inputFunction={() => {}}/>
+      <LoginPopup onClosePopup={onClosePopup} loginPopup={loginPopup}/>
       <div className="details">
         <div className="details-content">
           <img className="details-image" src="assets/4.webp" alt="Result 1"/>
@@ -96,8 +111,8 @@ const Space = () => {
           <p style={{ color: white, fontSize: "20px", fontWeight: 700, marginBottom: "10px" }}>R$ {space?.price}/noite</p>
           <p style={{ color: white }}> <FaStar style={{ color: "yellow" }} /> 4.5 - 18 comentários</p>
           <div style={{ marginBottom: "20px", marginTop: "20px" }} className="divisory">
-            <Input icon={FaCalendar} placeholder="00/00/0000" onChange={setInitialDate}></Input>
-            <Input icon={FaCalendar} placeholder="00/00/0000" onChange={setFinalDate}></Input>
+            <Input icon={FaCalendar} placeholder="DD/MM/AAAA" onChange={setInitialDate} mask={dateMask}></Input>
+            <Input icon={FaCalendar} placeholder="DD/MM/AAAA" onChange={setFinalDate} mask={dateMask}></Input>
           </div>
           <Button disabled={buttonDisabled} text="Book now" backgroundColor={white} color="black" width="100%" onClick={() => handleClick()}></Button>
         </div>

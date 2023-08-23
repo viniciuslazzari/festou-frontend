@@ -3,6 +3,7 @@ import { borderColor, white } from "../../utils/colors"
 import Input from "../input/Input"
 import "./FilterSection.css"
 import { Dispatch, SetStateAction } from "react"
+import { dateMask } from "../../utils/dateMask"
 
 interface IFilterSection {
   locationFunction: Dispatch<SetStateAction<string>>
@@ -30,8 +31,8 @@ const FilterSection = (props: IFilterSection) => {
         </div>
         <p className="filter-title" style={{ color: white, fontSize: "16px" }}>Date</p>
         <div className="divisory">
-          <Input icon={FaCalendar} placeholder="00/00/0000" onChange={props.initialDateFunction}></Input>
-          <Input icon={FaCalendar} placeholder="00/00/0000" onChange={props.finalDateFunction}></Input>
+          <Input icon={FaCalendar} placeholder="DD/MM/AAAA" onChange={props.initialDateFunction} mask={dateMask}></Input>
+          <Input icon={FaCalendar} placeholder="DD/MM/AAAA" onChange={props.finalDateFunction} mask={dateMask}></Input>
         </div>
         <p className="filter-title" style={{ color: white, fontSize: "16px" }}>Rating</p>
         <Input type="number" icon={FaStar} placeholder="Search by rating" onChange={props.scoreFunction} />
