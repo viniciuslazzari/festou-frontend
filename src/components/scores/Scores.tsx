@@ -50,7 +50,7 @@ const Scores = (props: IScores) => {
   }, [sendScore, sendScoreRating])
 
   const handleSubmit = useCallback(() => {
-    if (userToken) {
+    if (!userToken) {
       toast.error("You should be logged in to perform this action")
       return
     }
